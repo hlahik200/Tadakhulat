@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>أثر — منصة متابعة التدخلات العاجلة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --petrol:#0A3A47;--petrol-2:#0F4C5C;--petrol-3:#16606F;
+  --teal:#0E9488;--teal-ink:#0A6F66;--gold:#C39A3F;--gold-ink:#8A6713;
+  --red:#C0392B;--amber:#C98A12;--blue:#2F6FA8;--gray:#9AA7A9;
+  --paper:#F4F1EA;--card:#FFFDF8;--ink:#12262C;--muted:#586B70;--line:#E3DDD0;--soft:#ECE7DB;
+  --base:#8C999B;
+  --r:18px;--shadow:0 1px 0 rgba(10,58,71,.06),0 14px 34px -22px rgba(10,58,71,.45);
+  --display:"Alexandria","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic","Alexandria",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#081A1F;--card:#0F2A32;--ink:#EAF2F0;--muted:#9FB4B7;--line:#1E3E47;--soft:#143640;
+  --teal:#2CC0B1;--teal-ink:#5AD6C9;--gold:#D9B45C;--gold-ink:#E3C378;--red:#E8695B;--amber:#E5A93A;--blue:#6FA9DC;--gray:#6F8286;--base:#8FA1A4;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.8);
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75;padding-bottom:92px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.35;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;unicode-bidi:isolate;direction:ltr;display:inline-block}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* ---------- الترويسة ---------- */
+.top{background:var(--petrol);color:#EAF4F2;position:relative;overflow:hidden;padding:14px 16px 64px}
+.top::before{content:"";position:absolute;inset:0;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%237FE0D4' stroke-width='1'%3E%3Cpath d='M36 6l8.8 21.2L66 36l-21.2 8.8L36 66l-8.8-21.2L6 36l21.2-8.8z'/%3E%3Cpath d='M14.8 14.8l21.2 8.8 21.2-8.8-8.8 21.2 8.8 21.2-21.2-8.8-21.2 8.8 8.8-21.2z'/%3E%3C/g%3E%3C/svg%3E");mask-image:linear-gradient(to left,transparent,#000 70%)}
+.top::after{content:"";position:absolute;inset-inline-start:-80px;top:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(44,192,177,.32),transparent 65%)}
+.top>*{position:relative;z-index:1}
+.bar{display:flex;align-items:center;gap:12px;max-width:1180px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{width:42px;height:42px;flex:none}
+.brand b{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;display:block}
+.brand small{display:block;font-size:11px;letter-spacing:.02em;color:#A9CFCB;margin-top:4px}
+.pick{margin-inline-start:auto;display:flex;align-items:center;gap:8px;min-width:0}
+.pick select{appearance:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:999px;padding:7px 14px 7px 30px;max-width:46vw;text-overflow:ellipsis;font-weight:600;font-size:13px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 11px center}
+.pick select option{color:#12262C}
+.sync{font-size:11px;color:#A9CFCB;display:flex;align-items:center;gap:6px;max-width:1180px;margin:8px auto 0}
+.sync i{width:7px;height:7px;border-radius:50%;background:#7FE0D4;display:inline-block}
+.sync.local i{background:var(--gold)}
+
+main{max-width:1180px;margin:-48px auto 0;padding:0 14px;position:relative;z-index:2}
+.grid{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);min-width:0}
+.card>h2{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.card>h2::before{content:"";width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex:none}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+.rise{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+.rise:nth-child(2){animation-delay:.06s}.rise:nth-child(3){animation-delay:.12s}.rise:nth-child(4){animation-delay:.18s}.rise:nth-child(5){animation-delay:.24s}.rise:nth-child(n+6){animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- البطل ---------- */
+.hero{background:linear-gradient(140deg,var(--petrol-2),var(--petrol) 70%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12);display:grid;gap:14px;grid-template-columns:auto minmax(0,1fr);align-items:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-block-end:-60px;inset-inline-end:-40px;width:200px;height:200px;border:1px solid rgba(195,154,63,.35);transform:rotate(45deg)}
+.hero h1{font-size:19px;font-weight:800}
+.hero .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{font-size:11px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
+.tag.demo{background:rgba(195,154,63,.22);border-color:rgba(195,154,63,.6);color:#F4DFA8}
+.delta{font-size:13px;margin-top:8px;color:#BFE9E3}
+.delta b{font-family:var(--display)}
+.ringwrap{position:relative;width:118px;height:118px;flex:none}
+.ringwrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringwrap .v{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ringwrap .v b{font-family:var(--display);font-size:30px;font-weight:800;line-height:1;direction:ltr}
+.ringwrap .v span{font-size:10.5px;color:#A9CFCB;margin-top:4px}
+.ringarc{transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1)}
+.tiles{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:relative;z-index:1}
+.tile{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 10px}
+.tile b{font-family:var(--display);font-size:20px;font-weight:700;display:block;line-height:1.3;direction:ltr;text-align:end}
+.tile span{font-size:11px;color:#BCD9D5;display:block;line-height:1.4}
+.story{border-inline-start:3px solid var(--gold);padding:4px 12px;margin:0;font-size:14px}
+.story b{color:var(--teal-ink)}
+
+/* ---------- الرسوم ---------- */
+svg text{font-family:var(--body);fill:var(--muted);font-size:11px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:0;border-top:3px solid;vertical-align:middle;margin-inline-end:5px}
+.legend i.dash{border-top-style:dashed}
+.legend i.sq{height:10px;width:10px;border:0;border-radius:3px}
+.seg{display:flex;gap:2px;height:16px;border-radius:8px;overflow:hidden;margin:8px 0 6px}
+.seg span{min-width:3px;transition:flex-grow .8s}
+.chartbox{position:relative}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:12px;padding:5px 9px;border-radius:8px;transform:translate(-50%,-115%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+.tip b{font-family:var(--display)}
+.db-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 42px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.db-row:last-child{border:0}
+.db-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.db-track{position:relative;height:14px;direction:ltr}
+.db-track::before{content:"";position:absolute;inset:6px 0;background:var(--soft);border-radius:2px}
+.db-line{position:absolute;top:5px;height:4px;border-radius:2px;background:var(--teal);opacity:.45}
+.db-line.neg{background:var(--red)}
+.db-dot{position:absolute;top:2px;width:10px;height:10px;border-radius:50%;margin-inline-start:-5px;box-shadow:0 0 0 2px var(--card)}
+.db-dot.b{background:var(--base)}.db-dot.c{background:var(--teal)}.db-dot.c.neg{background:var(--red)}
+.db-tg{position:absolute;top:0;width:2px;height:14px;background:var(--gold)}
+.chg{font-family:var(--display);font-size:12px;direction:ltr;text-align:start;font-weight:700}
+.up{color:var(--teal-ink)}.down{color:var(--red)}
+.warn{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.warn:last-child{border:0}
+.warn .ic{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-content:center;font-weight:700;color:#fff;font-size:13px}
+.warn small{display:block;color:var(--muted);font-size:12px}
+
+/* ---------- الحالات ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
+.pill::before{font-size:10px}
+.st-ok{color:var(--teal-ink);border-color:var(--teal);background:color-mix(in srgb,var(--teal) 12%,transparent)}.st-ok::before{content:"✓"}
+.st-on{color:var(--blue);border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent)}.st-on::before{content:"➜"}
+.st-at{color:var(--gold-ink);border-color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,transparent)}.st-at::before{content:"!"}
+.st-cr{color:var(--red);border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent)}.st-cr::before{content:"✕"}
+.st-na{color:var(--muted);border-color:var(--gray);background:transparent}.st-na::before{content:"–"}
+.bg-ok{background:var(--teal)}.bg-on{background:var(--blue)}.bg-at{background:var(--amber)}.bg-cr{background:var(--red)}.bg-na{background:var(--gray)}
+
+/* ---------- المؤشرات ---------- */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;flex:1;min-width:0}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.chip[aria-pressed=true]{background:var(--petrol);border-color:var(--petrol);color:#fff}
+.btn{border:0;background:var(--petrol);color:#fff;border-radius:12px;padding:9px 16px;font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px}
+.btn.gold{background:var(--gold);color:#1d1503}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:active{transform:translateY(1px)}
+.ind{display:grid;gap:8px;text-align:start;width:100%;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.ind::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:var(--stc,var(--gray))}
+.ind .hd{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.ind h3{font-size:14px;font-weight:700;font-family:var(--body);line-height:1.5}
+.kind{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}
+.ind .big{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.ind .big b{font-family:var(--display);font-size:30px;font-weight:800;line-height:1;direction:ltr}
+.ind .big b small{font-size:13px;font-weight:500;color:var(--muted)}
+.meter{position:relative;height:8px;background:var(--soft);border-radius:4px;margin-top:4px}
+.meter span{position:absolute;inset-block:0;inset-inline-start:0;border-radius:4px;background:var(--stc,var(--teal));transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.meter i{position:absolute;top:-3px;width:2px;height:14px;background:var(--gold)}
+.meter u{position:absolute;top:-2px;width:8px;height:12px;margin-inline-start:-4px;border-radius:2px;border:2px solid var(--base);background:var(--card)}
+.meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);gap:8px;flex-wrap:wrap}
+.meta b{color:var(--ink);font-family:var(--display);direction:ltr;display:inline-block}
+
+/* ---------- التشخيص ---------- */
+.prog{position:sticky;top:0;z-index:4;background:var(--paper);padding:8px 0 10px}
+.prog .meter{height:6px}
+.qsec h2{font-size:15px}
+.q{padding:12px 0;border-bottom:1px dashed var(--line)}
+.q:last-child{border:0}
+.q p{margin:0 0 8px;font-weight:500;font-size:14px}
+.q p span{color:var(--gold-ink);font-family:var(--display);font-size:12px;margin-inline-end:6px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.opt{border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px 4px;font-size:12px;font-weight:600;color:var(--muted);line-height:1.4}
+.opt[aria-pressed=true][data-v="2"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt[aria-pressed=true][data-v="1"]{background:var(--amber);border-color:var(--amber);color:#1d1503}
+.opt[aria-pressed=true][data-v="0"]{background:var(--red);border-color:var(--red);color:#fff}
+.pr-row{display:grid;grid-template-columns:minmax(0,1fr);gap:3px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.pr-row:last-child{border:0}
+.pr-bar{display:grid;grid-template-columns:62px minmax(0,1fr) 38px;gap:8px;align-items:center;font-size:11.5px;color:var(--muted)}
+.pr-bar .meter{margin:0}
+.gap{display:grid;gap:2px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.gap:last-child{border:0}
+.gap b{font-size:13.5px}
+.gap small{color:var(--muted);font-size:12px}
+
+/* ---------- التدخلات ---------- */
+.iv{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px;display:grid;gap:8px}
+.iv h3{font-size:14px;font-family:var(--body);font-weight:700}
+.iv .meta{justify-content:flex-start;gap:6px 14px}
+.late{color:var(--red);font-weight:700}
+.stsel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.stsel button{border:1px solid var(--line);background:transparent;border-radius:8px;font-size:11.5px;padding:5px 2px;color:var(--muted);font-weight:600}
+.stsel button[aria-pressed=true]{color:#fff;border-color:transparent}
+.x{white-space:nowrap;border:0;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;padding:0}
+
+/* ---------- المدارس ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{font-size:11.5px;color:var(--muted);font-weight:600;text-align:start;padding:6px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 6px;border-bottom:1px dashed var(--line);text-align:start;overflow-wrap:anywhere}
+.tbl tr:last-child td{border:0}
+.tbl .rk{font-family:var(--display);font-weight:800;color:var(--gold-ink);width:26px}
+.tbl button.lnk{border:0;background:none;padding:0;font-weight:700;text-align:start;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+.scroll{overflow-x:auto}
+.heat td.c{text-align:center;font-family:var(--display);font-weight:700;font-size:12px;border:2px solid var(--card);border-radius:8px;min-width:40px;padding:8px 2px}
+.heat th.v{font-size:10.5px;text-align:center;white-space:normal;line-height:1.3;min-width:48px}
+
+/* ---------- التنقل ---------- */
+nav{position:fixed;inset-inline:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav a{display:grid;justify-items:center;gap:1px;text-decoration:none;color:var(--muted);font-size:10.5px;font-weight:600;padding:5px 2px;border-radius:12px}
+nav a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav a[aria-current=page]{color:var(--petrol);background:color-mix(in srgb,var(--teal) 14%,transparent)}
+@media (prefers-color-scheme:dark){nav a[aria-current=page]{color:var(--teal-ink)}.chip[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#04201d}.btn{background:var(--petrol-3)}}
+
+/* ---------- الورقة السفلية ---------- */
+.scrim{position:fixed;inset:0;background:rgba(4,20,25,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}
+.scrim.open{display:flex}
+.sheet{background:var(--card);width:min(100%,620px);max-height:90vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sheet header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.sheet header h2{font-size:17px}
+.close{border:1px solid var(--line);background:transparent;border-radius:50%;width:34px;height:34px;flex:none;font-size:16px}
+label.f{display:grid;gap:4px;font-size:12.5px;font-weight:600;margin-bottom:10px}
+.f input,.f select,.f textarea{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:9px 11px;width:100%;font-size:15px}
+.wk{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.wk input{border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:7px 8px;width:100%;text-align:center;direction:ltr;font-family:var(--display)}
+.wk small{display:block;color:var(--muted);font-size:11px}
+.formula{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:12.5px;margin:10px 0}
+.toast{position:fixed;inset-inline:0;bottom:96px;display:flex;justify-content:center;z-index:60;pointer-events:none}
+.toast span{background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:999px;font-size:13px;box-shadow:var(--shadow);animation:rise .3s both}
+.sbar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;margin-bottom:12px;box-shadow:var(--shadow)}
+.sbar .row{flex-wrap:nowrap}
+.sbar h1{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.back{border:1px solid var(--line);background:transparent;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;text-decoration:none;color:var(--ink);white-space:nowrap}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px;background:var(--soft);border-radius:12px;padding:4px}
+.tabs a{text-align:center;text-decoration:none;color:var(--muted);font-size:12px;font-weight:700;padding:6px 2px;border-radius:9px}
+.tabs a[aria-current=page]{background:var(--petrol);color:#fff}
+.sgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.sc{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:14px 10px 12px;display:grid;justify-items:center;gap:6px;text-align:center;box-shadow:var(--shadow);position:relative}
+.sc .ico{width:58px;height:58px;border-radius:18px;display:grid;place-content:center;background:color-mix(in srgb,var(--stc) 16%,transparent);border:1.5px solid var(--stc);color:var(--stc)}
+.sc .ico svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sc{cursor:default}.sc b.nm{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.sc .sv{font-family:var(--display);font-weight:800;font-size:20px;line-height:1;direction:ltr}
+.sc small{font-size:11px;color:var(--muted)}
+.steps{display:grid;gap:10px;counter-reset:st;margin:6px 0 0;padding:0;list-style:none}
+.steps li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px}
+.steps li::before{content:counter(st);font-family:var(--display);font-weight:800;width:34px;height:34px;border-radius:10px;background:var(--petrol);color:#fff;display:grid;place-content:center}
+.steps b{display:block}
+details{border-bottom:1px dashed var(--line);padding:8px 0}
+details:last-of-type{border:0}
+summary{cursor:pointer;font-weight:700;font-size:14px}
+details ol,details ul{margin:8px 0 0;padding-inline-start:20px;font-size:13px}
+details li{margin-bottom:5px}
+.gt{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+.gt th{text-align:start;color:var(--muted);font-size:11px;padding:4px;border-bottom:1px solid var(--line)}
+.gt td{padding:6px 4px;border-bottom:1px dashed var(--line);text-align:start;vertical-align:top;overflow-wrap:anywhere}
+.three-k{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:8px}
+.three-k div{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:12.5px}
+.three-k b{display:block;font-size:13.5px;color:var(--teal-ink)}
+.gapr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;align-items:center}
+.gapr:last-child{border:0}
+.gapr .meter{grid-column:1/-1;margin:0}
+.gapr small{color:var(--muted);font-size:11.5px}
+.lead{background:linear-gradient(150deg,var(--petrol-2),var(--petrol) 65%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:22px 18px 18px;position:relative;overflow:hidden;box-shadow:var(--shadow);display:grid;gap:16px}
+.lead .eyebrow{font-size:11.5px;letter-spacing:.04em;color:#F4DFA8;border:1px solid rgba(195,154,63,.55);border-radius:999px;padding:2px 12px;display:inline-block}
+.lead h1{font-size:clamp(30px,8.4vw,54px);font-weight:800;line-height:1.25;margin-top:10px}
+.lead h1 em{font-style:normal;color:var(--gold)}
+.lead p{margin:10px 0 0;color:#D3E8E4;font-size:14.5px;max-width:56ch}
+.lead .quote{font-size:13px;color:#A9CFCB;border-inline-start:3px solid var(--gold);padding-inline-start:10px;margin-top:12px}
+.lead svg.art{width:100%;height:auto;display:block}
+.lead .art text{fill:#DCEFEB;font-size:19px;font-weight:700}
+.lead svg.art{max-width:560px;margin:auto}
+.lead .row .btn.ghost{color:#fff;border-color:rgba(255,255,255,.3)}
+.goals{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));counter-reset:g;margin-top:8px}
+.goals div{counter-increment:g;background:var(--soft);border-radius:14px;padding:12px 12px 12px;font-size:13px;font-weight:600;line-height:1.6;position:relative}
+.goals div::before{content:"0" counter(g);display:block;font-family:var(--display);font-weight:800;font-size:20px;color:var(--gold-ink);line-height:1.2}
+.reads{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:8px}
+.reads div{border:1px solid var(--line);border-radius:14px;padding:12px;font-size:12.5px}
+.reads b{display:block;font-family:var(--display);font-size:24px;color:var(--teal-ink);line-height:1.2;direction:ltr;text-align:end}
+.reads strong{display:block;font-size:13.5px}
+.sc .acts{display:grid;gap:6px;width:100%;margin-top:4px}
+.sc .acts .btn{justify-content:center;width:100%}
+.sc .acts svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.stepper{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.stp{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+.stp i{font-style:normal;font-family:var(--display);width:20px;height:20px;border-radius:50%;background:var(--soft);display:grid;place-content:center;font-size:11px}
+.stp.done i{background:var(--teal);color:#fff}
+.stp[aria-current=step]{background:var(--petrol);border-color:var(--petrol);color:#fff}
+.stp[aria-current=step] i{background:var(--gold);color:#1d1503}
+.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.cmp th{text-align:start;color:var(--muted);font-size:10.5px;padding:4px 3px;border-bottom:1px solid var(--line);white-space:nowrap}
+.cmp td{padding:7px 3px;border-bottom:1px dashed var(--line);text-align:start;vertical-align:middle;overflow-wrap:anywhere}
+.cmp td.n{font-family:var(--display);white-space:nowrap;direction:ltr;text-align:end;font-weight:700}
+.cmp .pill{font-size:10.5px;padding:1px 6px}
+.rec{margin:8px 0 0;padding-inline-start:18px;font-size:12.5px}
+.rec li{margin-bottom:4px}
+.kc{border:1px solid var(--line);border-inline-start:4px solid var(--stc,var(--gray));border-radius:14px;padding:11px 12px;margin-top:10px;display:grid;gap:8px;background:var(--card)}
+.kc .kh{display:flex;gap:8px;justify-content:space-between;align-items:flex-start}
+.kc .kh b{font-size:13.5px;line-height:1.55}
+.kc .kr{display:grid;grid-template-columns:1fr 1fr 96px;gap:8px;align-items:end;font-size:11px;color:var(--muted)}
+.kc .kr b{display:block;font-family:var(--display);font-size:15px;color:var(--ink);direction:ltr;text-align:end}
+.kc .kr input{border:1.5px solid var(--petrol-3);background:var(--paper);border-radius:10px;padding:7px 6px;width:100%;text-align:center;direction:ltr;font-family:var(--display);font-size:16px;font-weight:700}
+.kc .kact{border:1px dashed var(--amber);background:color-mix(in srgb,var(--amber) 8%,transparent);border-radius:10px;padding:7px 10px;width:100%;font-size:13px}
+.kc .meter{margin:0}
+.anat{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:8px;background:linear-gradient(180deg,color-mix(in srgb,var(--teal) 7%,transparent),transparent)}
+.anat h3{font-size:14px;font-family:var(--body);font-weight:700}
+.anat .cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:10px 0}
+.anat .cells div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;font-size:10.5px;color:var(--muted);line-height:1.4}
+.anat .cells b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);direction:ltr}
+.anat .meter{height:10px;margin:14px 0 6px}
+.anat .lbl{position:absolute;top:-17px;font-size:9.5px;color:var(--muted);transform:translateX(50%);white-space:nowrap}
+.flow{display:flex;align-items:stretch;gap:6px;margin-top:8px}
+.flow div{flex:1;border-radius:12px;padding:10px 8px;font-size:11.5px;background:var(--soft);line-height:1.5}
+.flow b{display:block;font-size:13px;color:var(--teal-ink)}
+.flow span{font-family:var(--display);font-weight:800;font-size:18px;color:var(--gold-ink);display:block;direction:ltr;text-align:end}
+.flow i{align-self:center;color:var(--gold);font-style:normal;font-weight:800}
+.lead .by{margin:8px 0 0;font-size:14px;font-weight:600;color:#F4DFA8;display:flex;align-items:center;gap:8px}
+.lead .by::before{content:"";width:22px;height:2px;background:var(--gold)}
+.choice{display:grid;gap:8px}
+.choice button{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:center;text-align:start;border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:12px}
+.choice button svg{width:26px;height:26px;fill:none;stroke:var(--petrol-3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;justify-self:center}
+.choice b{display:block;font-size:14px}.choice small{color:var(--muted);font-size:12px}
+.tg{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.tg:last-child{border:0}.tg small{grid-column:1/-1;color:var(--muted);font-size:11.5px}
+.empty{text-align:center;padding:34px 16px}
+.empty h2{font-size:20px;justify-content:center;margin-bottom:6px}
+.empty .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.note{font-size:12px;color:var(--muted);background:var(--soft);border-radius:10px;padding:8px 12px;margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+
+@media (min-width:860px){
+  body{padding-bottom:30px;padding-inline-start:96px}
+  nav{inset-inline:0 auto;top:0;bottom:0;width:96px;grid-template-columns:1fr;grid-auto-rows:min-content;align-content:center;gap:8px;border-top:0;border-inline-end:1px solid var(--line)}
+  nav a{font-size:11.5px;padding:10px 4px}
+  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .span2{grid-column:1/-1}
+  .hero{grid-template-columns:auto minmax(0,1fr) minmax(0,1.1fr);padding:22px}
+  .tiles{grid-column:auto}
+  .ringwrap{width:150px;height:150px}.ringwrap .v b{font-size:38px}
+  .hero h1{font-size:24px}
+  .scrim{align-items:center}.sheet{border-radius:22px}
+  .lead{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;padding:34px 32px 28px}.lead>.row{grid-column:1/-1}
+  .toast{bottom:30px}
+}
+@media (max-width:859px){nav{grid-template-columns:repeat(5,1fr)}}
+nav a{font-size:10px}
+.i{display:inline-grid;place-content:center}
+.i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn .i svg{width:16px;height:16px}
+.btn.red{background:var(--red);color:#fff}
+.btn.wide{width:100%;justify-content:center;margin-top:6px}
+.lead .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-self:center}
+.lead .stats div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 14px 12px}
+.lead .stats b{font-family:var(--display);font-size:clamp(26px,6vw,40px);font-weight:800;line-height:1;display:block;color:#fff;direction:ltr;text-align:end}
+.lead .stats span{font-size:12.5px;color:#BCD9D5}
+.lead .stats div:nth-child(1) b,.lead .stats div:nth-child(4) b{color:var(--gold)}
+.portals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;padding:14px}
+.portal{display:grid;justify-items:center;text-align:center;gap:4px;padding:18px 10px 16px;border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);background:var(--paper);transition:transform .2s,box-shadow .2s,border-color .2s}
+.portal:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:var(--shadow)}
+.portal .i svg{width:34px;height:34px;stroke:var(--blue);stroke-width:1.6}
+.portal.g .i svg{stroke:var(--teal-ink)}
+.portal b{font-family:var(--display);font-size:clamp(15px,4.2vw,20px);font-weight:700;margin-top:4px}
+.portal span{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:24ch}
+.team{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:6px}
+.mem{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--paper)}
+.mem b{display:block;font-size:14px;line-height:1.45}.mem small{color:var(--muted);font-size:12px}
+.av{flex:none;width:40px;height:40px;border-radius:12px;background:var(--petrol);color:var(--gold);font-family:var(--display);font-weight:800;font-size:18px;display:grid;place-content:center;border:1.5px solid var(--gold)}
+.av.sm{width:30px;height:30px;font-size:14px;border-radius:9px}
+.ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px;font-size:13.5px}
+.ticks li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:6px;align-items:start}
+.ticks li::before{content:"✓";color:var(--teal-ink);font-weight:800}
+.ticks.sm{font-size:12.5px}
+.ul{margin:0;padding-inline-start:18px;font-size:13px}.ul li{margin-bottom:5px}
+.idf{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:10px;margin-top:10px}
+.idf label.f{margin:0}
+@media (max-width:620px){.idf{grid-template-columns:minmax(0,1fr)}}
+.drop{width:100%;display:grid;justify-items:center;gap:4px;border:2px dashed var(--petrol-3);border-radius:18px;background:color-mix(in srgb,var(--teal) 6%,transparent);padding:26px 12px;color:var(--ink);margin-top:6px}
+.drop .i svg{width:34px;height:34px;stroke:var(--petrol-3)}
+.drop b{font-size:15px}.drop span{font-size:12px;color:var(--muted)}
+.drop:disabled{opacity:.5;cursor:not-allowed}
+.okb{border:1px solid var(--teal);background:color-mix(in srgb,var(--teal) 10%,var(--card));color:var(--ink);border-radius:14px;padding:11px 14px;margin-bottom:12px;font-size:13.5px}
+.warnb{border-color:var(--amber)!important;background:color-mix(in srgb,var(--amber) 12%,var(--card))!important}
+.note.warnb{border:1px solid;margin-top:10px}
+.rp-hero{background:linear-gradient(140deg,var(--petrol-2),var(--petrol) 70%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12)}
+.rp-hero .note{background:rgba(255,255,255,.08);color:#BCD9D5}
+.rp-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.rp-id h1{font-size:clamp(18px,4.6vw,26px);font-weight:800}
+.rp-id p{margin:4px 0 0;font-size:13px;color:#CFE6E2}
+.rp-id .eyebrow,.lead .eyebrow{font-size:11.5px;color:#F4DFA8;border:1px solid rgba(195,154,63,.55);border-radius:999px;padding:2px 12px;display:inline-block}
+.rp-hero .pill{background:rgba(255,255,255,.92)}
+.delta-b{font-size:12.5px;font-weight:700;color:#BFE9E3}.delta-b.down{color:#FFB4AA}
+.kps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.kp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 10px}
+.kp b{font-family:var(--display);font-size:22px;font-weight:800;display:block;direction:ltr;text-align:end;line-height:1.2}
+.kp span{font-size:11.5px;color:#BCD9D5;display:block;line-height:1.4}
+.kp em{font-style:normal;font-size:10.5px;color:#F4DFA8;display:block}
+@media (max-width:620px){.kps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.recs{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:r}
+.recs li{counter-increment:r;border-inline-start:3px solid var(--gray);padding:4px 10px;font-size:13px;display:grid;gap:2px}
+.recs li b{font-size:13.5px}.recs li span{color:var(--muted);font-size:12.5px}
+.recs .r-cr{border-color:var(--red)}.recs .r-at{border-color:var(--amber)}.recs .r-ok{border-color:var(--teal)}
+.dm{display:grid;grid-template-columns:62px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.dm small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.dm .meter{margin:0}
+.dm-s{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}
+.cmp tr.hl td{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.cmp tr.grp td{background:var(--soft);font-weight:700;font-size:12px;color:var(--petrol-3)}
+.cmp.acts td{font-size:12px;vertical-align:top}
+.cmp td .chg{white-space:nowrap}
+.wks{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700}
+.wks select{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 10px;font-size:13px}
+.login{max-width:440px;margin:10px auto;text-align:center}
+.login>.i svg{width:40px;height:40px;stroke:var(--gold)}
+.login h1{font-size:20px;margin:6px 0 2px}.login form{text-align:start;margin-top:10px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;margin:4px 0 8px}
+.tabs button{border:0;background:transparent;text-align:center;color:var(--muted);font-size:12px;font-weight:700;padding:6px 2px;border-radius:9px}
+.tabs button[aria-current=page]{background:var(--petrol);color:#fff}
+.tabs button:disabled{opacity:.4}
+.sbar h1 small{font-family:var(--body);font-weight:500;color:var(--muted);font-size:11.5px}
+.x.strong{font-weight:700;color:var(--ink);font-size:13.5px;text-decoration:none}
+.wkchips{margin-top:10px}
+.kind{white-space:nowrap}
+summary .kind{margin-inline-start:6px;font-weight:500}
+textarea{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--paper)}
+@media (min-width:860px){.portals{grid-template-columns:repeat(4,minmax(0,1fr))}.lead .stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="bar">
+    <a class="brand" href="#home" style="color:inherit;text-decoration:none">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3l6.2 14.8L45 24l-14.8 6.2L24 45l-6.2-14.8L3 24l14.8-6.2z" fill="none" stroke="#C39A3F" stroke-width="1.6"/><path d="M9.2 9.2L24 15.3l14.8-6.1L32.7 24l6.1 14.8L24 32.7 9.2 38.8 15.3 24z" fill="none" stroke="#7FE0D4" stroke-width="1.2" opacity=".7"/><path d="M15 28l5-5 4 3 8-9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="17" r="2.4" fill="#C39A3F"/></svg>
+      <div><b>أثر</b><small>منصة متابعة التدخلات العاجلة</small></div>
+    </a>
+  </div>
+  <div class="sync" id="sync"><i></i><span>جارٍ التحميل…</span></div>
+</div>
+<main id="view" aria-live="polite"></main>
+<nav aria-label="التنقل الرئيسي">
+  <a href="#home" data-r="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>الرئيسية</a>
+  <a href="#schools" data-r="schools"><svg viewBox="0 0 24 24"><path d="M4 21h16M6 21V10l6-4 6 4v11"/><path d="M10 21v-4h4v4"/></svg>المدارس</a>
+  <a href="#sup" data-r="sup"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5M14.5 14.2c2.6-.3 5 .9 5.8 4.3"/></svg>المشرفون</a>
+  <a href="#engine" data-r="engine"><svg viewBox="0 0 24 24"><path d="M4 20V14M8 20v-8M12 20v-5M16 20V9M20 20V5"/></svg>التحليل</a>
+  <a href="#reports" data-r="reports"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></svg>التقارير</a>
+</nav>
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+<input type="file" id="fileIn" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+<script src="config.js"></script>
+<script>
+"use strict";
+/* ================= المرجع: نشرة «التدخلات العاجلة — إدارة مؤشرات الأداء وقيادتها» ================= */
+const DOMAINS=[
+ {id:"c1",name:"إجراءات التدخل: التعليم والتعلم",short:"التعلم",sec:"٥"},
+ {id:"c2",name:"إجراءات التدخل: الإشراف والمتابعة الصفية",short:"الإشراف",sec:"٥"},
+ {id:"c3",name:"إجراءات التدخل: الإدارة والبيئة المدرسية",short:"الإدارة",sec:"٥"},
+ {id:"c4",name:"دعم التدخلات: التشخيص وتحليل الواقع",short:"التشخيص",sec:"٦"},
+ {id:"c5",name:"دعم التدخلات: خطة التدخل والمتابعة الأسبوعية",short:"الخطة",sec:"٦"},
+ {id:"c6",name:"دعم التدخلات: التنفيذ والمتابعة المكثفة",short:"التنفيذ",sec:"٦"},
+ {id:"c7",name:"دعم التدخلات: قياس الأثر والاستدامة",short:"الأثر",sec:"٦"}
+];
+const KIND={raw:"مؤشر خام",progress:"مؤشر تقدّم",impact:"مؤشر أثر"};
+const ROLES=["مدير المدرسة","الوكيل","المعلمون / اللجان","الموجه الطلابي","المشرف التربوي"];
+/* [المحور، المؤشر، المستهدف، {النوع، نوع القياس، أداة القياس المقترحة ...}] — نصوص المؤشرات ومستهدفاتها من النشرة */
+const BASE_IND=[
+ ["c1","تطبيق التقويم التشخيصي على الطلاب وتحليل نتائجه",100,{mt:"كمي",tool:"سجل الاختبارات التشخيصية وتقارير تحليلها"}],
+ ["c1","إتقان المهارات الأساسية لدى الطلاب",80,{kind:"impact",mt:"مهاري",tool:"اختبارات المهارات الأساسية وبطاقات تقييم المهارة"}],
+ ["c1","التزام المعلمين بالنموذج التدريسي الموحد",90,{mt:"نوعي",tool:"بطاقة الملاحظة الصفية المعتمدة"}],
+ ["c1","توظيف استراتيجيات التعلم النشط في الدروس المرصودة",85,{mt:"نوعي",tool:"سجل الزيارات الصفية"}],
+ ["c1","مشاركة المعلمين في برامج التطوير المهني الموجه",100,{mt:"كمي",tool:"كشوف حضور البرامج التدريبية"}],
+ ["c1","النمو في نتائج الطلاب بين القياسين القبلي والبعدي",20,{kind:"impact",mt:"مهاري",tool:"اختبار قبلي – بعدي"}],
+ ["c1","خفض نسبة الطلاب منخفضي التحصيل",25,{kind:"impact",mt:"كمي",tool:"كشوف النتائج مقارنة بخط الأساس",hint:"تُكتب نسبة الانخفاض المتحققة عن خط الأساس"}],
+ ["c2","الزيارات الصفية الأسبوعية لكل معلم وفق الخطة الإشرافية",1,{unit:"زيارة",kind:"raw",mt:"كمي",tool:"سجل الزيارات الصفية",hint:"متوسط عدد الزيارات لكل معلم في الأسبوع"}],
+ ["c2","تقديم تغذية راجعة مهنية خلال 48 ساعة من الزيارة الصفية",95,{mt:"زمني",tool:"سجل التغذية الراجعة بتواريخها"}],
+ ["c2","تنفيذ اجتماعات مجتمعات التعلم المهنية وفق الجدول المعتمد",100,{mt:"كمي",tool:"محاضر مجتمعات التعلم المهنية"}],
+ ["c2","معالجة التحديات التدريسية المرصودة بخطط تحسين واضحة",80,{mt:"كمي",tool:"سجل التحديات وخطط التحسين"}],
+ ["c2","إنجاز مؤشرات الأداء الإشرافي",90,{mt:"مركب",tool:"تقرير متابعة الخطة الإشرافية"}],
+ ["c2","انتظام إصدار تقارير تحليل البيانات المدرسية أسبوعياً",100,{mt:"زمني",tool:"تقارير التحليل الأسبوعية المؤرخة"}],
+ ["c2","رفع متوسط جودة الأداء التدريسي في الزيارات الصفية",20,{kind:"impact",mt:"نوعي",tool:"متوسط بطاقة الملاحظة مقارنة بخط الأساس",hint:"تُكتب نسبة الارتفاع عن خط الأساس"}],
+ ["c3","زيادة زمن التعلم الفعلي للمواد الأساسية",15,{kind:"impact",mt:"زمني",tool:"رصد زمن التعلم الفعلي في الحصص",hint:"تُكتب نسبة الزيادة عن خط الأساس"}],
+ ["c3","خفض الغياب والتأخر",40,{kind:"impact",mt:"كمي",tool:"سجلات الحضور في نظام نور",hint:"تُكتب نسبة الانخفاض عن خط الأساس"}],
+ ["c3","معالجة المشكلات التشغيلية ضمن الصلاحيات الممنوحة",90,{mt:"كمي",tool:"سجل المشكلات التشغيلية وإغلاقها"}],
+ ["c3","رضا المعلمين عن بيئة العمل",85,{mt:"نوعي",tool:"استبانة رضا المعلمين"}],
+ ["c3","مشاركة أولياء الأمور في البرامج والاجتماعات المدرسية",80,{mt:"كمي",tool:"كشوف حضور أولياء الأمور"}],
+ ["c3","توجيه الموارد المتاحة نحو المبادرات الداعمة لنواتج التعلم",70,{mt:"كمي",tool:"سجل الموارد والمبادرات"}],
+ ["c4","تحليل نتائج الطلاب في المواد الأساسية وإصدار تقارير الأداء",100,{mt:"كمي",tool:"تقارير تحليل النتائج"}],
+ ["c4","تحديد الطلاب المتعثرين والمتفوقين وفق نتائج التحليل",100,{mt:"كمي",tool:"قوائم الطلاب المتعثرين والمتفوقين"}],
+ ["c4","خفض المخالفات السلوكية والغياب والتأخر",30,{kind:"impact",mt:"مركب",tool:"سجلات الحضور والسلوك",hint:"النشرة: 30–40% · تُكتب نسبة الانخفاض"}],
+ ["c4","استكمال تحليل أداء المعلمين وفق مؤشرات الأداء المعتمدة",100,{mt:"كمي",tool:"نماذج تحليل أداء المعلمين"}],
+ ["c4","اكتمال التقرير التشخيصي خلال الأسبوعين الأولين من الخطة",100,{mt:"زمني",tool:"التقرير التشخيصي المعتمد بتاريخه"}],
+ ["c4","أولويات التطوير الرئيسية المعتمدة من التقرير التشخيصي",3,{unit:"أولوية",kind:"raw",mt:"كمي",tool:"محضر اعتماد الأولويات",hint:"النشرة: 3–5 أولويات"}],
+ ["c5","تنفيذ إجراءات خطة التدخل",90,{mt:"كمي",tool:"خطة التدخل ومتابعة تنفيذها"}],
+ ["c5","إنجاز المهام حسب المسؤوليات المحددة",95,{mt:"كمي",tool:"مصفوفة المسؤوليات"}],
+ ["c5","الزيارات الصفية والمتابعات المنفذة مقابل الخطة المعتمدة",100,{mt:"كمي",tool:"سجل الزيارات مقابل الخطة"}],
+ ["c5","معالجة التحديات المرصودة",80,{mt:"كمي",tool:"سجل التحديات"}],
+ ["c5","حضور الطلاب",97,{mt:"كمي",tool:"نظام نور — الحضور الأسبوعي"}],
+ ["c5","حضور المعلمين",100,{mt:"كمي",tool:"سجل دوام المعلمين"}],
+ ["c5","تنفيذ الخطط العلاجية",90,{mt:"كمي",tool:"سجل الخطط العلاجية"}],
+ ["c5","الاجتماعات والمتابعات الداعمة أسبوعياً",1,{unit:"اجتماع",kind:"raw",mt:"كمي",tool:"محاضر الاجتماعات"}],
+ ["c5","نتائج القياسات القصيرة",null,{trend:true,unit:"%",mt:"مهاري",tool:"اختبارات قصيرة",hint:"المستهدف: نمو أسبوعي مستمر وفق خط الأساس · تُكتب نسبة الإتقان هذا الأسبوع"}],
+ ["c6","انتظام تنفيذ الحصص العلاجية والدروس المكثفة",95,{mt:"كمي",tool:"جدول الحصص العلاجية"}],
+ ["c6","حضور الطلاب المستهدفين للبرامج العلاجية",90,{mt:"كمي",tool:"كشوف حضور البرامج العلاجية"}],
+ ["c6","الزيارات الصفية المنفذة وفق الخطة المعتمدة",100,{mt:"كمي",tool:"سجل الزيارات الصفية"}],
+ ["c6","المعلمون الذين تلقوا تغذية راجعة مهنية",100,{mt:"كمي",tool:"سجل التغذية الراجعة"}],
+ ["c6","اجتماعات متابعة التقدم الأسبوعية",1,{unit:"اجتماع",kind:"raw",mt:"كمي",tool:"محاضر اجتماعات المتابعة"}],
+ ["c6","انتظام إصدار تقرير المتابعة الأسبوعي",100,{mt:"زمني",tool:"تقرير المتابعة الأسبوعي"}],
+ ["c6","التحسن في نتائج القياسات القصيرة",null,{trend:true,unit:"%",mt:"مهاري",tool:"اختبارات قصيرة مقارنة بالأسبوع السابق",hint:"المستهدف: نمو تدريجي ومستمر · تُكتب نسبة الإتقان هذا الأسبوع"}],
+ ["c6","انخفاض حالات الغياب والتأخر والمخالفات السلوكية",null,{trend:true,unit:"%",mt:"مركب",tool:"سجلات الحضور والسلوك",hint:"المستهدف: تحسن أسبوعي مقارنة بخط الأساس · تُكتب نسبة الانخفاض المتحققة"}],
+ ["c6","معالجة المشكلات المرصودة خلال 24–48 ساعة",90,{mt:"زمني",tool:"سجل المشكلات بتواريخ الرصد والمعالجة"}],
+ ["c7","تحقيق أهداف خطة التدخل",80,{kind:"impact",mt:"مركب",tool:"تقرير تقويم خطة التدخل"}],
+ ["c7","التحسن في نتائج الطلاب",20,{kind:"impact",mt:"مهاري",tool:"مقارنة النتائج بخط الأساس",hint:"النشرة: 20–30% فأكثر"}],
+ ["c7","انخفاض الغياب والتأخر",40,{kind:"impact",mt:"كمي",tool:"سجلات الحضور مقارنة بخط الأساس"}],
+ ["c7","تحسن جودة التدريس مقارنة بخط الأساس",20,{kind:"impact",mt:"نوعي",tool:"بطاقة الملاحظة مقارنة بخط الأساس"}],
+ ["c7","اكتمال التقرير الختامي",100,{mt:"زمني",tool:"التقرير الختامي المعتمد"}],
+ ["c7","توثيق الدروس المستفادة والممارسات الناجحة",100,{mt:"نوعي",tool:"ملف الممارسات الناجحة"}],
+ ["c7","إعداد واعتماد خطة الاستدامة",100,{mt:"نوعي",tool:"خطة الاستدامة المعتمدة"}],
+ ["c7","استمرار تنفيذ الممارسات الفاعلة بعد انتهاء التدخل",90,{kind:"impact",mt:"نوعي",tool:"متابعة ما بعد التدخل"}]
+].map((a,i,arr)=>{const n=arr.slice(0,i+1).filter(x=>x[0]===a[0]).length;return Object.assign({id:a[0]+"k"+n,d:a[0],name:a[1],t:a[2],unit:"%",kind:"progress",mt:"كمي",tool:""},a[3]||{})});
+let IND=BASE_IND.slice(),INDX=Object.fromEntries(IND.map(i=>[i.id,i]));
+/* [المحور، الإجراء بنصه في النشرة، المسؤول] */
+const QS=[
+ ["c1","امتلاك صورة تشخيصية دقيقة لمستويات الطلاب التعليمية بما يدعم اتخاذ القرارات التربوية المبنية على البيانات",0],
+ ["c1","تحسن مستوى إتقان الطلاب للمهارات والمعارف المستهدفة من خلال برامج علاجية وإثرائية فاعلة",2],
+ ["c1","ارتفاع مستوى جودة الممارسات التدريسية واتساقها وفق النموذج التدريسي المعتمد",2],
+ ["c1","زيادة فاعلية مشاركة الطلاب في التعلم وارتفاع معدلات التفاعل داخل الصف",2],
+ ["c1","تعزيز الكفايات المهنية للمعلمين وانعكاسها على جودة التعليم والتعلم",4],
+ ["c1","تحسين معدلات تقدم الطلاب وتحقيق نمو مستمر في نواتج التعلم بناء على نتائج التقويم المستمر وأدوات قياس قصيرة المدى",2],
+ ["c2","تحسن جودة الأداء التدريسي للمعلمين نتيجة المتابعة الصفية المنتظمة والتوجيه المهني المستمر",0],
+ ["c2","تعزيز الممارسات التدريسية الفاعلة من خلال التغذية الراجعة المبنية على الأدلة والشواهد الصفية",4],
+ ["c2","تطوير حلول مهنية مستدامة للتحديات التعليمية عبر تفعيل مجتمعات التعلم المهنية",0],
+ ["c2","رفع كفاءة العمليات الإشرافية وتحقيق التكامل بين التخطيط والتنفيذ وقياس الأثر",0],
+ ["c2","تعزيز ثقافة اتخاذ القرار القائم على البيانات بما يسهم في سرعة معالجة التحديات وتحسين نواتج التعلم",0],
+ ["c3","تحسين استثمار الزمن المدرسي بما يعزز فرص التعلم ويرفع مستوى التحصيل في المواد الأساسية",1],
+ ["c3","رفع معدلات المواظبة والانضباط المدرسي وخفض نسب الغياب والتأخر",1],
+ ["c3","تعزيز كفاءة الإدارة المدرسية في اتخاذ القرارات ومعالجة التحديات التشغيلية بفاعلية وسرعة",0],
+ ["c3","تحسين المناخ المدرسي ورفع مستوى الرضا الوظيفي لدى المعلمين",0],
+ ["c3","تعزيز الشراكة الفاعلة مع أولياء الأمور لدعم تعلم الطلاب ومتابعة تقدمهم",3],
+ ["c3","رفع كفاءة توظيف الموارد البشرية والمادية لدعم برامج التحسين والتدخلات التعليمية",0],
+ ["c4","توفير قاعدة بيانات دقيقة وشاملة عن مستويات الطلاب لدعم التخطيط واتخاذ القرار التربوي",0],
+ ["c4","تعزيز الانضباط المدرسي ورفع معدلات المواظبة والالتزام بالأنظمة والتعليمات",1],
+ ["c4","تحديد فجوات الأداء المهني للمعلمين ووضع أولويات التطوير بناء على مؤشرات أداء واضحة وقابلة للقياس",0],
+ ["c4","تكوين صورة تشخيصية شاملة لأداء المدرسة تسهم في توجيه التدخلات التحسينية ورفع كفاءة التنفيذ",0],
+ ["c5","توفير خطة تدخل عاجل واضحة ومتكاملة تستجيب لأولويات المدرسة وتسهم في تحسين نواتج التعلم خلال فترة زمنية محددة",0],
+ ["c5","تحقيق التكامل وتوزيع الأدوار والمسؤوليات بين القيادة المدرسية والمعلمين والموجهين والمشرفين بما يضمن فاعلية التنفيذ والمساءلة",0],
+ ["c5","رفع كفاءة تنفيذ برامج التحسين من خلال وضوح الأدوار ومتابعة الإنجاز بصورة منتظمة",1],
+ ["c5","تعزيز ثقافة المتابعة القائمة على البيانات والمؤشرات الدورية لدعم اتخاذ القرار السريع وتصحيح المسار",0],
+ ["c5","تحقيق تحسن تدريجي ومستمر في مؤشرات الأداء المدرسي المستهدفة وفق خطط المتابعة الأسبوعية",0],
+ ["c6","ضمان استمرارية وفاعلية البرامج العلاجية والدروس المكثفة بما يسهم في معالجة فجوات التعلم لدى الطلاب المستهدفين",2],
+ ["c6","تحسين جودة الممارسات التدريسية من خلال المتابعة الصفية المكثفة والتوجيه المهني المستمر",0],
+ ["c6","تعزيز ثقافة المتابعة والمساءلة من خلال مراجعة التقدم بصورة دورية ومنتظمة",0],
+ ["c6","رصد التحسن المبكر في مؤشرات التحصيل الدراسي والانضباط المدرسي واتخاذ الإجراءات التصحيحية اللازمة",1],
+ ["c6","رفع كفاءة الاستجابة للتحديات التشغيلية والتعليمية بما يضمن استمرارية تنفيذ الخطة وتحقيق أهدافها",0],
+ ["c7","قياس الأثر الفعلي للتدخلات التعليمية والإدارية وتحديد مستوى التحسن المحقق في مؤشرات الأداء المستهدفة",0],
+ ["c7","توثيق التقدم المحقق من خلال المقارنة المنهجية بين بيانات خط الأساس والنتائج النهائية",0],
+ ["c7","توفير تقرير ختامي شامل يدعم اتخاذ القرارات المستقبلية ويبرز جوانب القوة وفرص التحسين",0],
+ ["c7","بناء خطة استدامة تضمن المحافظة على المكتسبات المؤسسية واستمرار التحسن في نواتج التعلم والأداء المدرسي",0]
+].map((a,i,arr)=>{const n=arr.slice(0,i+1).filter(x=>x[0]===a[0]).length;return {id:a[0]+"p"+n,d:a[0],q:a[1],owner:ROLES[a[2]]}});
+const QX=Object.fromEntries(QS.map(q=>[q.id,q]));
+const ST3=["لم يُنفذ","نُفذ جزئياً","نُفذ"]; // 0,1,2
+const GOALS=["رفع مستوى التحصيل الدراسي في المواد الأساسية","تحسين جودة التدريس داخل الصف","معالجة فجوات الأداء بناءً على بيانات واقعية","تعزيز الانضباط المدرسي والسلوك الإيجابي","رفع كفاءة الإدارة المدرسية في التخطيط والتنفيذ والمتابعة","ضمان استقرار البيئة التعليمية"];
+const ENSURE=["تحسين نواتج التعلم خلال فترة زمنية قصيرة","رفع جودة التدريس والانضباط المدرسي","معالجة فجوات الأداء بشكل منهجي","قياس الأثر الأولي على التحصيل والانضباط","تحقيق أثر ملموس ومستدام في البيئة التعليمية"];
+const CRITERIA=["انخفاض نتائج الطلاب في الاختبارات الوطنية أو المدرسية","ضعف مؤشرات الانضباط (غياب، تأخر، سلوكيات)","ضعف في تطبيق الخطط التعليمية والإشرافية","قصور في إدارة الموارد أو تنظيم العمل المدرسي","ضعف في تفعيل مجتمعات التعلم المهنية","فجوات واضحة بين أداء المعلمين ومؤشرات المدرسة"];
+const SUCCESS=["تحسن نتائج الطلاب في المواد الأساسية","انخفاض معدلات الغياب والتأخر الصباحي","ارتفاع مستوى جودة التدريس وفق نتائج أدوات الزيارات الصفية وأدوات القياس المعتمدة","تحسن مستوى الانضباط المدرسي والالتزام بالأنظمة واللوائح","ارتفاع مستوى رضا المعلمين والطلاب عن البيئة التعليمية والخدمات المقدمة","تعزيز استقرار بيئة العمل المدرسية ورفع مستوى التعاون والفاعلية بين منسوبي المدرسة"];
+const ROLE_TASKS=[["مدير المدرسة","قيادة خطة التدخلات، متابعة التنفيذ اليومي، اتخاذ قرارات عاجلة لمعالجة المشكلات"],["الوكيل","ضبط الانضباط المدرسي، متابعة حضور المعلمين والطلاب، تنظيم الجدول المدرسي"],["المعلمون / اللجان","تنفيذ الخطط العلاجية، تطبيق نموذج تدريسي موحد، رفع تقارير أسبوعية عن تقدم الطلاب"],["الموجه الطلابي","متابعة الحالات السلوكية، التواصل مع أولياء الأمور، دعم الطلاب المتعثرين"],["المشرف التربوي","تقديم دعم مهني مباشر، تنفيذ زيارات صفية مكثفة، متابعة مؤشرات الأداء"]];
+const TIPS=["اتخاذ قرارات يومية مبنية على بيانات","توحيد الجهود بين المدرسة والإشراف والإدارة","توفير دعم مهني مكثف للمعلمين","متابعة أسبوعية صارمة للمؤشرات","إشراك أولياء الأمور في خطة التحسين","تعزيز ثقافة الإنجاز داخل المدرسة"];
+const STAT={ok:"محقق",on:"في المسار",at:"يحتاج متابعة",cr:"حرج",na:"غير مقاس"};
+const LVL={ok:"متقدم",on:"في المسار",at:"يحتاج متابعة",cr:"يحتاج تدخلاً عاجلاً",na:"لا بيانات"};
+const W_IND=0.6,W_ACT=0.4; // أوزان درجة الأسبوع المعلنة
+
+/* ================= أدوات ================= */
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
+const today=()=>iso(new Date());
+const addDays=(s,n)=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()+n);return iso(d)};
+const weekStart=s=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()-d.getDay());return iso(d)}; // الأحد
+const fmtD=s=>{try{return new Intl.DateTimeFormat("ar-SA-u-ca-gregory-nu-latn",{day:"numeric",month:"short"}).format(new Date(s+"T12:00:00"))}catch(e){return s}};
+const fmtH=s=>{try{return new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura-nu-latn",{day:"numeric",month:"long",year:"numeric"}).format(new Date(s+"T12:00:00"))}catch(e){return s}};
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+const r0=n=>n==null?null:Math.round(n);
+const fmtV=(v,ind)=>v==null?"—":(ind.unit==="%"?v+"%":v+" "+ind.unit);
+const sign=n=>n==null?"—":(n>0?"+":n<0?"−":"±")+Math.abs(Math.round(n*10)/10);
+const clone=o=>JSON.parse(JSON.stringify(o));
+const A2E=v=>String(v??"").replace(/[٠-٩]/g,c=>"٠١٢٣٤٥٦٧٨٩".indexOf(c)).replace(/[۰-۹]/g,c=>"۰۱۲۳۴۵۶۷۸۹".indexOf(c)).replace(/٫/g,".");
+const normMno=v=>A2E(v).replace(/\D/g,"").slice(0,12);
+function hashPin(pin,salt){let s=String(salt||"")+"|"+A2E(pin).trim(),h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (h2>>>0).toString(16).padStart(8,"0")+(h1>>>0).toString(16).padStart(8,"0")}
+
+/* ================= محرك التحليل ================= */
+function stOf(a){return a==null?"na":a>=100?"ok":a>=85?"on":a>=70?"at":"cr"}
+function lvOf(x){return x==null?"na":x>=90?"ok":x>=75?"on":x>=60?"at":"cr"}
+const tOf=(sub,ind)=>{const e=(sub.ind||{})[ind.id];return e&&e.t!==undefined?e.t:ind.t};
+/* قائمة المؤشرات لاستمارة بعينها: مؤشرات النشرة + ما حفظته الاستمارة من مستهدفات مضافة */
+function indsFor(sub){const ids=new Set(IND.map(i=>i.id));const out=IND.slice();Object.entries(sub.ind||{}).forEach(([id,e])=>{if(!ids.has(id)&&e&&e.name){out.push({id,d:e.d||"c5",name:e.name,t:e.t,unit:e.unit||"%",kind:"progress",mt:"كمي",tool:"",custom:true})}});return out}
+
+/* تطبيع حالة الإجراء ونسبته واكتشاف التعارض */
+function normAct(e){
+  const r={st:null,pct:null,obs:(e&&e.obs)||"",ev:(e&&e.ev)||"",flags:[]};
+  if(!e)return r;
+  let st=e.st,pct=e.pct;if(pct!=null)pct=Math.max(0,Math.min(100,+pct));
+  if(st==null&&pct==null)return r;
+  if(st==null)st=pct>=100?2:pct<=0?0:1;
+  if(pct==null){pct=st===2?100:st===0?0:50;if(st===1)r.flags.push("جزئي دون نسبة — احتُسب 50%")}
+  else if(st===2&&pct<100){r.flags.push(`«نُفذ» مع نسبة ${pct}% — اعتُمدت النسبة`)}
+  else if(st===0&&pct>0){r.flags.push(`«لم يُنفذ» مع نسبة ${pct}% — اعتُمدت النسبة`)}
+  else if(st===1&&(pct===100||pct===0)){r.flags.push(`«جزئي» مع نسبة ${pct}%`)}
+  r.st=st;r.pct=pct;
+  if(pct>0&&!r.ev.trim())r.flags.push("تنفيذ دون شاهد");
+  return r;
+}
+function achOf(ind,v,t,prevV){
+  if(v==null)return null;
+  if(ind.trend){if(prevV==null)return null;if(v>prevV)return 100;if(v===prevV)return 95;return prevV>0?Math.max(0,Math.min(94,Math.round(v/prevV*100))):0}
+  if(!t)return null;return Math.round(v/t*100);
+}
+function analyze(sub,prev){
+  const A={acts:{},ind:{},dom:{},domAct:{},flags:[],alerts:[],recs:[]};
+  /* الإجراءات */
+  const ans=[];
+  for(const q of QS){const n=normAct((sub.acts||{})[q.id]);A.acts[q.id]=n;if(n.st!=null)ans.push({q,n})}
+  A.nAns=ans.length;A.nQs=QS.length;
+  A.cnt={done:ans.filter(x=>x.n.st===2).length,part:ans.filter(x=>x.n.st===1).length,no:ans.filter(x=>x.n.st===0).length,blank:QS.length-ans.length};
+  A.exec=ans.length?r0(avg(ans.map(x=>x.n.pct))):null;
+  A.docExec=ans.length?r0(avg(ans.map(x=>x.n.ev.trim()?x.n.pct:0))):null;
+  A.noEv=ans.filter(x=>x.n.pct>0&&!x.n.ev.trim()).map(x=>x.q.id);
+  A.obs=ans.filter(x=>x.n.obs.trim()).map(x=>({id:x.q.id,t:x.n.obs.trim(),st:x.n.st}));
+  for(const d of DOMAINS){const xs=ans.filter(x=>x.q.d===d.id);A.domAct[d.id]=xs.length?r0(avg(xs.map(x=>x.n.pct))):null}
+  ans.forEach(x=>x.n.flags.filter(f=>f!=="تنفيذ دون شاهد").forEach(f=>A.flags.push({id:x.q.id,t:f})));
+  /* المؤشرات */
+  const inds=indsFor(sub);A.inds=inds;
+  for(const ind of inds){
+    const e=(sub.ind||{})[ind.id]||{},v=e.v==null?null:+e.v,t=tOf(sub,ind);
+    const pe=prev?(prev.ind||{})[ind.id]:null,pv=pe&&pe.v!=null?+pe.v:null;
+    const ach=achOf(ind,v,t,pv);
+    A.ind[ind.id]={v,t,ach,st:ach==null?"na":stOf(ach),gap:v!=null&&t!=null&&!ind.trend?Math.round((v-t)*10)/10:null,fix:e.fix||"",pv,dv:v!=null&&pv!=null?Math.round((v-pv)*10)/10:null};
+  }
+  const measured=inds.filter(i=>A.ind[i.id].ach!=null);
+  A.nInd=inds.length;A.nMeas=inds.filter(i=>A.ind[i.id].v!=null).length;
+  A.stc={ok:0,on:0,at:0,cr:0,na:0};inds.forEach(i=>A.stc[A.ind[i.id].st]++);
+  for(const d of DOMAINS){const xs=measured.filter(i=>i.d===d.id).map(i=>Math.min(100,A.ind[i.id].ach));A.dom[d.id]=xs.length?r0(avg(xs)):null}
+  const dv=Object.values(A.dom).filter(x=>x!=null);A.comp=dv.length?r0(avg(dv)):null;
+  A.score=A.comp!=null&&A.docExec!=null?r0(A.comp*W_IND+A.docExec*W_ACT):(A.comp??A.docExec);
+  A.lv=lvOf(A.score);
+  /* المقارنة بالأسبوع السابق */
+  if(prev){const P=analyze(prev,null);A.prev={score:P.score,comp:P.comp,exec:P.exec,docExec:P.docExec,dom:P.dom,from:prev.from,weekNo:prev.weekNo};
+    A.d={score:A.score!=null&&P.score!=null?A.score-P.score:null,comp:A.comp!=null&&P.comp!=null?A.comp-P.comp:null,exec:A.exec!=null&&P.exec!=null?A.exec-P.exec:null,docExec:A.docExec!=null&&P.docExec!=null?A.docExec-P.docExec:null};
+    A.up=[];A.down=[];
+    for(const ind of inds){const x=A.ind[ind.id];if(x.dv==null||x.dv===0)continue;(x.dv>0?A.up:A.down).push({ind,dv:x.dv,v:x.v,pv:x.pv})}
+    A.up.sort((a,b)=>b.dv-a.dv);A.down.sort((a,b)=>a.dv-b.dv);
+    A.actDown=QS.filter(q=>{const a=A.acts[q.id],b=P.acts[q.id];return a.pct!=null&&b.pct!=null&&a.pct<b.pct}).map(q=>({q,from:P.acts[q.id].pct,to:A.acts[q.id].pct}));
+    A.repObs=QS.filter(q=>A.acts[q.id].obs.trim()&&P.acts[q.id].obs.trim()).map(q=>q.id);
+  }
+  /* التنبيهات */
+  const crit=inds.filter(i=>A.ind[i.id].st==="cr").sort((a,b)=>A.ind[a.id].ach-A.ind[b.id].ach);
+  crit.forEach(i=>A.alerts.push({lv:"cr",t:i.name,m:`تحقق ${A.ind[i.id].ach}% من المستهدف (${fmtV(A.ind[i.id].v,i)} من ${fmtV(A.ind[i.id].t,i)})`}));
+  if(A.prev&&A.down.length)A.down.slice(0,4).forEach(x=>A.alerts.push({lv:"at",t:x.ind.name,m:`تراجع ${sign(x.dv)} ${x.ind.unit==="%"?"نقطة":x.ind.unit} عن الأسبوع السابق`}));
+  if(A.noEv.length)A.alerts.push({lv:"at",t:"إجراءات منفذة دون شواهد",m:`${A.noEv.length} إجراء — لا تُحتسب في نسبة التنفيذ الموثق`});
+  if(A.cnt.blank)A.alerts.push({lv:"na",t:"إجراءات لم تُقيَّم",m:`${A.cnt.blank} من ${QS.length} إجراء بلا حالة`});
+  if(A.nInd-A.nMeas)A.alerts.push({lv:"na",t:"مؤشرات غير مقاسة",m:`${A.nInd-A.nMeas} من ${A.nInd} مؤشر بلا قيمة فعلية`});
+  if(A.flags.length)A.alerts.push({lv:"na",t:"تعارض بين الحالة ونسبة التنفيذ",m:`${A.flags.length} إجراء — راجع الملاحظات`});
+  /* التوصيات */
+  const lowAct=d=>QS.filter(q=>q.d===d&&A.acts[q.id].pct!=null).sort((a,b)=>A.acts[a.id].pct-A.acts[b.id].pct)[0];
+  crit.slice(0,5).forEach(i=>{const x=A.ind[i.id],la=lowAct(i.d);
+    A.recs.push({lv:"cr",t:`معالجة «${i.name}»`,m:`الفجوة ${x.gap==null?"—":sign(x.gap)} ${i.unit==="%"?"نقطة مئوية":i.unit}. `+(x.fix?`الإجراء التصحيحي المعلن: ${x.fix}. `:"لم تحدد المدرسة إجراءً تصحيحياً — يلزم تحديده ومتابعته أسبوعياً. ")+(la&&A.acts[la.id].pct<100?`أقل إجراء تنفيذاً في المحور نفسه: «${la.q}» (${A.acts[la.id].pct}%) — المسؤول: ${la.owner}.`:"")})});
+  const blocked=QS.filter(q=>A.acts[q.id].st!=null&&A.acts[q.id].pct<50&&A.acts[q.id].obs.trim());
+  if(blocked.length)A.recs.push({lv:"at",t:"دعم إشرافي لإزالة العقبات",m:blocked.slice(0,4).map(q=>`«${q.q.slice(0,70)}…»: ${A.acts[q.id].obs}`).join(" · ")});
+  if(A.repObs&&A.repObs.length)A.recs.push({lv:"at",t:"عقبات متكررة للأسبوع الثاني",m:`${A.repObs.length} إجراء تتكرر عقباته؛ تحتاج قراراً يتجاوز المتابعة الاعتيادية (تعديل الخطة أو تدخل مباشر من المشرف).`});
+  if(A.noEv.length)A.recs.push({lv:"at",t:"استكمال الشواهد",m:`توثيق ${A.noEv.length} إجراء أُعلن تنفيذه دون شاهد، لرفع نسبة التنفيذ الموثق من ${A.docExec}% إلى ${A.exec}%.`});
+  if(A.nInd-A.nMeas>0)A.recs.push({lv:"na",t:"استكمال القياس",m:`قياس ${A.nInd-A.nMeas} مؤشراً لم تُرفع قيمته؛ المؤشر غير المقاس لا يدخل في الحساب.`});
+  const weakD=DOMAINS.filter(d=>A.dom[d.id]!=null).sort((a,b)=>A.dom[a.id]-A.dom[b.id])[0];
+  if(weakD&&A.dom[weakD.id]<85)A.recs.push({lv:"at",t:`تركيز الدعم على محور «${weakD.short}»`,m:`أضعف المحاور بنسبة تحقق ${A.dom[weakD.id]}% وتنفيذ إجراءات ${A.domAct[weakD.id]??"—"}%.`});
+  if(!A.recs.length&&A.score!=null)A.recs.push({lv:"ok",t:"المحافظة على المكتسبات",m:"المؤشرات في المسار؛ يُوصى بتوثيق الممارسات الناجحة ورفع المستهدف تدريجياً."});
+  return A;
+}
+/* سلسلة أسابيع مدرسة */
+function subsOf(all,mno){return all.filter(s=>s.mno===mno).sort((a,b)=>a.wk<b.wk?-1:1)}
+function prevOf(all,sub){const xs=subsOf(all,sub.mno).filter(s=>s.wk<sub.wk);return xs[xs.length-1]||null}
+function seriesOf(all,mno){const xs=subsOf(all,mno);return xs.map((s,i)=>{const A=analyze(s,i?xs[i-1]:null);return {s,A,wk:s.wk}})}
+/* لقطة الإشراف لأسبوع محدد (أو آخر رفع) */
+function snapshot(schools,all,wk){
+  return Object.values(schools).map(sc=>{const xs=subsOf(all,sc.mno);const sub=wk?xs.find(s=>s.wk===wk):xs[xs.length-1];
+    if(!sub)return {sc,sub:null,A:null,n:xs.length};const A=analyze(sub,prevOf(all,sub));return {sc,sub,A,n:xs.length}})
+    .sort((a,b)=>(a.sc.name||"").localeCompare(b.sc.name||"","ar"));
+}
+function weeksOf(all){return [...new Set(all.map(s=>s.wk))].sort().reverse()}
+
+/* ================= استمارة Excel الأسبوعية: توليد وقراءة ================= */
+let XLp=null;
+function loadXL(){if(typeof window!=="undefined"&&window.ExcelJS)return Promise.resolve(window.ExcelJS);if(XLp)return XLp;
+  XLp=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js";sc.onload=()=>window.ExcelJS?res(window.ExcelJS):rej(new Error("x"));sc.onerror=()=>{XLp=null;rej(new Error("x"))};document.head.appendChild(sc)});return XLp}
+const SH={info:"بيانات المدرسة",acts:"التقييم الأسبوعي للإجراءات",ind:"مؤشرات الأداء",sum:"ملخص الأسبوع"};
+const H_ACT=["الرمز","المحور","الإجراء","المسؤول","حالة التنفيذ","نسبة التنفيذ %","العقبات","شواهد التنفيذ"];
+const H_IND=["الرمز","المحور","المؤشر","نوع المؤشر","أداة القياس","المستهدف","الوحدة","القيمة الفعلية","نسبة التحقق %","الإجراء التصحيحي"];
+const F_INFO=["اسم المدرسة","الرقم الوزاري","اسم مدير المدرسة","رقم الأسبوع الدراسي","بداية الأسبوع (سنة-شهر-يوم)","نهاية الأسبوع (سنة-شهر-يوم)"];
+async function buildForm(sch,wk){
+  const X=await loadXL(),wb=new X.Workbook();wb.creator="منصة أثر";
+  const NAVY="FF0A3A47",GOLD="FFC39A3F",IN="FFFFF6D6";
+  const fill=c=>({type:"pattern",pattern:"solid",fgColor:{argb:c}}),bd={style:"thin",color:{argb:"FFD9D2C2"}},border={top:bd,bottom:bd,left:bd,right:bd};
+  const head=ws=>{const r=ws.getRow(1);r.height=34;r.eachCell(c=>{c.fill=fill(NAVY);c.font={bold:true,color:{argb:"FFFFFFFF"},size:11};c.alignment={vertical:"middle",horizontal:"center",wrapText:true};c.border={...border,bottom:{style:"medium",color:{argb:GOLD}}}})};
+  const open=c=>{c.protection={locked:false};c.fill=fill(IN)};
+  const prot={selectLockedCells:true,selectUnlockedCells:true,formatColumns:true,formatRows:true};
+  const ws0=wk||weekStart(today());
+  /* 1) بيانات المدرسة */
+  const w0=wb.addWorksheet(SH.info,{views:[{rightToLeft:true}]});w0.columns=[{width:32},{width:50}];
+  w0.addRow(["منصة أثر — الاستمارة الأسبوعية لمتابعة التدخلات العاجلة"]);w0.mergeCells("A1:B1");
+  Object.assign(w0.getCell("A1"),{fill:fill(NAVY),font:{bold:true,size:14,color:{argb:"FFFFFFFF"}},alignment:{horizontal:"center",vertical:"middle"}});w0.getRow(1).height=38;
+  w0.addRow(["تقييم المدرسة لأدائها خلال الأسبوع وفق إجراءات ومؤشرات نشرة «التدخلات العاجلة — إدارة مؤشرات الأداء وقيادتها»"]);w0.mergeCells("A2:B2");
+  Object.assign(w0.getCell("A2"),{font:{italic:true,color:{argb:"FF8A6713"}},alignment:{horizontal:"center",wrapText:true}});w0.getRow(2).height=30;
+  const vals=[sch?sch.name:"",sch&&sch.mno?String(sch.mno):"",sch&&sch.principal?sch.principal:"","",ws0,addDays(ws0,4)];
+  F_INFO.forEach((f,k)=>{const r=w0.addRow([f,vals[k]]);const a=r.getCell(1),b=r.getCell(2);a.font={bold:true};a.border=border;b.border=border;open(b);b.numFmt="@";b.alignment={horizontal:"right"};r.height=22});
+  w0.addRow([]);
+  ["طريقة التعبئة","١) اكتب اسم المدرسة ورقمها الوزاري كما هما في نظام نور؛ بهما يتعرف النظام على المدرسة عند الرفع.","٢) ورقة «التقييم الأسبوعي للإجراءات»: لكل إجراء اختر حالة التنفيذ (نُفذ / نُفذ جزئياً / لم يُنفذ) واكتب نسبة التنفيذ والعقبات وشواهد التنفيذ.","٣) شواهد التنفيذ: اذكر الشاهد باختصار (محضر، كشف، تقرير…) أو الصق رابطه. الإجراء المنفذ دون شاهد لا يُحتسب في «نسبة التنفيذ الموثق».","٤) ورقة «مؤشرات الأداء»: اكتب القيمة الفعلية لهذا الأسبوع رقماً فقط، والإجراء التصحيحي لكل مؤشر دون المستهدف. تظهر نسبة التحقق تلقائياً.","٥) ورقة «ملخص الأسبوع»: أبرز الإنجازات والعقبات والدعم المطلوب من الإشراف.","٦) احفظ الملف وارفعه من «بوابة المدارس» في المنصة. لا تغيّر عمود «الرمز» ولا عناوين الأعمدة.","الخلايا الصفراء فقط هي التي تُعبأ، وبقية الخلايا محمية."].forEach((t,k)=>{const r=w0.addRow([t]);w0.mergeCells(`A${r.number}:B${r.number}`);const c=r.getCell(1);c.alignment={wrapText:true,vertical:"top"};c.font={bold:k===0||k===7,size:k===0?12:11,color:{argb:k===0?NAVY:k===7?"FF8A6713":"FF12262C"}};r.height=k===0?22:34});
+  /* 2) الإجراءات */
+  const w1=wb.addWorksheet(SH.acts,{views:[{rightToLeft:true,state:"frozen",ySplit:1}]});
+  w1.columns=[{width:8},{width:12},{width:58},{width:16},{width:15},{width:12},{width:34},{width:34}].map((c,i)=>({...c,header:H_ACT[i]}));head(w1);
+  QS.forEach(q=>{const d=DOMAINS.find(x=>x.id===q.d),r=w1.addRow([q.id,d.short,q.q,q.owner,null,null,null,null]);r.height=48;
+    for(let n=1;n<=8;n++){const c=r.getCell(n);c.border=border;c.alignment={wrapText:true,vertical:"middle",horizontal:n===3||n>=7?"right":"center"}}
+    [5,6,7,8].forEach(n=>open(r.getCell(n)));
+    r.getCell(5).dataValidation={type:"list",allowBlank:true,formulae:['"'+ST3.slice().reverse().join(",")+'"'],showErrorMessage:true,errorTitle:"اختر من القائمة",error:"نُفذ / نُفذ جزئياً / لم يُنفذ"};
+    r.getCell(6).dataValidation={type:"decimal",operator:"between",allowBlank:true,formulae:[0,100],showErrorMessage:true,errorTitle:"قيمة غير صحيحة",error:"أدخل رقماً من 0 إلى 100"};r.getCell(6).font={bold:true}});
+  const n1=QS.length+1,rs=w1.addRow(["","","متوسط نسبة التنفيذ (يُحسب تلقائياً)","","",{formula:`IFERROR(ROUND(AVERAGE(F2:F${n1}),0),"")`},"",""]);
+  rs.eachCell({includeEmpty:true},(c,n)=>{if(n<=8){c.fill=fill("FFECE7DB");c.font={bold:true};c.border=border}});
+  /* 3) المؤشرات */
+  const w2=wb.addWorksheet(SH.ind,{views:[{rightToLeft:true,state:"frozen",ySplit:1}]});
+  w2.columns=[{width:8},{width:12},{width:46},{width:12},{width:28},{width:11},{width:9},{width:12},{width:11},{width:36}].map((c,i)=>({...c,header:H_IND[i]}));head(w2);
+  IND.forEach(ind=>{const d=DOMAINS.find(x=>x.id===ind.d),r=w2.addRow([ind.id,d.short,ind.name+(ind.hint?`\n(${ind.hint})`:""),KIND[ind.kind].replace("مؤشر ",""),ind.tool||"",ind.trend?"نمو مستمر":ind.t,ind.unit,null,null,null]);r.height=ind.hint?52:40;
+    const rn=r.number;r.getCell(9).value={formula:`IF(OR(H${rn}="",NOT(ISNUMBER(F${rn}))),"",ROUND(H${rn}/F${rn}*100,0))`};
+    for(let n=1;n<=10;n++){const c=r.getCell(n);c.border=border;c.alignment={wrapText:true,vertical:"middle",horizontal:n===3||n===5||n===10?"right":"center"}}
+    open(r.getCell(8));open(r.getCell(10));r.getCell(6).font={bold:true};r.getCell(8).font={bold:true,size:12};r.getCell(9).font={bold:true,color:{argb:"FF0A6F66"}};
+    r.getCell(8).dataValidation={type:"decimal",operator:"between",allowBlank:true,formulae:[0,ind.unit==="%"?100:1000],showErrorMessage:true,errorTitle:"قيمة غير صحيحة",error:ind.unit==="%"?"أدخل نسبة من 0 إلى 100 (رقم فقط)":"أدخل رقماً موجباً"}});
+  /* 4) ملخص الأسبوع */
+  const w3=wb.addWorksheet(SH.sum,{views:[{rightToLeft:true}]});w3.columns=[{width:30},{width:80}];
+  w3.addRow(["البند","ما تكتبه المدرسة"]);head(w3);
+  ["أبرز الإنجازات هذا الأسبوع","أبرز العقبات","الدعم المطلوب من الإشراف","خطة الأسبوع القادم"].forEach(t=>{const r=w3.addRow([t,""]);r.height=70;r.getCell(1).font={bold:true};r.getCell(1).border=border;r.getCell(1).alignment={vertical:"middle"};const b=r.getCell(2);b.border=border;b.alignment={wrapText:true,vertical:"top",horizontal:"right"};open(b)});
+  for(const w of [w0,w1,w2,w3])await w.protect("",prot);
+  return wb.xlsx.writeBuffer();
+}
+function cVal(c){let v=c.value;if(v&&typeof v==="object"&&!(v instanceof Date)){if(v.result!==undefined)v=v.result;else if(v.richText)v=v.richText.map(t=>t.text).join("");else if(v.text!==undefined)v=v.text;else if(v.formula!==undefined)v=null;else v=null}return v}
+function cNum(c){let v=cVal(c);if(v==null||v===""||v instanceof Date)return null;if(typeof v==="number"){if(/%/.test(c.numFmt||"")&&v<=1)v*=100;return Math.round(v*100)/100}const n=parseFloat(A2E(v).replace(/[%٪\s,،]/g,""));return isFinite(n)?n:null}
+const cStr=c=>{const v=cVal(c);return v==null?"":v instanceof Date?iso(v):String(v).trim()};
+function cDate(c){const v=cVal(c);if(v instanceof Date)return iso(v);if(typeof v==="number"&&v>30000&&v<80000){return iso(new Date(Math.round((v-25569)*864e5)))}const m=A2E(v||"").match(/(\d{4})\D(\d{1,2})\D(\d{1,2})/);if(m){const s=m[1]+"-"+m[2].padStart(2,"0")+"-"+m[3].padStart(2,"0");if(!isNaN(new Date(s+"T12:00:00")))return s}return null}
+const stTxt=s=>{s=String(s||"").replace(/[ًٌٍَُِّْـ]/g,"").replace(/\s+/g," ").trim();if(!s)return null;if(/لم|غير|لا /.test(s))return 0;if(/جزئ/.test(s))return 1;if(/نفذ|منفذ|مكتمل|تم/.test(s))return 2;return null};
+function headerMap(ws){const m={};ws.getRow(1).eachCell((c,n)=>{m[cStr(c).replace(/\s+/g," ")]=n});return m}
+async function parseForm(buf){
+  const X=await loadXL(),wb=new X.Workbook();await wb.xlsx.load(buf);
+  const by=k=>wb.worksheets.find(w=>w.name.trim()===k)||wb.worksheets.find(w=>w.name.includes(k.split(" ")[0]));
+  const w0=by(SH.info),w1=by(SH.acts),w2=by(SH.ind),w3=by(SH.sum);
+  if(!w1||!w2)throw new Error("الملف لا يحوي ورقتي «التقييم الأسبوعي للإجراءات» و«مؤشرات الأداء» — نزّل الاستمارة من المنصة");
+  const sub={name:"",mno:"",principal:"",weekNo:null,from:null,to:null,acts:{},ind:{},notes:{}},warn=[];
+  if(w0){w0.eachRow(r=>{const k=cStr(r.getCell(1)),c=r.getCell(2);
+    if(k.startsWith("اسم المدرسة"))sub.name=cStr(c).slice(0,80);else if(k.startsWith("الرقم الوزاري"))sub.mno=normMno(cStr(c));else if(k.startsWith("اسم مدير"))sub.principal=cStr(c).slice(0,60);
+    else if(k.startsWith("رقم الأسبوع")){const n=cNum(c);sub.weekNo=n!=null&&n>=1&&n<=60?Math.round(n):null}else if(k.startsWith("بداية الأسبوع"))sub.from=cDate(c);else if(k.startsWith("نهاية الأسبوع"))sub.to=cDate(c)})}
+  /* الإجراءات */
+  const ha=headerMap(w1),col=(m,h)=>m[h]||H_ACT.indexOf(h)+1;let unk=0,bad=0;
+  w1.eachRow((r,n)=>{if(n===1)return;const id=cStr(r.getCell(col(ha,"الرمز")));if(!id)return;if(!QX[id]){unk++;return}
+    const stRaw=cStr(r.getCell(col(ha,"حالة التنفيذ"))),st=stTxt(stRaw);let pct=cNum(r.getCell(col(ha,"نسبة التنفيذ %")));
+    if(pct!=null&&pct>0&&pct<=1&&!/[%٪]/.test(String(cVal(r.getCell(col(ha,"نسبة التنفيذ %"))))))pct=Math.round(pct*100);
+    if(pct!=null&&(pct<0||pct>100)){bad++;pct=null}
+    if(stRaw&&st==null)bad++;
+    const obs=cStr(r.getCell(col(ha,"العقبات"))).slice(0,400),ev=cStr(r.getCell(col(ha,"شواهد التنفيذ"))).slice(0,400);
+    if(st!=null||pct!=null||obs||ev)sub.acts[id]={st,pct,obs,ev}});
+  /* المؤشرات */
+  const hi=headerMap(w2),coli=h=>hi[h]||H_IND.indexOf(h)+1;
+  w2.eachRow((r,n)=>{if(n===1)return;const id=cStr(r.getCell(coli("الرمز")));if(!id)return;const ind=INDX[id];if(!ind){unk++;return}
+    let v=cNum(r.getCell(coli("القيمة الفعلية")));const fix=cStr(r.getCell(coli("الإجراء التصحيحي"))).slice(0,300);
+    if(v!=null&&(v<0||(ind.unit==="%"&&v>100)||v>100000)){bad++;v=null}
+    const e={v,t:ind.trend?null:ind.t};if(fix)e.fix=fix;if(ind.custom){e.name=ind.name;e.d=ind.d;e.unit=ind.unit}
+    if(v!=null||fix)sub.ind[id]=e});
+  /* الملخص */
+  if(w3){const keys={"أبرز الإنجازات":"ach","أبرز العقبات":"obs","الدعم المطلوب":"sup","خطة الأسبوع":"next"};w3.eachRow((r,n)=>{if(n===1)return;const k=cStr(r.getCell(1));for(const [p,f] of Object.entries(keys))if(k.startsWith(p)){const v=cStr(r.getCell(2)).slice(0,800);if(v)sub.notes[f]=v}})}
+  if(unk)warn.push(`${unk} صفاً برموز غير معروفة تُجوهلت`);
+  if(bad)warn.push(`${bad} قيمة خارج المدى أو غير مفهومة تُجوهلت`);
+  const nA=Object.keys(sub.acts).length,nI=Object.values(sub.ind).filter(e=>e.v!=null).length;
+  if(!nA&&!nI)throw new Error("الاستمارة فارغة: لم أجد أي حالة إجراء ولا قيمة مؤشر");
+  return {sub,warn,nA,nI};
+}
+
+/* ================= الرسوم ================= */
+const stCol=k=>`var(--${{ok:"teal",on:"blue",at:"amber",cr:"red",na:"gray"}[k]})`;
+function ring(v,label,lv){
+  const R=52,C=2*Math.PI*R,p=Math.max(0,Math.min(100,v||0));
+  return `<div class="ringwrap"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="${R}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="9"/><circle class="ringarc" cx="60" cy="60" r="${R}" fill="none" stroke="#C39A3F" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p/100)}" style="--from:${C}"/></svg><div class="v"><b>${v==null?"—":v+"%"}</b><span>${label||"درجة الأسبوع"}</span></div></div>`;
+}
+function radar(cur,base){
+  const W=360,H=300,cx=180,cy=150,R=98,n=DOMAINS.length;
+  const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n,r=R*(v/100);return [cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  let g="";
+  for(const lv of [25,50,75,100])g+=`<polygon points="${DOMAINS.map((_,i)=>pt(i,lv).map(x=>x.toFixed(1)).join(",")).join(" ")}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  DOMAINS.forEach((_,i)=>{const p=pt(i,100);g+=`<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="var(--line)"/>`});
+  const poly=sc=>DOMAINS.map((d,i)=>pt(i,sc[d.id]??0).map(x=>x.toFixed(1)).join(",")).join(" ");
+  if(base&&Object.values(base).some(v=>v!=null))g+=`<polygon points="${poly(base)}" fill="none" stroke="var(--base)" stroke-width="2" stroke-dasharray="5 4"/>`;
+  g+=`<polygon points="${poly(cur)}" fill="var(--teal)" fill-opacity=".18" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/>`;
+  DOMAINS.forEach((d,i)=>{const v=cur[d.id],p=pt(i,v??0),l=pt(i,124),a=Math.cos(-Math.PI/2+i*2*Math.PI/n);
+    if(v!=null)g+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="var(--teal)" stroke="var(--card)" stroke-width="2"/>`;
+    const anchor=Math.abs(a)<.2?"middle":(a>0?"end":"start");
+    g+=`<text x="${l[0].toFixed(1)}" y="${(l[1]-2).toFixed(1)}" text-anchor="${anchor}" style="font-weight:600;fill:var(--ink);font-size:11.5px">${d.short}</text><text x="${l[0].toFixed(1)}" y="${(l[1]+13).toFixed(1)}" text-anchor="${anchor}" style="font-weight:700;fill:var(--teal-ink);font-size:12px">${v==null?"—":v+"%"}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="مخطط راداري لنسب تحقق المحاور" style="width:100%;max-width:440px;display:block;margin:auto">${g}</svg>`;
+}
+/* منحنى متعدد السلاسل: series=[{name,col,dash,vals:[...]}], labels=[...] */
+function lineChart(labels,series,opt={}){
+  if(labels.length<2)return `<p class="note">يظهر المنحنى بعد رفع استمارتين أسبوعيتين على الأقل.</p>`;
+  const W=640,H=230,pl=16,pr=36,pt=22,pb=28,lo=0,hi=100;
+  const x=i=>pl+(i/(labels.length-1))*(W-pl-pr),y=v=>pt+(1-(v-lo)/(hi-lo))*(H-pt-pb);
+  let g="";
+  for(let k=0;k<=4;k++){const v=k*25;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-dasharray="${k?"2 4":"0"}"/><text x="${W-pr+6}" y="${y(v)+4}" text-anchor="start">${v}</text>`}
+  if(opt.target!=null)g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(opt.target)}" y2="${y(opt.target)}" stroke="var(--gold)" stroke-width="1.6" stroke-dasharray="6 5"/>`;
+  series.forEach((s,si)=>{const pts=s.vals.map((v,i)=>v==null?null:[x(i),y(v),v]).filter(Boolean);if(!pts.length)return;
+    const d=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+    if(si===0&&pts.length>1)g+=`<path d="${d} L${pts[pts.length-1][0].toFixed(1)} ${H-pb} L${pts[0][0].toFixed(1)} ${H-pb}Z" fill="${s.col}" opacity=".08"/>`;
+    g+=`<path d="${d}" fill="none" stroke="${s.col}" stroke-width="${si?2:2.8}" ${s.dash?'stroke-dasharray="6 5"':""} stroke-linejoin="round" stroke-linecap="round"/>`;
+    pts.forEach((p,i)=>{g+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${i===pts.length-1?4.5:3}" fill="${s.col}" stroke="var(--card)" stroke-width="1.6"/>`});
+    const L=pts[pts.length-1];if(si===0)g+=`<text x="${(L[0]-4).toFixed(1)}" y="${(L[1]-10).toFixed(1)}" text-anchor="middle" style="font-weight:800;fill:var(--ink);font-size:13px">${L[2]}%</text>`;
+  });
+  const step=Math.ceil(labels.length/7);labels.forEach((l,i)=>{if(i%step===0||i===labels.length-1)g+=`<text x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${esc(l)}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opt.label||"منحنى الأسابيع")}" style="width:100%;display:block">${g}</svg><div class="legend">${series.map(s=>`<span><i style="border-color:${s.col}"${s.dash?' class="dash"':""}></i>${s.name}</span>`).join("")}</div>`;
+}
+function segbar(parts){const tot=parts.reduce((a,p)=>a+p.n,0)||1;
+  return `<div class="seg" role="img" aria-label="${parts.map(p=>p.label+" "+p.n).join("، ")}">${parts.filter(p=>p.n).map(p=>`<span class="bg-${p.k}" style="flex:${p.n}"></span>`).join("")}</div><div class="legend">${parts.map(p=>`<span><i class="sq bg-${p.k}"></i>${p.label} <b class="num">${p.n}</b></span>`).join("")}</div>`}
+function meter(v,col,target){return `<div class="meter"><span style="width:${Math.max(0,Math.min(100,v||0))}%;background:${col}"></span>${target!=null?`<i style="inset-inline-start:${Math.min(100,target)}%"></i>`:""}</div>`}
+function heatCol(v){if(v==null)return "background:var(--soft);color:var(--muted)";const a=.12+Math.max(0,Math.min(1,(v-40)/60))*.78;return `background:color-mix(in srgb,var(--teal) ${Math.round(a*100)}%,var(--card));color:${a>.55?"#fff":"var(--ink)"}`}
+const pill=(k,txt)=>`<span class="pill st-${k}">${txt}</span>`;
+const dpill=d=>d==null?`<span class="chg">—</span>`:`<span class="chg ${d<0?"down":d>0?"up":""}">${sign(d)}</span>`;
+
+/* ================= تقرير تحليل الاستمارة الأسبوعية (يُستخدم في الصفحة وفي ملف الطباعة) ================= */
+function weekLabel(s){return (s.weekNo?`الأسبوع ${s.weekNo}`:"أسبوع")+` · ${fmtD(s.wk)}`}
+function reportBody(sub,A,ser,opt={}){
+  const lvk=A.lv,P=A.prev;
+  const kpi=(v,l,d,suf="%")=>`<div class="kp"><b>${v==null?"—":v+suf}</b><span>${l}</span>${d!==undefined?`<em>${d==null?"":"مقارنة بالسابق "+sign(d)}</em>`:""}</div>`;
+  const indRows=A.inds.map(i=>({i,x:A.ind[i.id]}));
+  const order={cr:0,at:1,on:2,ok:3,na:4};
+  let h=`<section class="card rp-hero span2"><div class="rp-top">${ring(A.score,"درجة الأسبوع")}
+     <div class="rp-id"><span class="eyebrow">${esc(weekLabel(sub))}${sub.from?` · ${esc(fmtH(sub.from))}`:""}</span><h1>${esc(sub.school)}</h1>
+     <p>الرقم الوزاري <b class="num">${esc(sub.mno)}</b>${sub.principal?` · مدير المدرسة: ${esc(sub.principal)}`:""}</p>
+     <p class="lvl">${pill(lvk,LVL[lvk])}${A.d&&A.d.score!=null?` <span class="delta-b ${A.d.score<0?"down":"up"}">${sign(A.d.score)} عن الأسبوع السابق</span>`:P?"":` <span class="delta-b">أول استمارة — خط الأساس</span>`}</p></div></div>
+    <div class="kps">${kpi(A.comp,"تحقق المؤشرات",A.d?A.d.comp:undefined)}${kpi(A.exec,"تنفيذ الإجراءات",A.d?A.d.exec:undefined)}${kpi(A.docExec,"التنفيذ الموثق بشواهد",A.d?A.d.docExec:undefined)}${kpi(A.stc.cr,"مؤشرات حرجة",undefined,"")}</div>
+    <p class="note" style="margin-top:10px">درجة الأسبوع = ${W_IND*100}% تحقق المؤشرات + ${W_ACT*100}% التنفيذ الموثق. ${A.nMeas} من ${A.nInd} مؤشراً مقاساً، و${A.nAns} من ${A.nQs} إجراءً مقيَّماً.</p></section>`;
+  /* التنبيهات والتوصيات */
+  h+=`<section class="card"><h2>التنبيهات</h2><p class="sub">ما يستدعي انتباه المشرف هذا الأسبوع</p>${A.alerts.length?A.alerts.slice(0,9).map(w=>`<div class="warn"><span class="ic bg-${w.lv}">${w.lv==="cr"?"✕":w.lv==="at"?"!":"–"}</span><div><b>${esc(w.t)}</b><small>${esc(w.m)}</small></div></div>`).join(""):`<p class="note">لا تنبيهات.</p>`}</section>
+  <section class="card"><h2>التوصيات</h2><p class="sub">مبنية على الفجوات والإجراءات والعقبات المعلنة</p><ol class="recs">${A.recs.map(r=>`<li class="r-${r.lv}"><b>${esc(r.t)}</b><span>${esc(r.m)}</span></li>`).join("")}</ol></section>`;
+  /* المحاور */
+  h+=`<section class="card"><h2>المحاور السبعة</h2><p class="sub">تحقق المؤشرات${P?" — الخط المتقطع للأسبوع السابق":""}</p>${radar(A.dom,P?P.dom:null)}</section>
+  <section class="card"><h2>المؤشرات مقابل تنفيذ الإجراءات</h2><p class="sub">لكل محور: نسبة تحقق مؤشراته ونسبة تنفيذ إجراءاته</p>${DOMAINS.map(d=>`<div class="dm"><b>${d.short}</b><div>${meter(A.dom[d.id],stCol(stOf(A.dom[d.id])))}<small>المؤشرات <span class="num">${A.dom[d.id]??"—"}%</span></small></div><div>${meter(A.domAct[d.id],"var(--gold)")}<small>الإجراءات <span class="num">${A.domAct[d.id]??"—"}%</span></small></div></div>`).join("")}
+   ${segbar([{k:"ok",n:A.cnt.done,label:"نُفذ"},{k:"at",n:A.cnt.part,label:"جزئياً"},{k:"cr",n:A.cnt.no,label:"لم يُنفذ"},{k:"na",n:A.cnt.blank,label:"دون تقييم"}])}</section>`;
+  /* الاتجاه عبر الأسابيع */
+  if(ser&&ser.length){h+=`<section class="card span2"><h2>التحسن عبر الأسابيع</h2><p class="sub">درجة الأسبوع وتحقق المؤشرات وتنفيذ الإجراءات في كل استمارة مرفوعة</p>${lineChart(ser.map(p=>p.s.weekNo?"أ"+p.s.weekNo:fmtD(p.wk)),[{name:"درجة الأسبوع",col:"var(--teal)",vals:ser.map(p=>p.A.score)},{name:"تحقق المؤشرات",col:"var(--blue)",vals:ser.map(p=>p.A.comp)},{name:"التنفيذ الموثق",col:"var(--gold)",dash:1,vals:ser.map(p=>p.A.docExec)}],{label:"تطور الأداء الأسبوعي"})}
+   ${ser.length>1?`<div class="scroll"><table class="cmp"><thead><tr><th>الأسبوع</th><th>الدرجة</th><th>التغير</th><th>المؤشرات</th><th>التنفيذ</th><th>الموثق</th><th>حرجة</th></tr></thead><tbody>${ser.slice().reverse().map(p=>`<tr${p.s.id===sub.id?' class="hl"':""}><td>${esc(weekLabel(p.s))}</td><td>${pill(p.A.lv,`<span class="num">${p.A.score??"—"}%</span>`)}</td><td>${dpill(p.A.d?p.A.d.score:null)}</td><td class="n">${p.A.comp??"—"}%</td><td class="n">${p.A.exec??"—"}%</td><td class="n">${p.A.docExec??"—"}%</td><td class="n">${p.A.stc.cr}</td></tr>`).join("")}</tbody></table></div>`:""}</section>`}
+  /* المقارنة بالأسبوع السابق */
+  if(P){h+=`<section class="card span2"><h2>المقارنة بالأسبوع السابق</h2><p class="sub">${esc(P.weekNo?"الأسبوع "+P.weekNo:"")} ${fmtD(P.from||"")} ← ${esc(weekLabel(sub))}</p><div class="grid two">
+    <div><p class="sub" style="font-weight:700;color:var(--teal-ink)">تحسن (${A.up.length})</p>${A.up.slice(0,6).map(x=>`<div class="gapr"><b style="font-weight:600">${esc(x.ind.name)}</b>${dpill(x.dv)}<small>${fmtV(x.pv,x.ind)} ← ${fmtV(x.v,x.ind)}</small></div>`).join("")||`<p class="note">لا تحسن مسجل.</p>`}</div>
+    <div><p class="sub" style="font-weight:700;color:var(--red)">تراجع (${A.down.length})</p>${A.down.slice(0,6).map(x=>`<div class="gapr"><b style="font-weight:600">${esc(x.ind.name)}</b>${dpill(x.dv)}<small>${fmtV(x.pv,x.ind)} ← ${fmtV(x.v,x.ind)}</small></div>`).join("")||`<p class="note">لا تراجع.</p>`}
+    ${A.actDown.length?`<p class="sub" style="font-weight:700;margin-top:10px">إجراءات انخفضت نسبة تنفيذها (${A.actDown.length})</p>${A.actDown.slice(0,4).map(x=>`<div class="gapr"><b style="font-weight:600">${esc(x.q.q)}</b><span class="chg down">${x.from}%←${x.to}%</span></div>`).join("")}`:""}</div></div></section>`}
+  /* جدول المؤشرات */
+  h+=`<section class="card span2"><h2>تحليل المؤشرات مقابل المستهدفات</h2><p class="sub">المستهدف، الفعلي، الفجوة، نسبة التحقق، والتغير الأسبوعي — مرتبة من الأحرج</p><div class="scroll"><table class="cmp"><thead><tr><th>المؤشر</th><th>المستهدف</th><th>الفعلي</th><th>الفجوة</th><th>التحقق</th>${P?"<th>التغير</th>":""}<th>الحالة</th></tr></thead><tbody>${indRows.sort((a,b)=>order[a.x.st]-order[b.x.st]||(a.x.ach??999)-(b.x.ach??999)).map(({i,x})=>`<tr><td><b style="font-weight:600">${esc(i.name)}</b><small class="dm-s">${DOMAINS.find(d=>d.id===i.d).short}${x.fix?` · الإجراء التصحيحي: ${esc(x.fix)}`:""}</small></td><td class="n">${i.trend?"نمو":fmtV(x.t,i)}</td><td class="n">${fmtV(x.v,i)}</td><td class="n">${x.gap==null?"—":sign(x.gap)}</td><td class="n">${x.ach==null?"—":x.ach+"%"}</td>${P?`<td class="n">${x.dv==null?"—":sign(x.dv)}</td>`:""}<td>${pill(x.st,STAT[x.st])}</td></tr>`).join("")}</tbody></table></div></section>`;
+  /* جدول الإجراءات */
+  h+=`<section class="card span2"><h2>تقييم المدرسة لتنفيذ الإجراءات</h2><p class="sub">الحالة ونسبة التنفيذ والعقبات والشواهد كما رفعتها المدرسة</p><div class="scroll"><table class="cmp acts"><thead><tr><th>الإجراء</th><th>الحالة</th><th>النسبة</th><th>العقبات</th><th>الشواهد</th></tr></thead><tbody>${DOMAINS.map(d=>`<tr class="grp"><td colspan="5">${d.name}</td></tr>`+QS.filter(q=>q.d===d.id).map(q=>{const a=A.acts[q.id];const k=a.st==null?"na":a.st===2?"ok":a.st===1?"at":"cr";return `<tr><td>${esc(q.q)}<small class="dm-s">المسؤول: ${q.owner}${a.flags.length?` · <span style="color:var(--gold-ink)">${esc(a.flags.join("، "))}</span>`:""}</small></td><td>${pill(k,a.st==null?"—":ST3[a.st])}</td><td class="n">${a.pct==null?"—":a.pct+"%"}</td><td>${esc(a.obs)||"—"}</td><td>${a.ev?esc(a.ev):`<span style="color:var(--muted)">—</span>`}</td></tr>`}).join("")).join("")}</tbody></table></div></section>`;
+  const N=sub.notes||{};
+  if(N.ach||N.obs||N.sup||N.next)h+=`<section class="card span2"><h2>ملخص الأسبوع من المدرسة</h2><div class="three-k">${[["ach","أبرز الإنجازات"],["obs","أبرز العقبات"],["sup","الدعم المطلوب من الإشراف"],["next","خطة الأسبوع القادم"]].filter(([k])=>N[k]).map(([k,l])=>`<div><b>${l}</b>${esc(N[k])}</div>`).join("")}</div></section>`;
+  return h;
+}
+/* ملف HTML مستقل للطباعة */
+function printDoc(title,body){
+  return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet"><style>${PRINT_CSS}</style></head><body><header class="ph"><div><b>منصة أثر</b><span>متابعة التدخلات العاجلة — إدارة مؤشرات الأداء وقيادتها</span></div><div class="pd">تاريخ الإصدار: ${fmtH(today())} · ${today()}</div></header><main class="grid two">${body}</main><footer class="pf">أُصدر آلياً من منصة أثر وفق مؤشرات نشرة التدخلات العاجلة · إعداد: الأستاذ معيض الغامدي</footer><script>window.addEventListener("load",function(){setTimeout(function(){try{window.print()}catch(e){}},600)})<\/script></body></html>`;
+}
+
+const PRINT_CSS=":root{\n  --petrol:#0A3A47;--petrol-2:#0F4C5C;--petrol-3:#16606F;\n  --teal:#0E9488;--teal-ink:#0A6F66;--gold:#C39A3F;--gold-ink:#8A6713;\n  --red:#C0392B;--amber:#C98A12;--blue:#2F6FA8;--gray:#9AA7A9;\n  --paper:#F4F1EA;--card:#FFFDF8;--ink:#12262C;--muted:#586B70;--line:#E3DDD0;--soft:#ECE7DB;\n  --base:#8C999B;\n  --r:18px;--shadow:0 1px 0 rgba(10,58,71,.06),0 14px 34px -22px rgba(10,58,71,.45);\n  --display:\"Alexandria\",\"IBM Plex Sans Arabic\",system-ui,sans-serif;\n  --body:\"IBM Plex Sans Arabic\",\"Alexandria\",system-ui,sans-serif;\n}\n\n*{box-sizing:border-box}\nhtml{-webkit-text-size-adjust:100%}\nbody{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75;padding-bottom:92px}\nh1,h2,h3{font-family:var(--display);margin:0;line-height:1.35;text-wrap:balance}\nbutton,input,select,textarea{font:inherit;color:inherit}\nbutton{cursor:pointer}\n.num{font-family:var(--display);font-variant-numeric:tabular-nums;unicode-bidi:isolate;direction:ltr;display:inline-block}\n:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}\n\n/* ---------- الترويسة ---------- */\n.top{background:var(--petrol);color:#EAF4F2;position:relative;overflow:hidden;padding:14px 16px 64px}\n.top::before{content:\"\";position:absolute;inset:0;opacity:.13;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%237FE0D4' stroke-width='1'%3E%3Cpath d='M36 6l8.8 21.2L66 36l-21.2 8.8L36 66l-8.8-21.2L6 36l21.2-8.8z'/%3E%3Cpath d='M14.8 14.8l21.2 8.8 21.2-8.8-8.8 21.2 8.8 21.2-21.2-8.8-21.2 8.8 8.8-21.2z'/%3E%3C/g%3E%3C/svg%3E\");mask-image:linear-gradient(to left,transparent,#000 70%)}\n.top::after{content:\"\";position:absolute;inset-inline-start:-80px;top:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(44,192,177,.32),transparent 65%)}\n.top>*{position:relative;z-index:1}\n.bar{display:flex;align-items:center;gap:12px;max-width:1180px;margin:0 auto}\n.brand{display:flex;align-items:center;gap:10px}\n.mark{width:42px;height:42px;flex:none}\n.brand b{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;display:block}\n.brand small{display:block;font-size:11px;letter-spacing:.02em;color:#A9CFCB;margin-top:4px}\n.pick{margin-inline-start:auto;display:flex;align-items:center;gap:8px;min-width:0}\n.pick select{appearance:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:999px;padding:7px 14px 7px 30px;max-width:46vw;text-overflow:ellipsis;font-weight:600;font-size:13px;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:left 11px center}\n.pick select option{color:#12262C}\n.sync{font-size:11px;color:#A9CFCB;display:flex;align-items:center;gap:6px;max-width:1180px;margin:8px auto 0}\n.sync i{width:7px;height:7px;border-radius:50%;background:#7FE0D4;display:inline-block}\n.sync.local i{background:var(--gold)}\n\nmain{max-width:1180px;margin:-48px auto 0;padding:0 14px;position:relative;z-index:2}\n.grid{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}\n.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);min-width:0}\n.card>h2{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:2px}\n.card>h2::before{content:\"\";width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex:none}\n.sub{color:var(--muted);font-size:12.5px;margin:0 0 10px}\n.rise{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}\n.rise:nth-child(2){animation-delay:.06s}.rise:nth-child(3){animation-delay:.12s}.rise:nth-child(4){animation-delay:.18s}.rise:nth-child(5){animation-delay:.24s}.rise:nth-child(n+6){animation-delay:.3s}\n@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}\n@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}\n\n/* ---------- البطل ---------- */\n.hero{background:linear-gradient(140deg,var(--petrol-2),var(--petrol) 70%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12);display:grid;gap:14px;grid-template-columns:auto minmax(0,1fr);align-items:center;position:relative;overflow:hidden}\n.hero::after{content:\"\";position:absolute;inset-block-end:-60px;inset-inline-end:-40px;width:200px;height:200px;border:1px solid rgba(195,154,63,.35);transform:rotate(45deg)}\n.hero h1{font-size:19px;font-weight:800}\n.hero .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}\n.tag{font-size:11px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}\n.tag.demo{background:rgba(195,154,63,.22);border-color:rgba(195,154,63,.6);color:#F4DFA8}\n.delta{font-size:13px;margin-top:8px;color:#BFE9E3}\n.delta b{font-family:var(--display)}\n.ringwrap{position:relative;width:118px;height:118px;flex:none}\n.ringwrap svg{width:100%;height:100%;transform:rotate(-90deg)}\n.ringwrap .v{position:absolute;inset:0;display:grid;place-content:center;text-align:center}\n.ringwrap .v b{font-family:var(--display);font-size:30px;font-weight:800;line-height:1;direction:ltr}\n.ringwrap .v span{font-size:10.5px;color:#A9CFCB;margin-top:4px}\n.ringarc{transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1)}\n.tiles{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:relative;z-index:1}\n.tile{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 10px}\n.tile b{font-family:var(--display);font-size:20px;font-weight:700;display:block;line-height:1.3;direction:ltr;text-align:end}\n.tile span{font-size:11px;color:#BCD9D5;display:block;line-height:1.4}\n.story{border-inline-start:3px solid var(--gold);padding:4px 12px;margin:0;font-size:14px}\n.story b{color:var(--teal-ink)}\n\n/* ---------- الرسوم ---------- */\nsvg text{font-family:var(--body);fill:var(--muted);font-size:11px}\n.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:6px}\n.legend i{display:inline-block;width:14px;height:0;border-top:3px solid;vertical-align:middle;margin-inline-end:5px}\n.legend i.dash{border-top-style:dashed}\n.legend i.sq{height:10px;width:10px;border:0;border-radius:3px}\n.seg{display:flex;gap:2px;height:16px;border-radius:8px;overflow:hidden;margin:8px 0 6px}\n.seg span{min-width:3px;transition:flex-grow .8s}\n.chartbox{position:relative}\n.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:12px;padding:5px 9px;border-radius:8px;transform:translate(-50%,-115%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}\n.tip b{font-family:var(--display)}\n.db-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 42px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dashed var(--line);font-size:12.5px}\n.db-row:last-child{border:0}\n.db-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n.db-track{position:relative;height:14px;direction:ltr}\n.db-track::before{content:\"\";position:absolute;inset:6px 0;background:var(--soft);border-radius:2px}\n.db-line{position:absolute;top:5px;height:4px;border-radius:2px;background:var(--teal);opacity:.45}\n.db-line.neg{background:var(--red)}\n.db-dot{position:absolute;top:2px;width:10px;height:10px;border-radius:50%;margin-inline-start:-5px;box-shadow:0 0 0 2px var(--card)}\n.db-dot.b{background:var(--base)}.db-dot.c{background:var(--teal)}.db-dot.c.neg{background:var(--red)}\n.db-tg{position:absolute;top:0;width:2px;height:14px;background:var(--gold)}\n.chg{font-family:var(--display);font-size:12px;direction:ltr;text-align:start;font-weight:700}\n.up{color:var(--teal-ink)}.down{color:var(--red)}\n.warn{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}\n.warn:last-child{border:0}\n.warn .ic{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-content:center;font-weight:700;color:#fff;font-size:13px}\n.warn small{display:block;color:var(--muted);font-size:12px}\n\n/* ---------- الحالات ---------- */\n.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid;white-space:nowrap}\n.pill::before{font-size:10px}\n.st-ok{color:var(--teal-ink);border-color:var(--teal);background:color-mix(in srgb,var(--teal) 12%,transparent)}.st-ok::before{content:\"✓\"}\n.st-on{color:var(--blue);border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent)}.st-on::before{content:\"➜\"}\n.st-at{color:var(--gold-ink);border-color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,transparent)}.st-at::before{content:\"!\"}\n.st-cr{color:var(--red);border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent)}.st-cr::before{content:\"✕\"}\n.st-na{color:var(--muted);border-color:var(--gray);background:transparent}.st-na::before{content:\"–\"}\n.bg-ok{background:var(--teal)}.bg-on{background:var(--blue)}.bg-at{background:var(--amber)}.bg-cr{background:var(--red)}.bg-na{background:var(--gray)}\n\n/* ---------- المؤشرات ---------- */\n.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}\n.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;flex:1;min-width:0}\n.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;color:var(--muted)}\n.chip[aria-pressed=true]{background:var(--petrol);border-color:var(--petrol);color:#fff}\n.btn{border:0;background:var(--petrol);color:#fff;border-radius:12px;padding:9px 16px;font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px}\n.btn.gold{background:var(--gold);color:#1d1503}\n.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}\n.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:10px}\n.btn:disabled{opacity:.45;cursor:not-allowed}\n.btn:active{transform:translateY(1px)}\n.ind{display:grid;gap:8px;text-align:start;width:100%;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}\n.ind::before{content:\"\";position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:var(--stc,var(--gray))}\n.ind .hd{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}\n.ind h3{font-size:14px;font-weight:700;font-family:var(--body);line-height:1.5}\n.kind{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px;white-space:nowrap}\n.ind .big{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}\n.ind .big b{font-family:var(--display);font-size:30px;font-weight:800;line-height:1;direction:ltr}\n.ind .big b small{font-size:13px;font-weight:500;color:var(--muted)}\n.meter{position:relative;height:8px;background:var(--soft);border-radius:4px;margin-top:4px}\n.meter span{position:absolute;inset-block:0;inset-inline-start:0;border-radius:4px;background:var(--stc,var(--teal));transition:width .9s cubic-bezier(.2,.7,.2,1)}\n.meter i{position:absolute;top:-3px;width:2px;height:14px;background:var(--gold)}\n.meter u{position:absolute;top:-2px;width:8px;height:12px;margin-inline-start:-4px;border-radius:2px;border:2px solid var(--base);background:var(--card)}\n.meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);gap:8px;flex-wrap:wrap}\n.meta b{color:var(--ink);font-family:var(--display);direction:ltr;display:inline-block}\n\n/* ---------- التشخيص ---------- */\n.prog{position:sticky;top:0;z-index:4;background:var(--paper);padding:8px 0 10px}\n.prog .meter{height:6px}\n.qsec h2{font-size:15px}\n.q{padding:12px 0;border-bottom:1px dashed var(--line)}\n.q:last-child{border:0}\n.q p{margin:0 0 8px;font-weight:500;font-size:14px}\n.q p span{color:var(--gold-ink);font-family:var(--display);font-size:12px;margin-inline-end:6px}\n.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}\n.opt{border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px 4px;font-size:12px;font-weight:600;color:var(--muted);line-height:1.4}\n.opt[aria-pressed=true][data-v=\"2\"]{background:var(--teal);border-color:var(--teal);color:#fff}\n.opt[aria-pressed=true][data-v=\"1\"]{background:var(--amber);border-color:var(--amber);color:#1d1503}\n.opt[aria-pressed=true][data-v=\"0\"]{background:var(--red);border-color:var(--red);color:#fff}\n.pr-row{display:grid;grid-template-columns:minmax(0,1fr);gap:3px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}\n.pr-row:last-child{border:0}\n.pr-bar{display:grid;grid-template-columns:62px minmax(0,1fr) 38px;gap:8px;align-items:center;font-size:11.5px;color:var(--muted)}\n.pr-bar .meter{margin:0}\n.gap{display:grid;gap:2px;padding:10px 0;border-bottom:1px dashed var(--line)}\n.gap:last-child{border:0}\n.gap b{font-size:13.5px}\n.gap small{color:var(--muted);font-size:12px}\n\n/* ---------- التدخلات ---------- */\n.iv{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px;display:grid;gap:8px}\n.iv h3{font-size:14px;font-family:var(--body);font-weight:700}\n.iv .meta{justify-content:flex-start;gap:6px 14px}\n.late{color:var(--red);font-weight:700}\n.stsel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}\n.stsel button{border:1px solid var(--line);background:transparent;border-radius:8px;font-size:11.5px;padding:5px 2px;color:var(--muted);font-weight:600}\n.stsel button[aria-pressed=true]{color:#fff;border-color:transparent}\n.x{white-space:nowrap;border:0;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;padding:0}\n\n/* ---------- المدارس ---------- */\n.tbl{width:100%;border-collapse:collapse;font-size:13px}\n.tbl th{font-size:11.5px;color:var(--muted);font-weight:600;text-align:start;padding:6px 6px;border-bottom:1px solid var(--line);white-space:nowrap}\n.tbl td{padding:9px 6px;border-bottom:1px dashed var(--line);text-align:start;overflow-wrap:anywhere}\n.tbl tr:last-child td{border:0}\n.tbl .rk{font-family:var(--display);font-weight:800;color:var(--gold-ink);width:26px}\n.tbl button.lnk{border:0;background:none;padding:0;font-weight:700;text-align:start;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}\n.scroll{overflow-x:auto}\n.heat td.c{text-align:center;font-family:var(--display);font-weight:700;font-size:12px;border:2px solid var(--card);border-radius:8px;min-width:40px;padding:8px 2px}\n.heat th.v{font-size:10.5px;text-align:center;white-space:normal;line-height:1.3;min-width:48px}\n\n/* ---------- التنقل ---------- */\nnav{position:fixed;inset-inline:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}\nnav a{display:grid;justify-items:center;gap:1px;text-decoration:none;color:var(--muted);font-size:10.5px;font-weight:600;padding:5px 2px;border-radius:12px}\nnav a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}\nnav a[aria-current=page]{color:var(--petrol);background:color-mix(in srgb,var(--teal) 14%,transparent)}\n\n\n/* ---------- الورقة السفلية ---------- */\n.scrim{position:fixed;inset:0;background:rgba(4,20,25,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}\n.scrim.open{display:flex}\n.sheet{background:var(--card);width:min(100%,620px);max-height:90vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.7,.2,1)}\n@keyframes up{from{transform:translateY(40px);opacity:0}}\n.sheet header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}\n.sheet header h2{font-size:17px}\n.close{border:1px solid var(--line);background:transparent;border-radius:50%;width:34px;height:34px;flex:none;font-size:16px}\nlabel.f{display:grid;gap:4px;font-size:12.5px;font-weight:600;margin-bottom:10px}\n.f input,.f select,.f textarea{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:9px 11px;width:100%;font-size:15px}\n.wk{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}\n.wk input{border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:7px 8px;width:100%;text-align:center;direction:ltr;font-family:var(--display)}\n.wk small{display:block;color:var(--muted);font-size:11px}\n.formula{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:12.5px;margin:10px 0}\n.toast{position:fixed;inset-inline:0;bottom:96px;display:flex;justify-content:center;z-index:60;pointer-events:none}\n.toast span{background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:999px;font-size:13px;box-shadow:var(--shadow);animation:rise .3s both}\n.sbar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;margin-bottom:12px;box-shadow:var(--shadow)}\n.sbar .row{flex-wrap:nowrap}\n.sbar h1{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n.back{border:1px solid var(--line);background:transparent;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;text-decoration:none;color:var(--ink);white-space:nowrap}\n.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px;background:var(--soft);border-radius:12px;padding:4px}\n.tabs a{text-align:center;text-decoration:none;color:var(--muted);font-size:12px;font-weight:700;padding:6px 2px;border-radius:9px}\n.tabs a[aria-current=page]{background:var(--petrol);color:#fff}\n.sgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}\n.sc{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:14px 10px 12px;display:grid;justify-items:center;gap:6px;text-align:center;box-shadow:var(--shadow);position:relative}\n.sc .ico{width:58px;height:58px;border-radius:18px;display:grid;place-content:center;background:color-mix(in srgb,var(--stc) 16%,transparent);border:1.5px solid var(--stc);color:var(--stc)}\n.sc .ico svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}\n.sc{cursor:default}.sc b.nm{font-size:13px;line-height:1.5;overflow-wrap:anywhere}\n.sc .sv{font-family:var(--display);font-weight:800;font-size:20px;line-height:1;direction:ltr}\n.sc small{font-size:11px;color:var(--muted)}\n.steps{display:grid;gap:10px;counter-reset:st;margin:6px 0 0;padding:0;list-style:none}\n.steps li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px}\n.steps li::before{content:counter(st);font-family:var(--display);font-weight:800;width:34px;height:34px;border-radius:10px;background:var(--petrol);color:#fff;display:grid;place-content:center}\n.steps b{display:block}\ndetails{border-bottom:1px dashed var(--line);padding:8px 0}\ndetails:last-of-type{border:0}\nsummary{cursor:pointer;font-weight:700;font-size:14px}\ndetails ol,details ul{margin:8px 0 0;padding-inline-start:20px;font-size:13px}\ndetails li{margin-bottom:5px}\n.gt{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}\n.gt th{text-align:start;color:var(--muted);font-size:11px;padding:4px;border-bottom:1px solid var(--line)}\n.gt td{padding:6px 4px;border-bottom:1px dashed var(--line);text-align:start;vertical-align:top;overflow-wrap:anywhere}\n.three-k{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:8px}\n.three-k div{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:12.5px}\n.three-k b{display:block;font-size:13.5px;color:var(--teal-ink)}\n.gapr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;align-items:center}\n.gapr:last-child{border:0}\n.gapr .meter{grid-column:1/-1;margin:0}\n.gapr small{color:var(--muted);font-size:11.5px}\n.lead{background:linear-gradient(150deg,var(--petrol-2),var(--petrol) 65%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:22px 18px 18px;position:relative;overflow:hidden;box-shadow:var(--shadow);display:grid;gap:16px}\n.lead .eyebrow{font-size:11.5px;letter-spacing:.04em;color:#F4DFA8;border:1px solid rgba(195,154,63,.55);border-radius:999px;padding:2px 12px;display:inline-block}\n.lead h1{font-size:clamp(30px,8.4vw,54px);font-weight:800;line-height:1.25;margin-top:10px}\n.lead h1 em{font-style:normal;color:var(--gold)}\n.lead p{margin:10px 0 0;color:#D3E8E4;font-size:14.5px;max-width:56ch}\n.lead .quote{font-size:13px;color:#A9CFCB;border-inline-start:3px solid var(--gold);padding-inline-start:10px;margin-top:12px}\n.lead svg.art{width:100%;height:auto;display:block}\n.lead .art text{fill:#DCEFEB;font-size:19px;font-weight:700}\n.lead svg.art{max-width:560px;margin:auto}\n.lead .row .btn.ghost{color:#fff;border-color:rgba(255,255,255,.3)}\n.goals{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));counter-reset:g;margin-top:8px}\n.goals div{counter-increment:g;background:var(--soft);border-radius:14px;padding:12px 12px 12px;font-size:13px;font-weight:600;line-height:1.6;position:relative}\n.goals div::before{content:\"0\" counter(g);display:block;font-family:var(--display);font-weight:800;font-size:20px;color:var(--gold-ink);line-height:1.2}\n.reads{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:8px}\n.reads div{border:1px solid var(--line);border-radius:14px;padding:12px;font-size:12.5px}\n.reads b{display:block;font-family:var(--display);font-size:24px;color:var(--teal-ink);line-height:1.2;direction:ltr;text-align:end}\n.reads strong{display:block;font-size:13.5px}\n.sc .acts{display:grid;gap:6px;width:100%;margin-top:4px}\n.sc .acts .btn{justify-content:center;width:100%}\n.sc .acts svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}\n.stepper{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}\n.stp{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}\n.stp i{font-style:normal;font-family:var(--display);width:20px;height:20px;border-radius:50%;background:var(--soft);display:grid;place-content:center;font-size:11px}\n.stp.done i{background:var(--teal);color:#fff}\n.stp[aria-current=step]{background:var(--petrol);border-color:var(--petrol);color:#fff}\n.stp[aria-current=step] i{background:var(--gold);color:#1d1503}\n.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}\n.cmp th{text-align:start;color:var(--muted);font-size:10.5px;padding:4px 3px;border-bottom:1px solid var(--line);white-space:nowrap}\n.cmp td{padding:7px 3px;border-bottom:1px dashed var(--line);text-align:start;vertical-align:middle;overflow-wrap:anywhere}\n.cmp td.n{font-family:var(--display);white-space:nowrap;direction:ltr;text-align:end;font-weight:700}\n.cmp .pill{font-size:10.5px;padding:1px 6px}\n.rec{margin:8px 0 0;padding-inline-start:18px;font-size:12.5px}\n.rec li{margin-bottom:4px}\n.kc{border:1px solid var(--line);border-inline-start:4px solid var(--stc,var(--gray));border-radius:14px;padding:11px 12px;margin-top:10px;display:grid;gap:8px;background:var(--card)}\n.kc .kh{display:flex;gap:8px;justify-content:space-between;align-items:flex-start}\n.kc .kh b{font-size:13.5px;line-height:1.55}\n.kc .kr{display:grid;grid-template-columns:1fr 1fr 96px;gap:8px;align-items:end;font-size:11px;color:var(--muted)}\n.kc .kr b{display:block;font-family:var(--display);font-size:15px;color:var(--ink);direction:ltr;text-align:end}\n.kc .kr input{border:1.5px solid var(--petrol-3);background:var(--paper);border-radius:10px;padding:7px 6px;width:100%;text-align:center;direction:ltr;font-family:var(--display);font-size:16px;font-weight:700}\n.kc .kact{border:1px dashed var(--amber);background:color-mix(in srgb,var(--amber) 8%,transparent);border-radius:10px;padding:7px 10px;width:100%;font-size:13px}\n.kc .meter{margin:0}\n.anat{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:8px;background:linear-gradient(180deg,color-mix(in srgb,var(--teal) 7%,transparent),transparent)}\n.anat h3{font-size:14px;font-family:var(--body);font-weight:700}\n.anat .cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:10px 0}\n.anat .cells div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center;font-size:10.5px;color:var(--muted);line-height:1.4}\n.anat .cells b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);direction:ltr}\n.anat .meter{height:10px;margin:14px 0 6px}\n.anat .lbl{position:absolute;top:-17px;font-size:9.5px;color:var(--muted);transform:translateX(50%);white-space:nowrap}\n.flow{display:flex;align-items:stretch;gap:6px;margin-top:8px}\n.flow div{flex:1;border-radius:12px;padding:10px 8px;font-size:11.5px;background:var(--soft);line-height:1.5}\n.flow b{display:block;font-size:13px;color:var(--teal-ink)}\n.flow span{font-family:var(--display);font-weight:800;font-size:18px;color:var(--gold-ink);display:block;direction:ltr;text-align:end}\n.flow i{align-self:center;color:var(--gold);font-style:normal;font-weight:800}\n.lead .by{margin:8px 0 0;font-size:14px;font-weight:600;color:#F4DFA8;display:flex;align-items:center;gap:8px}\n.lead .by::before{content:\"\";width:22px;height:2px;background:var(--gold)}\n.choice{display:grid;gap:8px}\n.choice button{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:center;text-align:start;border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:12px}\n.choice button svg{width:26px;height:26px;fill:none;stroke:var(--petrol-3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;justify-self:center}\n.choice b{display:block;font-size:14px}.choice small{color:var(--muted);font-size:12px}\n.tg{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}\n.tg:last-child{border:0}.tg small{grid-column:1/-1;color:var(--muted);font-size:11.5px}\n.empty{text-align:center;padding:34px 16px}\n.empty h2{font-size:20px;justify-content:center;margin-bottom:6px}\n.empty .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}\n.note{font-size:12px;color:var(--muted);background:var(--soft);border-radius:10px;padding:8px 12px;margin:0}\n.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}\n.sp{flex:1}\n\n@media (min-width:860px){\n  body{padding-bottom:30px;padding-inline-start:96px}\n  nav{inset-inline:0 auto;top:0;bottom:0;width:96px;grid-template-columns:1fr;grid-auto-rows:min-content;align-content:center;gap:8px;border-top:0;border-inline-end:1px solid var(--line)}\n  nav a{font-size:11.5px;padding:10px 4px}\n  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}\n  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}\n  .span2{grid-column:1/-1}\n  .hero{grid-template-columns:auto minmax(0,1fr) minmax(0,1.1fr);padding:22px}\n  .tiles{grid-column:auto}\n  .ringwrap{width:150px;height:150px}.ringwrap .v b{font-size:38px}\n  .hero h1{font-size:24px}\n  .scrim{align-items:center}.sheet{border-radius:22px}\n  .lead{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;padding:34px 32px 28px}.lead>.row{grid-column:1/-1}\n  .toast{bottom:30px}\n}\n@media (max-width:859px){nav{grid-template-columns:repeat(5,1fr)}}\nnav a{font-size:10px}\n.i{display:inline-grid;place-content:center}\n.i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}\n.btn .i svg{width:16px;height:16px}\n.btn.red{background:var(--red);color:#fff}\n.btn.wide{width:100%;justify-content:center;margin-top:6px}\n.lead .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-self:center}\n.lead .stats div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 14px 12px}\n.lead .stats b{font-family:var(--display);font-size:clamp(26px,6vw,40px);font-weight:800;line-height:1;display:block;color:#fff;direction:ltr;text-align:end}\n.lead .stats span{font-size:12.5px;color:#BCD9D5}\n.lead .stats div:nth-child(1) b,.lead .stats div:nth-child(4) b{color:var(--gold)}\n.portals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;padding:14px}\n.portal{display:grid;justify-items:center;text-align:center;gap:4px;padding:18px 10px 16px;border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);background:var(--paper);transition:transform .2s,box-shadow .2s,border-color .2s}\n.portal:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:var(--shadow)}\n.portal .i svg{width:34px;height:34px;stroke:var(--blue);stroke-width:1.6}\n.portal.g .i svg{stroke:var(--teal-ink)}\n.portal b{font-family:var(--display);font-size:clamp(15px,4.2vw,20px);font-weight:700;margin-top:4px}\n.portal span{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:24ch}\n.team{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:6px}\n.mem{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--paper)}\n.mem b{display:block;font-size:14px;line-height:1.45}.mem small{color:var(--muted);font-size:12px}\n.av{flex:none;width:40px;height:40px;border-radius:12px;background:var(--petrol);color:var(--gold);font-family:var(--display);font-weight:800;font-size:18px;display:grid;place-content:center;border:1.5px solid var(--gold)}\n.av.sm{width:30px;height:30px;font-size:14px;border-radius:9px}\n.ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px;font-size:13.5px}\n.ticks li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:6px;align-items:start}\n.ticks li::before{content:\"✓\";color:var(--teal-ink);font-weight:800}\n.ticks.sm{font-size:12.5px}\n.ul{margin:0;padding-inline-start:18px;font-size:13px}.ul li{margin-bottom:5px}\n.idf{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:10px;margin-top:10px}\n.idf label.f{margin:0}\n@media (max-width:620px){.idf{grid-template-columns:minmax(0,1fr)}}\n.drop{width:100%;display:grid;justify-items:center;gap:4px;border:2px dashed var(--petrol-3);border-radius:18px;background:color-mix(in srgb,var(--teal) 6%,transparent);padding:26px 12px;color:var(--ink);margin-top:6px}\n.drop .i svg{width:34px;height:34px;stroke:var(--petrol-3)}\n.drop b{font-size:15px}.drop span{font-size:12px;color:var(--muted)}\n.drop:disabled{opacity:.5;cursor:not-allowed}\n.okb{border:1px solid var(--teal);background:color-mix(in srgb,var(--teal) 10%,var(--card));color:var(--ink);border-radius:14px;padding:11px 14px;margin-bottom:12px;font-size:13.5px}\n.warnb{border-color:var(--amber)!important;background:color-mix(in srgb,var(--amber) 12%,var(--card))!important}\n.note.warnb{border:1px solid;margin-top:10px}\n.rp-hero{background:linear-gradient(140deg,var(--petrol-2),var(--petrol) 70%);color:#F0F7F5;border:1px solid rgba(255,255,255,.12)}\n.rp-hero .note{background:rgba(255,255,255,.08);color:#BCD9D5}\n.rp-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}\n.rp-id h1{font-size:clamp(18px,4.6vw,26px);font-weight:800}\n.rp-id p{margin:4px 0 0;font-size:13px;color:#CFE6E2}\n.rp-id .eyebrow,.lead .eyebrow{font-size:11.5px;color:#F4DFA8;border:1px solid rgba(195,154,63,.55);border-radius:999px;padding:2px 12px;display:inline-block}\n.rp-hero .pill{background:rgba(255,255,255,.92)}\n.delta-b{font-size:12.5px;font-weight:700;color:#BFE9E3}.delta-b.down{color:#FFB4AA}\n.kps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}\n.kp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 10px}\n.kp b{font-family:var(--display);font-size:22px;font-weight:800;display:block;direction:ltr;text-align:end;line-height:1.2}\n.kp span{font-size:11.5px;color:#BCD9D5;display:block;line-height:1.4}\n.kp em{font-style:normal;font-size:10.5px;color:#F4DFA8;display:block}\n@media (max-width:620px){.kps{grid-template-columns:repeat(2,minmax(0,1fr))}}\n.recs{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:r}\n.recs li{counter-increment:r;border-inline-start:3px solid var(--gray);padding:4px 10px;font-size:13px;display:grid;gap:2px}\n.recs li b{font-size:13.5px}.recs li span{color:var(--muted);font-size:12.5px}\n.recs .r-cr{border-color:var(--red)}.recs .r-at{border-color:var(--amber)}.recs .r-ok{border-color:var(--teal)}\n.dm{display:grid;grid-template-columns:62px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line);font-size:12.5px}\n.dm small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.dm .meter{margin:0}\n.dm-s{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}\n.cmp tr.hl td{background:color-mix(in srgb,var(--gold) 12%,transparent)}\n.cmp tr.grp td{background:var(--soft);font-weight:700;font-size:12px;color:var(--petrol-3)}\n.cmp.acts td{font-size:12px;vertical-align:top}\n.cmp td .chg{white-space:nowrap}\n.wks{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700}\n.wks select{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 10px;font-size:13px}\n.login{max-width:440px;margin:10px auto;text-align:center}\n.login>.i svg{width:40px;height:40px;stroke:var(--gold)}\n.login h1{font-size:20px;margin:6px 0 2px}.login form{text-align:start;margin-top:10px}\n.chk{display:flex;gap:8px;align-items:center;font-size:13px;margin:4px 0 8px}\n.tabs button{border:0;background:transparent;text-align:center;color:var(--muted);font-size:12px;font-weight:700;padding:6px 2px;border-radius:9px}\n.tabs button[aria-current=page]{background:var(--petrol);color:#fff}\n.tabs button:disabled{opacity:.4}\n.sbar h1 small{font-family:var(--body);font-weight:500;color:var(--muted);font-size:11.5px}\n.x.strong{font-weight:700;color:var(--ink);font-size:13.5px;text-decoration:none}\n.wkchips{margin-top:10px}\n.kind{white-space:nowrap}\nsummary .kind{margin-inline-start:6px;font-weight:500}\ntextarea{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--paper)}\n@media (min-width:860px){.portals{grid-template-columns:repeat(4,minmax(0,1fr))}.lead .stats{grid-template-columns:repeat(2,minmax(0,1fr))}}\n:root{--paper:#fff;--card:#fff}\nbody{padding:0 18px 20px!important;background:#fff;font-size:13px}\n.ph{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--gold);padding:14px 0 10px;margin-bottom:14px}\n.ph b{font-family:var(--display);font-size:20px;color:var(--petrol);display:block}.ph span{font-size:12px;color:var(--muted)}\n.pd{font-size:11.5px;color:var(--muted)}\nmain{max-width:none;margin:0;padding:0}\n.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}.span2{grid-column:1/-1}\n.card{box-shadow:none;break-inside:avoid;page-break-inside:avoid}\n.card.span2:has(table){break-inside:auto;page-break-inside:auto}\n.rise{animation:none}\n.pf{margin-top:16px;border-top:1px solid var(--line);padding-top:8px;font-size:11px;color:var(--muted);text-align:center}\n@page{size:A4;margin:12mm}\n@media print{.hero,.rp-hero,.tile,.kp,.pill,.meter span,.seg span,.heat td,.cmp tr.grp td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}\n";
+/* ================= الحالة والتخزين ================= */
+const S={mode:"loading",cfg:{sups:[],extra:[]},schools:{},subs:[],route:"home",sup:null,owner:false,canWrite:true,
+  me:{name:"",mno:""},result:null,supSel:null,subSel:null,wk:"",mine:false,tab:"dash",confirm:null};
+let db=null,dl=null;const Q={};
+const $=s=>document.querySelector(s);
+function setSync(note){const el=$("#sync");if(!el)return;el.className="sync"+(S.mode==="db"?"":" local");
+  el.lastElementChild.textContent=note||(S.mode==="db"?"متصل — البيانات محفوظة ومشتركة بين المدارس والمشرفين":S.mode==="local"?"وضع تجريبي محلي — البيانات على هذا الجهاز فقط":"جارٍ الاتصال…")}
+const LS={get(k,d){try{const v=localStorage.getItem("athar2."+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("athar2."+k,JSON.stringify(v))}catch(e){}}};
+const SS={get(k){try{return sessionStorage.getItem("athar2."+k)}catch(e){return null}},set(k,v){try{v==null?sessionStorage.removeItem("athar2."+k):sessionStorage.setItem("athar2."+k,v)}catch(e){}}};
+function rebuildIND(){
+  const ex=((S.cfg&&S.cfg.extra)||[]).filter(x=>x&&x.id&&x.name&&DOMAINS.some(d=>d.id===x.d)&&isFinite(x.t)&&x.t>0&&!BASE_IND.some(b=>b.id===x.id))
+    .map(x=>({id:String(x.id),d:x.d,name:String(x.name).slice(0,120),t:+x.t,unit:x.unit==="%"?"%":String(x.unit||"عدد").slice(0,12),kind:"progress",mt:"كمي",tool:String(x.tool||"").slice(0,80),custom:true}));
+  IND=BASE_IND.concat(ex);INDX=Object.fromEntries(IND.map(i=>[i.id,i]));
+}
+async function write(path,body,del){
+  if(S.mode!=="db"){const k=path.split("/")[0];if(k==="config")S.cfg=body;else if(k==="schools"){const id=path.split("/")[1];del?delete S.schools[id]:S.schools[id]=body}else{const id=path.split("/")[1];S.subs=S.subs.filter(s=>s.id!==id);if(!del)S.subs.push(body)}
+    LS.set("local",{cfg:S.cfg,schools:S.schools,subs:S.subs});return true}
+  const run=async()=>{try{if(del)await db.doc(path).delete();else await db.doc(path).set(clone(body));return true}catch(e){
+    if(e&&(e.code==="invalid_argument"||e.code==="permission-denied")){S.canWrite=false;return "ro"}if(e&&(e.code==="quota_exceeded"||e.code==="resource-exhausted")){toast("امتلأت سعة قاعدة البيانات — احذف استمارات قديمة أو تجريبية");return false}
+    if(e&&e.code==="unavailable"){await new Promise(r=>setTimeout(r,600+Math.random()*600));try{if(del)await db.doc(path).delete();else await db.doc(path).set(clone(body));return true}catch(e2){}}
+    return false}};
+  Q[path]=(Q[path]||Promise.resolve()).then(run);return Q[path];
+}
+function startLocal(){S.mode="local";const j=LS.get("local",null);if(j){S.cfg=j.cfg||S.cfg;S.schools=j.schools||{};S.subs=j.subs||[]}rebuildIND();setSync();restoreSession();render()}
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+const FBV="10.12.2";
+async function bootFirebase(cfg){
+  S.backend="firebase";
+  try{await loadScript(`https://www.gstatic.com/firebasejs/${FBV}/firebase-app-compat.js`);await loadScript(`https://www.gstatic.com/firebasejs/${FBV}/firebase-firestore-compat.js`);
+    if(!firebase.apps.length)firebase.initializeApp(cfg);db=firebase.firestore()}catch(e){db=null}
+  if(!db){setSync("تعذّر الاتصال بقاعدة البيانات — وضع محلي");startLocal();return}
+  subscribeAll();
+}
+async function boot(){
+  S.me=LS.get("me",{name:"",mno:""});route();render();
+  const fc=window.FIREBASE_CONFIG;if(fc&&fc.apiKey&&fc.projectId){bootFirebase(fc);return}
+  if(!(window.claude&&typeof window.claude.use==="function")){startLocal();return}
+  let got=0;const timer=setTimeout(()=>{if(S.mode==="loading")startLocal()},10000);
+  try{db=await window.claude.use("db")}catch(e){db=null}
+  try{dl=await window.claude.use("downloads")}catch(e){dl=null}
+  if(!db){clearTimeout(timer);if(S.mode==="loading")startLocal();return}
+  try{const u=await window.claude.use("user");if(u){S.owner=!!(await u.isOwner());const c=u.can?await u.can("data.write"):null;if(c===false)S.canWrite=false}}catch(e){}
+  clearTimeout(timer);subscribeAll();
+}
+function subscribeAll(){
+  const timer=setTimeout(()=>{if(S.mode==="loading")startLocal()},12000);let got=0;
+  const ready=()=>{got++;if(got>=3){clearTimeout(timer);S.mode="db";setSync();restoreSession();render(true)}else if(S.mode==="db")render(true)};
+  let a=0,b=0,c=0;
+  db.doc("config/main").onSnapshot(sn=>{const x=sn.exists?sn.data():null;S.cfg={sups:Array.isArray(x&&x.sups)?clone(x.sups):[],extra:Array.isArray(x&&x.extra)?clone(x.extra):[]};rebuildIND();if(!a++)ready();else render(true)},()=>{if(!a++)ready()});
+  db.collection("schools").onSnapshot(sn=>{const o={};sn.docs.forEach(d=>{const x=d.data();if(x&&x.mno)o[d.id]=clone(x)});S.schools=o;if(!b++)ready();else render(true)},()=>{if(!b++)ready()});
+  db.collection("subs").onSnapshot(sn=>{S.subs=sn.docs.map(d=>{const x=clone(d.data());x.id=d.id;return x}).filter(x=>x.mno&&x.wk);if(!c++)ready();else render(true)},()=>{if(!c++)ready()});
+}
+function restoreSession(){const id=SS.get("sup");if(id==="owner"&&(S.owner||S.mode==="local"))S.sup={id:"owner",name:"مالك المنصة",role:"مسؤول النظام",admin:true};else if(id){const s=S.cfg.sups.find(x=>x.id===id);if(s)S.sup=s}}
+const isAdmin=()=>!!(S.sup&&(S.sup.admin||S.sup.id==="owner"));
+
+/* ================= واجهة عامة ================= */
+function toast(m){const t=$("#toast");t.innerHTML=`<span>${esc(m)}</span>`;clearTimeout(toast.t);toast.t=setTimeout(()=>t.innerHTML="",3200)}
+function openSheet(html){$("#sheet").innerHTML=html;$("#scrim").classList.add("open");const f=$("#sheet").querySelector("input:not([type=hidden]),select,textarea");if(f)setTimeout(()=>f.focus({preventScroll:true}),60)}
+function closeSheet(){$("#scrim").classList.remove("open");$("#sheet").innerHTML="";S.confirm=null}
+const sheetHead=(t,sub)=>`<header><div><h2>${t}</h2>${sub?`<p class="sub" style="margin:2px 0 0">${sub}</p>`:""}</div><button class="close" data-act="close" aria-label="إغلاق">✕</button></header>`;
+function ask(title,msg,okTxt,fn,danger){S.confirm=fn;openSheet(`${sheetHead(title)}<p style="margin:0 0 14px">${msg}</p><div class="row"><button class="btn ${danger?"red":"gold"}" data-act="confirmYes" style="flex:1;justify-content:center">${okTxt}</button><button class="btn ghost" data-act="close" style="flex:1;justify-content:center">إلغاء</button></div>`);const f=S.confirm;S.confirm=f}
+const ROUTES=["home","schools","sup","engine","reports"];
+function route(){const h=(location.hash||"").slice(1);S.route=ROUTES.includes(h)?h:"home";document.querySelectorAll("nav a").forEach(a=>a.dataset.r===S.route?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"))}
+function render(fromSnap){
+  const v=$("#view");
+  if(fromSnap&&$("#scrim").classList.contains("open"))return;
+  if(fromSnap&&document.activeElement&&v.contains(document.activeElement)&&/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  if(S.mode==="loading"){v.innerHTML=`<div class="card empty"><p>جارٍ تحميل المنصة…</p></div>`;return}
+  v.innerHTML={home:vHome,schools:vSchools,sup:vSup,engine:vEngine,reports:vReports}[S.route]();
+}
+const ICON={
+ school:`<svg viewBox="0 0 24 24"><path d="M4 21h16M6 21V10l6-4 6 4v11"/><path d="M10 21v-4h4v4M12 6V3h3"/><circle cx="12" cy="11.5" r="1.6"/></svg>`,
+ sup:`<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5M14.5 14.2c2.6-.3 5 .9 5.8 4.3"/></svg>`,
+ engine:`<svg viewBox="0 0 24 24"><path d="M4 20V14M8 20v-8M12 20v-5M16 20V9M20 20V5"/><path d="M4 10l5-4 4 3 7-6"/></svg>`,
+ report:`<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></svg>`,
+ dl:`<svg viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>`,
+ up:`<svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>`,
+ print:`<svg viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 01-2-2v-4a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>`,
+ lock:`<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>`
+};
+const ic=k=>`<span class="i">${ICON[k]}</span>`;
+
+/* ================= الرئيسية ================= */
+function vHome(){
+  const nW=weeksOf(S.subs)[0],thisWeek=nW?S.subs.filter(s=>s.wk===nW).length:0;
+  const sups=S.cfg.sups||[];
+  return `<section class="lead rise"><div><span class="eyebrow">التدخلات العاجلة · إدارة مؤشرات الأداء وقيادتها</span>
+   <h1>من <em>الرقم</em> إلى <em>الأثر</em></h1>
+   <p class="by">إعداد: الأستاذ معيض الغامدي — مشرف تنفيذي، قطاع الجنوب، جدة</p>
+   <p>منصة عملية تتابع بها المدارس والإشراف تنفيذ خطط التدخل العاجل أسبوعاً بأسبوع: تعبئ المدرسة استمارتها الأسبوعية وترفعها، فيحللها النظام فوراً وفق مؤشرات النشرة ومستهدفاتها، ويقارنها بما قبلها، ويضعها أمام المشرفين مؤرشفة وقابلة للطباعة.</p>
+   <p class="quote">«ما لا يمكن قياسه لا يمكن إدارته» · «المؤشر يشير ولا يفسّر»</p></div>
+   <div class="stats"><div><b>${IND.length}</b><span>مؤشر أداء</span></div><div><b>${QS.length}</b><span>إجراء تدخل</span></div><div><b>${Object.keys(S.schools).length}</b><span>مدرسة مسجلة</span></div><div><b>${S.subs.length}</b><span>استمارة مؤرشفة</span></div></div></section>
+  <section class="card portals rise"><a class="portal" href="#schools">${ic("school")}<b>بوابة المدارس</b><span>تنزيل الاستمارة الأسبوعية ورفعها مع الشواهد</span></a>
+   <a class="portal" href="#sup">${ic("sup")}<b>بوابة المشرفين</b><span>متابعة المدارس والتحقق من الإنجاز</span></a>
+   <a class="portal g" href="#engine">${ic("engine")}<b>محرك التحليل</b><span>المؤشرات والمستهدفات وطريقة احتساب الفجوات</span></a>
+   <a class="portal g" href="#reports">${ic("report")}<b>التقارير والتدخلات</b><span>المقارنة الأسبوعية وخطط المعالجة</span></a></section>
+  <div class="grid two" style="margin-top:14px">
+  <section class="card span2 rise"><h2>أهداف التدخلات العاجلة</h2><p class="sub">كما حددتها النشرة، وعليها تُبنى المؤشرات والإجراءات</p><div class="goals">${GOALS.map(g=>`<div>${g}</div>`).join("")}</div></section>
+  <section class="card rise"><h2>فريق الإشراف القائم على المنصة</h2><p class="sub">المشرفون الذين يتابعون المدارس ويطّلعون على تحليل استماراتها</p>
+   ${sups.length?`<div class="team">${sups.map(s=>`<div class="mem"><span class="av">${esc((s.name||"؟").replace(/^(ال)?(أستاذ|الأستاذ|أ\.)\s*/,"").trim().charAt(0))}</span><div><b>${esc(s.name)}</b><small>${esc(s.role||"مشرف تربوي")}${s.sector?" · "+esc(s.sector):""}</small></div></div>`).join("")}</div>`:`<p class="note">لم يُضف المشرفون بعد. يضيفهم مسؤول المنصة من «بوابة المشرفين ← الإدارة».</p>`}</section>
+  <section class="card rise"><h2>كيف تعمل المنصة؟</h2><ol class="steps">
+   <li><div><b>المدرسة تنزّل الاستمارة الأسبوعية</b>من بوابة المدارس، باسمها ورقمها الوزاري.</div></li>
+   <li><div><b>تقيّم أداءها خلال الأسبوع</b>لكل إجراء: نُفذ أو جزئياً أو لم يُنفذ، ونسبة التنفيذ، والعقبات، والشواهد؛ ولكل مؤشر قيمته الفعلية.</div></li>
+   <li><div><b>ترفعها فيتعرف النظام عليها ويحللها فوراً</b>مقابل مستهدفات النشرة، مع التنبيهات والتوصيات.</div></li>
+   <li><div><b>المشرفون يتابعون بأرقامهم السرية</b>واقع كل مدرسة، وأرشيف استماراتها، ومقارنة كل أسبوع بما قبله، وطباعة التحليل.</div></li></ol></section>
+  <section class="card rise"><h2>إصدار النشرة يضمن</h2><ul class="ticks">${ENSURE.map(x=>`<li>${x}</li>`).join("")}</ul></section>
+  <section class="card rise"><h2>معايير اختيار مدارس التدخلات</h2><ul class="ticks">${CRITERIA.map(x=>`<li>${x}</li>`).join("")}</ul></section>
+  </div>
+  ${S.mode==="db"&&nW?`<p class="note" style="margin-top:14px;text-align:center">آخر أسبوع مرفوع: ${fmtD(nW)} — ${thisWeek} استمارة</p>`:""}`;
+}
+
+/* ================= بوابة المدارس ================= */
+function vSchools(){
+  const me=S.me,known=me.mno&&S.schools[me.mno];
+  const hist=me.mno?subsOf(S.subs,me.mno):[];
+  if(S.result)return vResult();
+  return `<div class="grid two">
+  <section class="card hero span2 rise" style="grid-template-columns:minmax(0,1fr)"><div><h1>بوابة المدارس</h1><p class="delta">ثلاث خطوات كل أسبوع: عرّف بمدرستك، نزّل الاستمارة وعبّئها، ثم ارفعها ليظهر تحليلها فوراً ويصل إلى المشرفين.</p></div></section>
+  <section class="card span2 rise"><div class="stepper"><span class="stp${me.mno?" done":""}"><i>1</i>بيانات المدرسة</span><span class="stp"><i>2</i>تنزيل الاستمارة</span><span class="stp"><i>3</i>الرفع والتحليل</span></div>
+   <form data-form="me" class="idf"><label class="f">اسم المدرسة<input name="name" required maxlength="80" value="${esc(me.name)}" placeholder="مثال: متوسطة عبيدة بن الحارث"></label>
+   <label class="f">الرقم الوزاري<input name="mno" required inputmode="numeric" maxlength="12" value="${esc(me.mno)}" placeholder="أرقام فقط" style="direction:ltr;text-align:end"></label>
+   <button class="btn" style="align-self:end;justify-content:center">حفظ</button></form>
+   ${me.mno?`<p class="note" style="margin-top:6px">${known?`✓ المدرسة مسجلة في المنصة باسم <b>${esc(known.name)}</b>${hist.length?` — لها ${hist.length} استمارة مؤرشفة`:""}.`:`مدرسة جديدة على المنصة: ستُسجَّل تلقائياً عند رفع أول استمارة.`}</p>`:""}</section>
+  <section class="card rise"><h2>الاستمارة الأسبوعية</h2><p class="sub">ملف Excel باسم مدرستك ورقمها، فيه ${QS.length} إجراءً و${IND.length} مؤشراً</p>
+   <ul class="ticks sm"><li>حالة كل إجراء: نُفذ / نُفذ جزئياً / لم يُنفذ</li><li>نسبة التنفيذ والعقبات وشواهد التنفيذ</li><li>القيمة الفعلية لكل مؤشر والإجراء التصحيحي</li><li>ملخص الأسبوع والدعم المطلوب من الإشراف</li></ul>
+   <label class="f" style="margin-top:10px">بداية الأسبوع (الأحد)<input type="date" id="wkIn" value="${weekStart(today())}"></label>
+   <button class="btn gold wide" data-act="dlForm">${ic("dl")} تنزيل الاستمارة الأسبوعية</button></section>
+  <section class="card rise"><h2>رفع الاستمارة المعبأة</h2><p class="sub">يتعرف النظام على المدرسة من رقمها الوزاري ويحلل الاستمارة مباشرة</p>
+   <button class="drop" data-act="pickFile" ${me.mno?"":"disabled"}>${ic("up")}<b>اختر ملف الاستمارة (xlsx)</b><span>${me.mno?"أو اسحب الملف وأفلته هنا":"احفظ اسم المدرسة ورقمها الوزاري أولاً"}</span></button>
+   ${S.mode==="db"&&!S.canWrite?`<p class="note warnb">حسابك مفتوح على المنصة للعرض فقط؛ سيظهر لك التحليل كاملاً ويمكنك طباعته، لكنه لن يُحفظ في الأرشيف. اطلب من مسؤول المنصة صلاحية المشاركة، أو أرسل الملف لمشرفك ليرفعه.</p>`:""}</section>
+  ${hist.length?`<section class="card span2 rise"><h2>سجل استمارات مدرستي</h2><p class="sub">كل استمارة مؤرشفة بتحليلها</p>${histList(hist,"viewMine")}</section>`:""}
+  </div>`;
+}
+function histList(hist,act){const ser=seriesOf(S.subs,hist[0].mno);return `<div class="scroll"><table class="cmp"><thead><tr><th>الأسبوع</th><th>الدرجة</th><th>التغير</th><th>المؤشرات</th><th>التنفيذ الموثق</th><th>تاريخ الرفع</th><th></th></tr></thead><tbody>${ser.slice().reverse().map(p=>`<tr><td>${esc(weekLabel(p.s))}</td><td>${pill(p.A.lv,`<span class="num">${p.A.score??"—"}%</span>`)}</td><td>${dpill(p.A.d?p.A.d.score:null)}</td><td class="n">${p.A.comp??"—"}%</td><td class="n">${p.A.docExec??"—"}%</td><td style="font-size:11.5px;white-space:nowrap">${p.s.at?fmtD(p.s.at.slice(0,10)):"—"}</td><td><button class="btn ghost sm" data-act="${act}" data-id="${esc(p.s.id)}">التحليل</button></td></tr>`).join("")}</tbody></table></div>`}
+function vResult(){
+  const R=S.result,sub=R.sub,A=analyze(sub,prevOf(S.subs.filter(s=>s.id!==sub.id),sub)),ser=seriesOf(S.subs.some(s=>s.id===sub.id)?S.subs:S.subs.concat([sub]),sub.mno);
+  const banner=R.view?"":R.saved===true?`<div class="okb">✓ رُفعت الاستمارة وحُفظت في الأرشيف${R.recog?` — تعرّف النظام على المدرسة: <b>${esc(sub.school)}</b>`:` — سُجّلت المدرسة الجديدة: <b>${esc(sub.school)}</b>`}. أصبح التحليل متاحاً للمشرفين.</div>`:R.saved==="ro"?`<div class="okb warnb">التحليل جاهز، لكنه <b>لم يُحفظ</b> في الأرشيف لأن حسابك للعرض فقط. اطبع التقرير أو أرسل الملف لمشرفك.</div>`:`<div class="okb warnb">التحليل جاهز، لكن تعذّر الحفظ في المنصة. حاول الرفع مرة أخرى.</div>`;
+  return `<div class="toolbar"><button class="back" data-act="${R.back||"clearResult"}">› رجوع</button><span class="sp"></span><button class="btn sm" data-act="printSub" data-id="${esc(sub.id)}">${ic("print")} طباعة التحليل</button>${R.view?"":`<button class="btn ghost sm" data-act="${R.back==="backSup"?"upFor":"pickFile"}">${ic("up")} رفع استمارة أخرى</button>`}</div>
+   ${banner}${R.warn&&R.warn.length?`<p class="note">${esc(R.warn.join(" · "))}</p>`:""}
+   <div class="grid two">${reportBody(sub,A,ser)}</div>`;
+}
+/* ================= الرفع ================= */
+let upCtx=null;
+function pickFile(ctx){upCtx=ctx||{};const f=$("#fileIn");f.value="";f.click()}
+async function handleFile(file){
+  const ctx=upCtx||{};upCtx=null;if(!file)return;
+  if(!/\.xlsx$/i.test(file.name)){toast("الملف يجب أن يكون Excel بصيغة xlsx");return}
+  toast("جارٍ قراءة الاستمارة وتحليلها…");let p;
+  try{p=await parseForm(await file.arrayBuffer())}catch(e){toast(e&&e.message&&/[؀-ۿ]/.test(e.message)?e.message:"تعذّر قراءة الملف — تأكد أنه الاستمارة المنزّلة من المنصة وبصيغة xlsx");return}
+  const s=p.sub,warn=p.warn.slice();
+  const entered=ctx.sup?normMno(ctx.mno||""):normMno(S.me.mno),fileM=s.mno;
+  if(entered&&fileM&&entered!==fileM){ask("الرقم الوزاري غير مطابق",`الرقم الوزاري في الملف <b class="num">${esc(fileM)}</b> يختلف عن ${ctx.sup?"المدرسة المختارة":"الرقم الذي أدخلته"} <b class="num">${esc(entered)}</b>. تأكد أنك ترفع استمارة مدرستك.`,"اعتماد رقم الملف",()=>finishUpload(s,fileM,warn,ctx,p));return}
+  const mno=fileM||entered;if(!mno){toast("لا يوجد رقم وزاري في الملف ولا في بيانات المدرسة");return}
+  finishUpload(s,mno,warn,ctx,p);
+}
+async function finishUpload(s,mno,warn,ctx,p){
+  closeSheet();
+  const known=S.schools[mno];
+  const name=(known&&known.name)||s.name||(!ctx.sup&&S.me.name)||"مدرسة "+mno;
+  if(!s.from){s.from=weekStart(today());warn.push("لم يُحدد تاريخ الأسبوع في الملف — اعتُمد الأسبوع الحالي")}
+  if(s.from>addDays(today(),6)){warn.push("تاريخ الأسبوع في المستقبل — اعتُمد الأسبوع الحالي");s.from=weekStart(today())}
+  const wk=weekStart(s.from),id=mno+"_"+wk;
+  const sub={id,mno,school:name,principal:s.principal||(known&&known.principal)||"",weekNo:s.weekNo,from:s.from,to:s.to||addDays(wk,4),wk,at:new Date().toISOString(),via:ctx.sup?"sup":"school",acts:s.acts,ind:s.ind,notes:s.notes};
+  const go=async()=>{closeSheet();let saved=true;
+    if(!known){saved=await write("schools/"+mno,{mno,name,principal:sub.principal,stage:"",sup:"",createdAt:today()})}
+    else if(!known.principal&&sub.principal){await write("schools/"+mno,Object.assign(clone(known),{principal:sub.principal}))}
+    if(saved===true)saved=await write("subs/"+id,sub);
+    if(!ctx.sup){S.me={name,mno};LS.set("me",S.me)}
+    S.result={sub,saved,warn,recog:!!known,back:ctx.sup?"backSup":"clearResult"};
+    render();window.scrollTo({top:0,behavior:"smooth"})};
+  if(S.subs.some(x=>x.id===id))ask("استمارة هذا الأسبوع موجودة",`توجد استمارة مرفوعة لمدرسة <b>${esc(name)}</b> عن أسبوع ${fmtD(wk)}. هل تستبدلها بالملف الجديد؟ تبقى استمارات الأسابيع الأخرى كما هي.`,"استبدال",go);
+  else go();
+}
+async function dlForm(sch,wk){
+  toast("جارٍ تجهيز الاستمارة…");let buf;
+  try{buf=await buildForm(sch,wk)}catch(e){toast("تعذّر تجهيز ملف Excel — تحقق من الاتصال");return}
+  const name=("الاستمارة الأسبوعية - التدخلات العاجلة"+(sch&&sch.name?" - "+sch.name:"")+" - "+wk).replace(/[\\/:*?"<>|]/g," ")+".xlsx";
+  await saveFile(name,new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+}
+async function saveFile(name,blob){
+  if(!dl){try{const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast("نُزّل الملف: "+name);return true}catch(e){toast("تعذّر تنزيل الملف");return false}}
+  try{await dl.save({filename:name,data:blob});toast("حُفظ الملف: "+name);return true}catch(e){if(!e||e.code!=="declined")toast("تعذّر حفظ الملف");return false}
+}
+async function printHTML(name,html){
+  if(!dl){const w=window.open("","_blank");if(w){w.document.open();w.document.write(html);w.document.close();return}}
+  await saveFile(name,new Blob([html],{type:"text/html"}));
+}
+async function printSub(id){
+  const sub=S.subs.find(s=>s.id===id)||(S.result&&S.result.sub.id===id?S.result.sub:null);if(!sub)return;
+  const all=S.subs.some(s=>s.id===id)?S.subs:S.subs.concat([sub]);
+  const A=analyze(sub,prevOf(all.filter(s=>s.id!==id),sub)),ser=seriesOf(all,sub.mno);
+  const html=printDoc(`تحليل الاستمارة الأسبوعية — ${sub.school} — ${weekLabel(sub)}`,reportBody(sub,A,ser));
+  await printHTML(`تحليل ${sub.school} - ${sub.wk}.html`.replace(/[\\/:*?"<>|]/g," "),html);
+}
+
+/* ================= بوابة المشرفين ================= */
+function loginCard(target){
+  const sups=S.cfg.sups||[];
+  return `<div class="grid"><section class="card login rise">${ic("lock")}<h1>دخول المشرفين</h1><p class="sub">${target==="reports"?"التقارير الإشرافية متاحة للمشرفين فقط":"اختر اسمك وأدخل رقمك السري للاطلاع على واقع المدارس"}</p>
+   ${!sups.length&&S.mode!=="loading"?`<form data-form="setup"><p class="note" style="margin-bottom:10px">أول تشغيل: أنشئ حساب المسؤول الأول للمنصة.</p><label class="f">الاسم<input name="name" required maxlength="60" placeholder="الأستاذ …"></label><label class="f">الصفة<input name="role" maxlength="40" value="مشرف تنفيذي"></label><label class="f">رمز المشرف<input name="code" maxlength="12" inputmode="numeric" style="direction:ltr;text-align:end"></label><label class="f">الرقم السري (4 خانات فأكثر)<input name="pin" type="password" inputmode="numeric" required minlength="4" maxlength="12" style="direction:ltr;text-align:center"></label><button class="btn gold wide">إنشاء المسؤول والدخول</button></form>`:""}
+   ${sups.length?`<form data-form="login"><label class="f">المشرف<select name="id" required><option value="">اختر…</option>${sups.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}${s.code?" — "+esc(s.code):""}</option>`).join("")}</select></label>
+   <label class="f">الرقم السري<input name="pin" type="password" inputmode="numeric" required maxlength="12" autocomplete="current-password" style="direction:ltr;text-align:center;letter-spacing:.3em"></label>
+   <button class="btn gold wide">دخول</button></form>`:""}
+   ${S.owner||S.mode==="local"?`<button class="btn ghost wide" data-act="ownerIn" style="margin-top:8px">الدخول بصفتي مالك المنصة</button>`:""}
+   <p class="note" style="margin-top:12px">الرقم السري يحجب لوحة المشرفين عن الزوار، وليس تشفيراً للبيانات. لا تُدخل في الاستمارات بيانات شخصية للطلاب.</p></section></div>`;
+}
+function supBar(){return `<div class="sbar"><div class="row"><span class="av sm">${esc((S.sup.name||"م").charAt(0))}</span><h1>${esc(S.sup.name)} <small>${esc(S.sup.role||"")}</small></h1><button class="x" data-act="logout">خروج</button></div>
+  <div class="tabs">${[["dash","لوحة المدارس"],["school","المدرسة"],["upload","رفع نيابة عن مدرسة"],...(isAdmin()?[["admin","الإدارة"]]:[])].map(([k,l])=>`<button data-act="tab" data-k="${k}"${S.tab===k?' aria-current="page"':""}${k==="school"&&!S.supSel?" disabled":""}>${l}</button>`).join("")}</div></div>`}
+function vSup(){
+  if(!S.sup)return loginCard();
+  if(S.result&&S.result.back==="backSup")return supBar()+vResult();
+  const body=S.tab==="admin"&&isAdmin()?vAdmin():S.tab==="school"&&S.supSel&&S.schools[S.supSel]?vSchool():S.tab==="upload"?vSupUpload():vDash();
+  return supBar()+body;
+}
+function wkSelect(){const ws=weeksOf(S.subs);return `<label class="wks">الأسبوع <select data-chg="wk"><option value="">آخر استمارة لكل مدرسة</option>${ws.map(w=>`<option value="${w}"${S.wk===w?" selected":""}>${fmtD(w)} – ${fmtD(addDays(w,4))}</option>`).join("")}</select></label>`}
+function vDash(){
+  let rows=snapshot(S.schools,S.subs,S.wk);
+  const myId=S.sup&&S.sup.id;if(S.mine)rows=rows.filter(r=>r.sc.sup===myId);
+  const sub=rows.filter(r=>r.A),scores=sub.map(r=>r.A.score).filter(x=>x!=null),need=sub.filter(r=>r.A.lv==="cr"),miss=rows.filter(r=>!r.A);
+  const mean=scores.length?r0(avg(scores)):null,ds=sub.map(r=>r.A.d&&r.A.d.score).filter(x=>x!=null),md=ds.length?Math.round(avg(ds)*10)/10:null;
+  const domMean={};DOMAINS.forEach(d=>{const xs=sub.map(r=>r.A.dom[d.id]).filter(x=>x!=null);domMean[d.id]=xs.length?r0(avg(xs)):null});
+  if(!rows.length)return `<section class="card empty"><h2>لا توجد مدارس بعد</h2><p class="sub">تُسجَّل المدرسة تلقائياً عند رفع أول استمارة من بوابة المدارس${isAdmin()?"، أو أضفها من «الإدارة»":""}.</p>${isAdmin()?`<div class="row"><button class="btn gold" data-act="tab" data-k="admin">الإدارة</button><button class="btn ghost" data-act="demo">إضافة بيانات تجريبية للتجربة</button></div>`:""}</section>`;
+  return `<div class="toolbar">${wkSelect()}<span class="sp"></span><div class="chips" style="flex:none"><button class="chip" data-act="mine" data-v="0" aria-pressed="${!S.mine}">كل المدارس</button><button class="chip" data-act="mine" data-v="1" aria-pressed="${S.mine}">مدارسي</button></div></div>
+  <div class="grid two">
+  <section class="card hero span2 rise">${ring(mean,"متوسط المدارس")}<div><h1>${S.wk?`أسبوع ${fmtD(S.wk)}`:"الوضع الحالي للمدارس"}</h1><div class="tags"><span class="tag">${rows.length} مدرسة</span>${rows.some(r=>r.sc.demo)?`<span class="tag demo">تتضمن بيانات تجريبية</span>`:""}</div><p class="delta">${md==null?"المقارنة بالأسبوع السابق تظهر بعد استمارتين":`متوسط التغير عن الأسبوع السابق: <b class="num">${sign(md)}</b> نقطة`}</p></div>
+   <div class="tiles"><div class="tile"><b>${sub.length}/${rows.length}</b><span>رفعت الاستمارة</span></div><div class="tile"><b>${need.length}</b><span>تحتاج تدخلاً عاجلاً</span></div><div class="tile"><b>${sub.reduce((a,r)=>a+r.A.stc.cr,0)}</b><span>مؤشراً حرجاً</span></div></div></section>
+  <section class="card span2 rise"><h2>واقع المدارس</h2><p class="sub">اضغط اسم المدرسة لفتح تحليلها وأرشيفها</p><div class="scroll"><table class="tbl"><thead><tr><th>المدرسة</th><th>الأسبوع</th><th>الدرجة</th><th>التغير</th><th>المؤشرات</th><th>التنفيذ الموثق</th><th>حرجة</th><th>المشرف</th></tr></thead><tbody>${rows.slice().sort((a,b)=>(a.A?a.A.score??-1:-2)-(b.A?b.A.score??-1:-2)).map(r=>`<tr><td><button class="lnk" data-act="openSchool" data-id="${esc(r.sc.mno)}">${esc(r.sc.name)}</button><small class="dm-s num">${esc(r.sc.mno)}</small></td>${r.A?`<td style="white-space:nowrap;font-size:12px">${esc(weekLabel(r.sub))}</td><td>${pill(r.A.lv,`<span class="num">${r.A.score??"—"}%</span>`)}</td><td>${dpill(r.A.d?r.A.d.score:null)}</td><td class="n">${r.A.comp??"—"}%</td><td class="n">${r.A.docExec??"—"}%</td><td class="n">${r.A.stc.cr}</td>`:`<td colspan="6"><span class="pill st-na">لم ترفع${S.wk?" هذا الأسبوع":""}</span></td>`}<td style="font-size:12px">${esc(supName(r.sc.sup))}</td></tr>`).join("")}</tbody></table></div></section>
+  <section class="card rise"><h2>بوصلة المحاور</h2><p class="sub">متوسط تحقق كل محور عبر المدارس</p>${radar(domMean)}</section>
+  <section class="card rise"><h2>أولوية الزيارة والدعم</h2><p class="sub">المدارس الأدنى درجة، ثم التي لم ترفع</p>${sub.slice().sort((a,b)=>(a.A.score??0)-(b.A.score??0)).slice(0,5).map(r=>`<div class="warn"><span class="ic bg-${r.A.lv}">${r.A.lv==="cr"?"✕":r.A.lv==="at"?"!":"✓"}</span><div><button class="x strong" data-act="openSchool" data-id="${esc(r.sc.mno)}">${esc(r.sc.name)}</button><small>الدرجة ${r.A.score??"—"}% · ${r.A.alerts[0]?esc(r.A.alerts[0].t):"لا تنبيهات"}</small></div></div>`).join("")}${miss.slice(0,4).map(r=>`<div class="warn"><span class="ic bg-na">–</span><div><button class="x strong" data-act="openSchool" data-id="${esc(r.sc.mno)}">${esc(r.sc.name)}</button><small>لم ترفع استمارة${S.wk?" هذا الأسبوع":" بعد"}</small></div></div>`).join("")}</section>
+  <section class="card span2 rise"><h2>الخريطة الحرارية للمحاور</h2><p class="sub">نسبة تحقق مؤشرات كل محور في كل مدرسة</p><div class="scroll"><table class="tbl heat"><thead><tr><th>المدرسة</th>${DOMAINS.map(d=>`<th class="v">${d.short}</th>`).join("")}</tr></thead><tbody>${sub.map(r=>`<tr><td style="min-width:110px;font-size:12px">${esc(r.sc.name)}</td>${DOMAINS.map(d=>`<td class="c" style="${heatCol(r.A.dom[d.id])}">${r.A.dom[d.id]??"—"}</td>`).join("")}</tr>`).join("")}</tbody></table></div></section></div>`;
+}
+const supName=id=>{const s=(S.cfg.sups||[]).find(x=>x.id===id);return s?s.name:"—"};
+function vSchool(){
+  const sc=S.schools[S.supSel],hist=subsOf(S.subs,sc.mno);
+  const head=`<section class="card rise"><div class="row"><div style="flex:1;min-width:200px"><h2 style="font-size:17px">${esc(sc.name)}</h2><p class="sub" style="margin:0">الرقم الوزاري <span class="num">${esc(sc.mno)}</span>${sc.principal?` · المدير: ${esc(sc.principal)}`:""} · المشرف: ${esc(supName(sc.sup))}</p></div>
+   <button class="btn ghost sm" data-act="dlForm2">${ic("dl")} استمارة باسم المدرسة</button><button class="btn ghost sm" data-act="upFor" data-id="${esc(sc.mno)}">${ic("up")} رفع استمارة لها</button></div>
+   ${hist.length?`<div class="chips wkchips">${hist.slice().reverse().map(s=>`<button class="chip" data-act="pickSub" data-id="${esc(s.id)}" aria-pressed="${S.subSel===s.id}">${esc(s.weekNo?"أ"+s.weekNo:"")} ${fmtD(s.wk)}</button>`).join("")}</div>`:""}</section>`;
+  if(!hist.length)return head+`<section class="card empty"><p class="sub">لم ترفع المدرسة أي استمارة بعد.</p></section>`;
+  const sub=hist.find(s=>s.id===S.subSel)||hist[hist.length-1];S.subSel=sub.id;
+  const A=analyze(sub,prevOf(S.subs,sub)),ser=seriesOf(S.subs,sc.mno);
+  return head+`<div class="toolbar" style="margin-top:12px"><span class="sub" style="margin:0">رُفعت ${sub.at?fmtD(sub.at.slice(0,10)):""}${sub.via==="sup"?" بواسطة المشرف":" من المدرسة"}</span><span class="sp"></span><button class="btn sm" data-act="printSub" data-id="${esc(sub.id)}">${ic("print")} طباعة التحليل</button>${isAdmin()?`<button class="x" data-act="delSub" data-id="${esc(sub.id)}">حذف هذه الاستمارة</button>`:""}</div><div class="grid two">${reportBody(sub,A,ser)}</div>`;
+}
+function vSupUpload(){
+  const list=Object.values(S.schools).sort((a,b)=>(a.name||"").localeCompare(b.name||"","ar"));
+  return `<section class="card rise"><h2>رفع استمارة نيابة عن مدرسة</h2><p class="sub">للاستمارات التي تصلك بالبريد أو الرسائل. يتعرف النظام على المدرسة من رقمها الوزاري في الملف.</p>
+   <label class="f">المدرسة (اختياري للتحقق من المطابقة)<select id="upSel"><option value="">من الرقم الوزاري في الملف</option>${list.map(s=>`<option value="${esc(s.mno)}">${esc(s.name)} — ${esc(s.mno)}</option>`).join("")}</select></label>
+   <button class="drop" data-act="upFor">${ic("up")}<b>اختر ملف الاستمارة (xlsx)</b><span>يُحلَّل ويُؤرشف فوراً</span></button></section>`;
+}
+/* ---------- الإدارة ---------- */
+function vAdmin(){
+  const sups=S.cfg.sups||[],schools=Object.values(S.schools).sort((a,b)=>(a.name||"").localeCompare(b.name||"","ar")),hasDemo=schools.some(s=>s.demo);
+  return `<div class="grid two">
+  <section class="card span2 rise"><div class="row"><div style="flex:1;min-width:180px"><h2>المشرفون القائمون على المنصة</h2><p class="sub" style="margin:0">تظهر أسماؤهم في الصفحة الرئيسية، ويدخل كل منهم برقمه السري</p></div><button class="btn gold sm" data-act="supEdit">＋ مشرف</button></div>
+   ${sups.length?`<div class="scroll"><table class="tbl"><thead><tr><th>الاسم</th><th>الصفة</th><th>الرمز</th><th>الصلاحية</th><th>مدارسه</th><th></th></tr></thead><tbody>${sups.map(s=>`<tr><td><b>${esc(s.name)}</b><small class="dm-s">${esc(s.sector||"")}</small></td><td style="font-size:12px">${esc(s.role||"")}</td><td class="num">${esc(s.code||"—")}</td><td>${s.admin?pill("on","مسؤول"):pill("na","مشرف")}</td><td class="num">${schools.filter(x=>x.sup===s.id).length}</td><td style="white-space:nowrap"><button class="x" data-act="supEdit" data-id="${esc(s.id)}">تعديل</button> <button class="x" data-act="supDel" data-id="${esc(s.id)}">حذف</button></td></tr>`).join("")}</tbody></table></div>`:`<p class="note" style="margin-top:10px">أضف المشرفين بأسمائهم وأرقامهم السرية.</p>`}</section>
+  <section class="card span2 rise"><div class="row"><div style="flex:1;min-width:180px"><h2>المدارس</h2><p class="sub" style="margin:0">تُضاف تلقائياً عند الرفع؛ ومن هنا تُسند لمشرفها وتُعدَّل بياناتها</p></div><button class="btn gold sm" data-act="schEdit">＋ مدرسة</button></div>
+   ${schools.length?`<div class="scroll"><table class="tbl"><thead><tr><th>المدرسة</th><th>الرقم الوزاري</th><th>المشرف</th><th>الاستمارات</th><th></th></tr></thead><tbody>${schools.map(s=>`<tr><td><b>${esc(s.name)}</b>${s.demo?` <span class="kind">تجريبية</span>`:""}</td><td class="num">${esc(s.mno)}</td><td style="font-size:12px">${esc(supName(s.sup))}</td><td class="num">${subsOf(S.subs,s.mno).length}</td><td style="white-space:nowrap"><button class="x" data-act="schEdit" data-id="${esc(s.mno)}">تعديل</button> <button class="x" data-act="schDel" data-id="${esc(s.mno)}">حذف</button></td></tr>`).join("")}</tbody></table></div>`:`<p class="note" style="margin-top:10px">لا مدارس بعد.</p>`}</section>
+  <section class="card rise"><div class="row"><div style="flex:1"><h2>مستهدفات إضافية</h2><p class="sub" style="margin:0">تدخل تلقائياً في الاستمارة والتحليل</p></div><button class="btn gold sm" data-act="tgAdd">＋ مستهدف</button></div>
+   ${IND.filter(i=>i.custom).map(i=>`<div class="tg"><b>${esc(i.name)}</b><span class="num" style="font-weight:800">${fmtV(i.t,i)}</span><button class="x" data-act="tgDel" data-id="${esc(i.id)}">حذف</button><small>${DOMAINS.find(d=>d.id===i.d).name}</small></div>`).join("")||`<p class="note" style="margin-top:10px">المعتمد مستهدفات النشرة (${BASE_IND.length} مؤشراً).</p>`}</section>
+  <section class="card rise"><h2>بيانات التجربة</h2><p class="sub">مدارس واستمارات افتراضية لتجربة المنصة قبل التشغيل، تُحذف بضغطة</p><div class="row"><button class="btn ghost" data-act="demo">إضافة بيانات تجريبية</button>${hasDemo?`<button class="btn red" data-act="demoDel">حذف التجريبية</button>`:""}</div></section></div>`;
+}
+function sheetSup(s){s=s||{};openSheet(`${sheetHead(s.id?"تعديل مشرف":"إضافة مشرف")}<form data-form="sup"><input type="hidden" name="id" value="${esc(s.id||"")}">
+  <label class="f">الاسم<input name="name" required maxlength="60" value="${esc(s.name||"")}" placeholder="الأستاذ …"></label>
+  <label class="f">الصفة<input name="role" maxlength="40" value="${esc(s.role||"مشرف تربوي")}"></label>
+  <label class="f">القطاع / المكتب<input name="sector" maxlength="40" value="${esc(s.sector||"")}"></label>
+  <label class="f">رمز المشرف (الهوية المختصرة)<input name="code" maxlength="12" inputmode="numeric" value="${esc(s.code||"")}" style="direction:ltr;text-align:end"></label>
+  <label class="f">الرقم السري ${s.id?"(اتركه فارغاً لإبقائه)":""}<input name="pin" type="password" inputmode="numeric" maxlength="12" minlength="4" ${s.id?"":"required"} style="direction:ltr;text-align:center" autocomplete="new-password"></label>
+  <label class="chk"><input type="checkbox" name="admin" ${s.admin?"checked":""}> مسؤول: يدير المشرفين والمدارس والمستهدفات</label>
+  <button class="btn gold wide">حفظ</button></form>`)}
+function sheetSch(s){s=s||{};const sups=S.cfg.sups||[];openSheet(`${sheetHead(s.mno?"تعديل مدرسة":"إضافة مدرسة")}<form data-form="sch"><input type="hidden" name="old" value="${esc(s.mno||"")}">
+  <label class="f">اسم المدرسة<input name="name" required maxlength="80" value="${esc(s.name||"")}"></label>
+  <label class="f">الرقم الوزاري<input name="mno" required inputmode="numeric" maxlength="12" value="${esc(s.mno||"")}" ${s.mno?"readonly":""} style="direction:ltr;text-align:end"></label>
+  <label class="f">مدير المدرسة<input name="principal" maxlength="60" value="${esc(s.principal||"")}"></label>
+  <label class="f">المرحلة<select name="stage">${["","ابتدائي","متوسط","ثانوي"].map(x=>`<option value="${x}"${(s.stage||"")===x?" selected":""}>${x||"غير محددة"}</option>`).join("")}</select></label>
+  <label class="f">المشرف المتابع<select name="sup"><option value="">—</option>${sups.map(x=>`<option value="${esc(x.id)}"${s.sup===x.id?" selected":""}>${esc(x.name)}</option>`).join("")}</select></label>
+  <button class="btn gold wide">حفظ</button></form>`)}
+function sheetTarget(){openSheet(`${sheetHead("مستهدف جديد","يُضاف إلى الاستمارة الأسبوعية والتحليل")}<form data-form="target"><label class="f">المحور<select name="d">${DOMAINS.map(d=>`<option value="${d.id}">${d.name}</option>`).join("")}</select></label><label class="f">اسم المؤشر<input name="name" required maxlength="120"></label><div class="row" style="flex-wrap:nowrap"><label class="f" style="flex:1">المستهدف<input name="t" required inputmode="decimal" style="direction:ltr;text-align:end"></label><label class="f" style="flex:1">الوحدة<input name="unit" value="%" maxlength="12"></label></div><label class="f">أداة القياس<input name="tool" maxlength="80"></label><button class="btn gold wide">إضافة</button></form>`)}
+
+/* ================= محرك التحليل ================= */
+function vEngine(){
+  return `<div class="grid two">
+  <section class="card hero span2 rise" style="grid-template-columns:minmax(0,1fr)"><div><h1>محرك التحليل: المؤشرات وطريقة القياس</h1><p class="delta">نصوص الإجراءات والمؤشرات والمستهدفات من نشرة «التدخلات العاجلة — إدارة مؤشرات الأداء وقيادتها». تسمية المحاور وأدوات القياس المقترحة وحدود الحالات وأوزان درجة الأسبوع اجتهاد تنظيمي معلن.</p></div></section>
+  <section class="card span2 rise"><h2>كيف تُحلَّل الاستمارة الأسبوعية؟</h2><div class="flow"><div><span>١</span><b>القراءة والتحقق</b>يتعرف على المدرسة برقمها الوزاري، ويتجاهل القيم خارج المدى، ويرصد التعارض بين الحالة والنسبة.</div><i>←</i><div><span>٢</span><b>المقارنة بالمستهدف</b>لكل مؤشر: الفعلي، الفجوة، نسبة التحقق، والحالة.</div><i>←</i><div><span>٣</span><b>المقارنة بما قبله</b>التغير عن الأسبوع السابق، والتحسن والتراجع، والعقبات المتكررة.</div><i>←</i><div><span>٤</span><b>التنبيه والتوصية</b>ما يحتاج تدخلاً، ومن المسؤول، وأي إجراء يرتبط بالفجوة.</div></div></section>
+  <section class="card span2 rise"><h2>المعادلات</h2>
+   <p class="formula"><b>نسبة التحقق</b> = القيمة الفعلية ÷ المستهدف × 100 <span class="sub">(معادلة النشرة). مثال النشرة: فعلي 58% ومستهدف 65% ← 89% «في المسار».</span></p>
+   <ul class="ul"><li><b>الفجوة:</b> الفعلي ناقص المستهدف بوحدة المؤشر.</li><li><b>مؤشرات النمو المستمر</b> (القياسات القصيرة، انخفاض الغياب أسبوعياً): تُقارن بالأسبوع السابق — ارتفاع = 100%، ثبات = 95%، انخفاض = نسبة القيمة إلى السابقة. تظهر «غير مقاس» في أول استمارة.</li><li><b>تحقق المحور:</b> متوسط نسب تحقق مؤشراته المقاسة، بحد أقصى 100% للمؤشر الواحد.</li><li><b>تحقق المؤشرات:</b> متوسط المحاور السبعة بأوزان متساوية.</li><li><b>تنفيذ الإجراءات:</b> متوسط نسب التنفيذ المعلنة. إن تُركت النسبة: نُفذ = 100، لم يُنفذ = 0، جزئياً = 50 مع تنبيه.</li><li><b>التنفيذ الموثق:</b> كالسابق، لكن الإجراء الذي لا يذكر شاهداً يُحتسب صفراً — حتى لا يكفي الإعلان دون دليل.</li><li><b>درجة الأسبوع:</b> ${W_IND*100}% تحقق المؤشرات + ${W_ACT*100}% التنفيذ الموثق.</li><li><b>غير مقاس:</b> المؤشر المتروك فارغاً لا يدخل أي متوسط، ويظهر في التنبيهات.</li></ul>
+   <div class="row" style="margin-top:8px"><span class="pill st-ok">محقق ≥100%</span><span class="pill st-on">في المسار ≥85%</span><span class="pill st-at">يحتاج متابعة ≥70%</span><span class="pill st-cr">حرج &lt;70%</span></div>
+   <p class="sub" style="margin:10px 0 0">مستوى المدرسة في درجة الأسبوع: متقدم ≥90 · في المسار ≥75 · يحتاج متابعة ≥60 · يحتاج تدخلاً عاجلاً أقل من 60.</p></section>
+  <section class="card span2 rise"><h2>المؤشرات والإجراءات بكل تفاصيلها</h2><p class="sub">${IND.length} مؤشراً و${QS.length} إجراءً في سبعة محاور — اضغط المحور</p>${DOMAINS.map((d,k)=>`<details><summary>${k+1}. ${d.name} <span class="kind">${IND.filter(i=>i.d===d.id).length} مؤشر · ${QS.filter(q=>q.d===d.id).length} إجراء</span></summary>
+    <p class="sub" style="margin:10px 0 4px;font-weight:700">الإجراءات (حالة الإجراء تُقيّمها المدرسة أسبوعياً)</p><ol>${QS.filter(q=>q.d===d.id).map(q=>`<li>${esc(q.q)} <small style="color:var(--muted)">— ${q.owner}</small></li>`).join("")}</ol>
+    <div class="scroll"><table class="gt"><thead><tr><th>الرمز</th><th>المؤشر</th><th>المستهدف</th><th>النوع</th><th>القياس</th><th>أداة القياس</th></tr></thead><tbody>${IND.filter(i=>i.d===d.id).map(i=>`<tr><td class="num">${i.id}</td><td><b>${esc(i.name)}</b>${i.custom?` <span class="kind">مضاف</span>`:""}${i.hint?`<br><small style="color:var(--muted)">${esc(i.hint)}</small>`:""}</td><td class="num" style="white-space:nowrap">${i.trend?"نمو مستمر":fmtV(i.t,i)}</td><td>${KIND[i.kind].replace("مؤشر ","")}</td><td>${i.mt}</td><td style="font-size:12px">${esc(i.tool)}</td></tr>`).join("")}</tbody></table></div></details>`).join("")}</section>
+  <section class="card rise"><h2>أنواع المؤشرات</h2><div class="three-k"><div><b>خام</b>بيانات أولية تُجمع فور الرصد، مثل عدد الاجتماعات.</div><div><b>تقدّم</b>مدى السير وفق الخطة أثناء التنفيذ، مثل نسبة تنفيذ الخطط العلاجية.</div><div><b>أثر</b>التغيير المستدام بعد فترة، مثل النمو بين القياسين القبلي والبعدي.</div></div></section>
+  <section class="card rise"><h2>تحديد القيمة الفعلية</h2><ul class="ul"><li><b>كمية:</b> الرقم المباشر من السجلات (مثل 62% نسبة المتقنين).</li><li><b>نوعية:</b> متوسط أداة معتمدة كبطاقة الملاحظة (مثل 3.2 من 4).</li><li><b>زمنية:</b> الزمن الفعلي المستغرق (مثل 7 أيام).</li><li><b>مهارية:</b> نتيجة البعدي أو بطاقة تقييم المهارة.</li><li><b>مركبة:</b> متوسط عناصرها بعد حساب كل عنصر.</li></ul></section>
+  <section class="card rise"><h2>مؤشرات نجاح التدخلات</h2><p class="sub">تُقاس بأدوات الزيارات والاستبانات والسجلات</p><ul class="ticks">${SUCCESS.map(x=>`<li>${x}</li>`).join("")}</ul></section>
+  <section class="card rise"><h2>توصيات لضمان نجاح التدخل</h2><ul class="ticks">${TIPS.map(x=>`<li>${x}</li>`).join("")}</ul></section>
+  <section class="card span2 rise"><h2>أدوار فريق المدرسة</h2><div class="three-k">${ROLE_TASKS.map(([r,t])=>`<div><b>${r}</b>${t}</div>`).join("")}</div></section></div>`;
+}
+
+/* ================= التقارير والتدخلات ================= */
+function vReports(){
+  if(!S.sup)return loginCard("reports");
+  const ws=weeksOf(S.subs);
+  if(!ws.length)return `<section class="card empty"><h2>لا توجد استمارات بعد</h2><p class="sub">تظهر التقارير الإشرافية بعد رفع المدارس استماراتها.</p></section>`;
+  const wk=S.wk&&ws.includes(S.wk)?S.wk:ws[0],pw=ws[ws.indexOf(wk)+1]||null;
+  const cur=S.subs.filter(s=>s.wk===wk),R=cur.map(s=>({s,A:analyze(s,prevOf(S.subs,s))}));
+  const agg=reportAgg(R);
+  const trend=ws.slice().reverse().map(w=>{const xs=S.subs.filter(s=>s.wk===w).map(s=>analyze(s,prevOf(S.subs,s)));const m=k=>{const v=xs.map(a=>a[k]).filter(x=>x!=null);return v.length?r0(avg(v)):null};return {w,score:m("score"),comp:m("comp"),doc:m("docExec"),n:xs.length}});
+  return `<div class="toolbar"><label class="wks">الأسبوع <select data-chg="wk">${ws.map(w=>`<option value="${w}"${w===wk?" selected":""}>${fmtD(w)} – ${fmtD(addDays(w,4))}</option>`).join("")}</select></label><span class="sp"></span><button class="btn sm" data-act="printWeek" data-w="${wk}">${ic("print")} طباعة التقرير الإشرافي</button><button class="btn ghost sm" data-act="copyWeek" data-w="${wk}">نسخ نصاً</button></div>
+  <div class="grid two">${reportWeekBody(wk,pw,R,agg,trend)}</div>`;
+}
+function reportAgg(R){
+  const m=k=>{const v=R.map(r=>r.A[k]).filter(x=>x!=null);return v.length?r0(avg(v)):null};
+  const ind=IND.map(i=>{const xs=R.map(r=>r.A.ind[i.id]).filter(x=>x&&x.ach!=null);return {i,n:xs.length,avg:xs.length?r0(avg(xs.map(x=>Math.min(100,x.ach)))):null,cr:xs.filter(x=>x.st==="cr").length}}).filter(x=>x.avg!=null).sort((a,b)=>a.avg-b.avg);
+  const act=QS.map(q=>{const xs=R.map(r=>r.A.acts[q.id]).filter(a=>a.pct!=null);return {q,n:xs.length,avg:xs.length?r0(avg(xs.map(a=>a.pct))):null,obs:R.filter(r=>r.A.acts[q.id].obs.trim()).map(r=>({sc:r.s.school,t:r.A.acts[q.id].obs}))}}).filter(x=>x.avg!=null).sort((a,b)=>a.avg-b.avg);
+  const ds=R.map(r=>r.A.d&&r.A.d.score).filter(x=>x!=null);
+  return {score:m("score"),comp:m("comp"),exec:m("exec"),doc:m("docExec"),ind,act,up:R.filter(r=>r.A.d&&r.A.d.score>0).length,down:R.filter(r=>r.A.d&&r.A.d.score<0).length,md:ds.length?Math.round(avg(ds)*10)/10:null,sup:R.filter(r=>r.s.notes&&r.s.notes.sup).map(r=>({sc:r.s.school,t:r.s.notes.sup}))};
+}
+function reportWeekBody(wk,pw,R,g,trend){
+  const all=Object.values(S.schools),miss=all.filter(sc=>!R.some(r=>r.s.mno===sc.mno));
+  return `<section class="card hero span2">${ring(g.score,"متوسط المدارس")}<div><h1>التقرير الإشرافي الأسبوعي</h1><div class="tags"><span class="tag">أسبوع ${fmtD(wk)} – ${fmtD(addDays(wk,4))}</span><span class="tag">${esc(fmtH(wk))}</span></div><p class="delta">${R.length} من ${all.length} مدرسة رفعت · ${g.md==null?"لا مقارنة بعد":`متوسط التغير ${sign(g.md)} نقطة · تحسنت ${g.up} وتراجعت ${g.down}`}</p></div>
+   <div class="tiles"><div class="tile"><b>${g.comp??"—"}%</b><span>تحقق المؤشرات</span></div><div class="tile"><b>${g.exec??"—"}%</b><span>تنفيذ الإجراءات</span></div><div class="tile"><b>${g.doc??"—"}%</b><span>التنفيذ الموثق</span></div></div></section>
+  <section class="card span2"><h2>تطور متوسط المدارس عبر الأسابيع</h2>${lineChart(trend.map(t=>fmtD(t.w)),[{name:"درجة الأسبوع",col:"var(--teal)",vals:trend.map(t=>t.score)},{name:"تحقق المؤشرات",col:"var(--blue)",vals:trend.map(t=>t.comp)},{name:"التنفيذ الموثق",col:"var(--gold)",dash:1,vals:trend.map(t=>t.doc)}])}</section>
+  <section class="card span2"><h2>ترتيب المدارس ${pw?"ومقارنتها بالأسبوع السابق":""}</h2><div class="scroll"><table class="cmp"><thead><tr><th></th><th>المدرسة</th><th>الدرجة</th><th>السابق</th><th>التغير</th><th>المؤشرات</th><th>الموثق</th><th>حرجة</th></tr></thead><tbody>${R.slice().sort((a,b)=>(b.A.score??0)-(a.A.score??0)).map((r,i)=>`<tr><td class="n">${i+1}</td><td>${esc(r.s.school)}</td><td>${pill(r.A.lv,`<span class="num">${r.A.score??"—"}%</span>`)}</td><td class="n">${r.A.prev&&r.A.prev.score!=null?r.A.prev.score+"%":"—"}</td><td>${dpill(r.A.d?r.A.d.score:null)}</td><td class="n">${r.A.comp??"—"}%</td><td class="n">${r.A.docExec??"—"}%</td><td class="n">${r.A.stc.cr}</td></tr>`).join("")}</tbody></table></div>${miss.length?`<p class="note" style="margin-top:8px">لم ترفع هذا الأسبوع: ${miss.map(s=>esc(s.name)).join("، ")}</p>`:""}</section>
+  <section class="card"><h2>المؤشرات الأضعف عبر المدارس</h2><p class="sub">متوسط نسبة التحقق — أولويات التدخل المشتركة</p>${g.ind.slice(0,7).map(x=>`<div class="gapr"><b style="font-weight:600">${esc(x.i.name)}</b>${pill(stOf(x.avg),`<span class="num">${x.avg}%</span>`)}${meter(x.avg,stCol(stOf(x.avg)))}<small>حرج في ${x.cr} من ${x.n} مدرسة · المستهدف ${x.i.trend?"نمو مستمر":fmtV(x.i.t,x.i)}</small></div>`).join("")||`<p class="note">لا بيانات.</p>`}</section>
+  <section class="card"><h2>الإجراءات الأقل تنفيذاً</h2><p class="sub">متوسط نسبة التنفيذ عبر المدارس</p>${g.act.slice(0,7).map(x=>`<div class="gapr"><b style="font-weight:600">${esc(x.q.q)}</b><span class="num" style="font-weight:800">${x.avg}%</span>${meter(x.avg,"var(--gold)")}<small>${DOMAINS.find(d=>d.id===x.q.d).short} · المسؤول: ${x.q.owner}${x.obs.length?` · عقبات في ${x.obs.length} مدرسة`:""}</small></div>`).join("")}</section>
+  <section class="card span2"><h2>العقبات المعلنة وخطط المعالجة</h2><p class="sub">العقبات التي كتبتها المدارس مرتبة بالإجراءات الأقل تنفيذاً</p>${g.act.filter(x=>x.obs.length).slice(0,8).map(x=>`<details open><summary style="font-size:13px">${esc(x.q.q)} <span class="kind">${x.obs.length} مدرسة</span></summary><ul>${x.obs.map(o=>`<li><b>${esc(o.sc)}:</b> ${esc(o.t)}</li>`).join("")}</ul></details>`).join("")||`<p class="note">لم تذكر المدارس عقبات.</p>`}
+   ${g.sup.length?`<p class="sub" style="font-weight:700;color:var(--ink);margin:12px 0 4px">الدعم المطلوب من الإشراف</p><ul class="ul">${g.sup.map(o=>`<li><b>${esc(o.sc)}:</b> ${esc(o.t)}</li>`).join("")}</ul>`:""}</section>`;
+}
+function weekText(wk){
+  const R=S.subs.filter(s=>s.wk===wk).map(s=>({s,A:analyze(s,prevOf(S.subs,s))})),g=reportAgg(R);
+  const L=[`التقرير الإشرافي الأسبوعي — منصة أثر`,`الأسبوع: ${wk} (${fmtH(wk)})`,`المدارس التي رفعت: ${R.length} من ${Object.keys(S.schools).length}`,`متوسط درجة الأسبوع: ${g.score??"—"}% | تحقق المؤشرات: ${g.comp??"—"}% | التنفيذ الموثق: ${g.doc??"—"}%`,g.md!=null?`متوسط التغير عن الأسبوع السابق: ${sign(g.md)} نقطة (تحسنت ${g.up}، تراجعت ${g.down})`:"",``,`المدارس:`];
+  R.sort((a,b)=>(b.A.score??0)-(a.A.score??0)).forEach(r=>L.push(`• ${r.s.school}: ${r.A.score??"—"}% (${LVL[r.A.lv]})${r.A.d&&r.A.d.score!=null?" | التغير "+sign(r.A.d.score):""}`));
+  L.push(``,`المؤشرات الأضعف:`);g.ind.slice(0,6).forEach(x=>L.push(`• ${x.i.name}: ${x.avg}% (حرج في ${x.cr} من ${x.n})`));
+  L.push(``,`الإجراءات الأقل تنفيذاً:`);g.act.slice(0,6).forEach(x=>L.push(`• ${x.q.q}: ${x.avg}%`));
+  return L.filter(x=>x!=="").join("\n");
+}
+
+/* ================= بيانات تجريبية ================= */
+function demoData(){
+  let seed=1448;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+  const W=5,end=weekStart(today()),wks=[...Array(W)].map((_,i)=>addDays(end,-7*(W-1-i)));
+  const P=[["متوسطة الريادة (تجريبية)","900101",.55,.82],["ابتدائية الآفاق (تجريبية)","900102",.45,.66],["متوسطة المعالي (تجريبية)","900103",.7,.9],["ثانوية البيان (تجريبية)","900104",.5,.58]];
+  const obsL=["نقص في عدد المعلمين","تأخر وصول نتائج الاختبار","تعارض مع جدول الحصص","ضعف تجاوب أولياء الأمور","انشغال المعلمين بالاختبارات"];
+  const sch={},subs=[];
+  P.forEach(([name,mno,b,e],pi)=>{sch[mno]={mno,name,principal:"",stage:"",sup:(S.cfg.sups[pi%Math.max(1,S.cfg.sups.length)]||{}).id||"",demo:true,createdAt:wks[0]};
+    wks.forEach((wk,i)=>{const f=b+(e-b)*(i/(W-1))+(rnd()-.5)*.06,acts={},ind={};
+      QS.forEach(q=>{const r=rnd();const st=r<f-.15?2:r<f+.2?1:0,pct=st===2?100:st===1?Math.round(30+rnd()*60):0;acts[q.id]={st,pct,obs:st<2&&rnd()<.35?obsL[Math.floor(rnd()*obsL.length)]:"",ev:st>0&&rnd()<.8?"محضر / كشف متابعة":""}});
+      IND.forEach(ind0=>{let v;if(ind0.trend)v=Math.round(45+pi*4+i*(3+e*2)+(rnd()-.5)*6);else if(ind0.unit!=="%")v=Math.max(0,Math.round(ind0.t*(f+.15)));else v=Math.max(0,Math.min(100,Math.round(ind0.t*(f+.1+(rnd()-.5)*.12))));ind[ind0.id]={v,t:ind0.trend?null:ind0.t};if(ind0.t&&v<ind0.t*.7)ind[ind0.id].fix="خطة علاجية مكثفة ومتابعة أسبوعية"});
+      subs.push({id:mno+"_"+wk,mno,school:name,principal:"",weekNo:6+i,from:wk,to:addDays(wk,4),wk,at:addDays(wk,4)+"T10:00:00.000Z",via:"school",demo:true,acts,ind,notes:{ach:"تنفيذ البرنامج العلاجي للصف الأول",obs:"تعارض بعض الحصص العلاجية مع الجدول",sup:i%2?"زيارة إشرافية لدعم معلمي الرياضيات":""}})})});
+  return {sch,subs};
+}
+
+/* ================= الأحداث ================= */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act,id=b.dataset.id;
+  if(a==="close"){closeSheet();return}
+  if(a==="confirmYes"){const f=S.confirm;S.confirm=null;if(f)await f();else closeSheet();return}
+  if(a==="pickFile"){pickFile({});return}
+  if(a==="clearResult"){S.result=null;render();return}
+  if(a==="backSup"){S.result=null;render();return}
+  if(a==="dlForm"){const me=S.me;const v=($("#wkIn")||{}).value;await dlForm(me.mno?{name:(S.schools[me.mno]||{}).name||me.name,mno:me.mno,principal:(S.schools[me.mno]||{}).principal||""}:null,weekStart(v||today()));return}
+  if(a==="dlForm2"){const sc=S.schools[S.supSel];await dlForm(sc,weekStart(today()));return}
+  if(a==="viewMine"){const s=S.subs.find(x=>x.id===id);if(s){S.result={sub:s,saved:true,view:true};render();window.scrollTo({top:0})}return}
+  if(a==="printSub"){await printSub(id);return}
+  if(a==="ownerIn"){S.sup={id:"owner",name:"مالك المنصة",role:"مسؤول النظام",admin:true};SS.set("sup","owner");S.tab="dash";render();return}
+  if(a==="logout"){S.sup=null;SS.set("sup",null);S.supSel=null;render();return}
+  if(a==="tab"){S.tab=b.dataset.k;S.result=null;render();return}
+  if(a==="mine"){S.mine=b.dataset.v==="1";render();return}
+  if(a==="openSchool"){S.supSel=id;S.subSel=null;S.tab="school";if(S.route!=="sup")location.hash="sup";else{render();window.scrollTo({top:0})}return}
+  if(a==="pickSub"){S.subSel=id;render();return}
+  if(a==="upFor"){const m=id||($("#upSel")||{}).value||"";pickFile({sup:true,mno:m});return}
+  if(a==="delSub"){ask("حذف الاستمارة","تُحذف هذه الاستمارة وتحليلها من الأرشيف نهائياً.","حذف",async()=>{closeSheet();const r=await write("subs/"+id,null,true);if(r!==true)toast("تعذّر الحذف");S.subSel=null;render()},1);return}
+  if(a==="supEdit"){sheetSup((S.cfg.sups||[]).find(x=>x.id===id));return}
+  if(a==="supDel"){ask("حذف مشرف","يُحذف المشرف من القائمة، وتبقى المدارس واستماراتها.","حذف",async()=>{closeSheet();const c=clone(S.cfg);c.sups=c.sups.filter(x=>x.id!==id);await saveCfg(c)},1);return}
+  if(a==="schEdit"){sheetSch(S.schools[id]);return}
+  if(a==="schDel"){const n=subsOf(S.subs,id).length;ask("حذف مدرسة",`تُحذف المدرسة${n?` و${n} استمارة مؤرشفة لها`:""} نهائياً.`,"حذف",async()=>{closeSheet();for(const s of subsOf(S.subs,id))await write("subs/"+s.id,null,true);await write("schools/"+id,null,true);render()},1);return}
+  if(a==="tgAdd"){sheetTarget();return}
+  if(a==="tgDel"){const c=clone(S.cfg);c.extra=(c.extra||[]).filter(x=>x.id!==id);await saveCfg(c);return}
+  if(a==="demo"){toast("جارٍ إضافة البيانات التجريبية…");const {sch,subs}=demoData();for(const [m,s] of Object.entries(sch))if(!S.schools[m])await write("schools/"+m,s);for(const s of subs){const r=await write("subs/"+s.id,s);if(r!==true){toast(r==="ro"?"صلاحيتك للعرض فقط":"تعذّر الحفظ");return}}toast("أُضيفت 4 مدارس تجريبية بخمسة أسابيع");S.tab="dash";render();return}
+  if(a==="demoDel"){ask("حذف البيانات التجريبية","تُحذف المدارس التجريبية واستماراتها فقط.","حذف",async()=>{closeSheet();for(const s of S.subs.filter(x=>x.demo))await write("subs/"+s.id,null,true);for(const s of Object.values(S.schools).filter(x=>x.demo))await write("schools/"+s.mno,null,true);toast("حُذفت البيانات التجريبية");render()},1);return}
+  if(a==="printWeek"){const w=b.dataset.w,ws=weeksOf(S.subs),pw=ws[ws.indexOf(w)+1]||null;const R=S.subs.filter(s=>s.wk===w).map(s=>({s,A:analyze(s,prevOf(S.subs,s))}));
+    const trend=ws.slice().reverse().map(x=>{const xs=S.subs.filter(s=>s.wk===x).map(s=>analyze(s,prevOf(S.subs,s)));const m=k=>{const v=xs.map(q=>q[k]).filter(z=>z!=null);return v.length?r0(avg(v)):null};return {w:x,score:m("score"),comp:m("comp"),doc:m("docExec")}});
+    await printHTML(`التقرير الإشرافي - ${w}.html`,printDoc("التقرير الإشرافي الأسبوعي — "+w,reportWeekBody(w,pw,R,reportAgg(R),trend)));return}
+  if(a==="copyWeek"){try{await navigator.clipboard.writeText(weekText(b.dataset.w));toast("نُسخ التقرير")}catch(err){openSheet(`${sheetHead("نص التقرير","انسخه يدوياً")}<textarea style="width:100%;height:50vh;font-size:13px" readonly>${esc(weekText(b.dataset.w))}</textarea>`)}return}
+});
+async function saveCfg(c){const r=await write("config/main",c);if(r===true){S.cfg=c;rebuildIND();render()}else toast(r==="ro"?"صلاحيتك للعرض فقط":"تعذّر الحفظ");return r===true}
+document.addEventListener("change",e=>{const t=e.target;if(t.id==="fileIn"){handleFile(t.files[0]);return}if(t.dataset.chg==="wk"){S.wk=t.value;render()}});
+document.addEventListener("submit",async e=>{
+  const f=e.target.closest("form[data-form]");if(!f)return;e.preventDefault();const fd=Object.fromEntries(new FormData(f).entries()),k=f.dataset.form;
+  if(k==="me"){const mno=normMno(fd.mno);if(mno.length<3){toast("الرقم الوزاري أرقام فقط (3 خانات على الأقل)");return}S.me={name:fd.name.trim().slice(0,80),mno};LS.set("me",S.me);toast(S.schools[mno]?"تعرّف النظام على مدرستك":"حُفظت بيانات المدرسة");render();return}
+  if(k==="setup"){if((S.cfg.sups||[]).length){toast("يوجد مسؤول مسبقاً");render();return}if(A2E(fd.pin).trim().length<4){toast("الرقم السري 4 خانات على الأقل");return}const s={id:"s"+Date.now().toString(36),name:fd.name.trim(),role:fd.role.trim(),sector:"",code:normMno(fd.code),admin:true};s.ph=hashPin(fd.pin,s.id);const c=clone(S.cfg);c.sups=[s];if(await saveCfg(c)){S.sup=s;SS.set("sup",s.id);S.tab="admin";render();toast("أُنشئ المسؤول — أضف بقية المشرفين")}return}
+  if(k==="login"){const s=(S.cfg.sups||[]).find(x=>x.id===fd.id);if(s&&s.ph===hashPin(fd.pin,s.id)){S.sup=s;SS.set("sup",s.id);S.tab="dash";S.mine=S.schools&&Object.values(S.schools).some(x=>x.sup===s.id);render();toast("مرحباً "+s.name)}else toast("الرقم السري غير صحيح");return}
+  if(k==="sup"){const c=clone(S.cfg);c.sups=c.sups||[];let s=c.sups.find(x=>x.id===fd.id);const isNew=!s;if(isNew){s={id:"s"+Date.now().toString(36)};c.sups.push(s)}
+    Object.assign(s,{name:fd.name.trim(),role:fd.role.trim(),sector:fd.sector.trim(),code:normMno(fd.code),admin:!!fd.admin});
+    if(fd.pin){if(A2E(fd.pin).trim().length<4){toast("الرقم السري 4 خانات على الأقل");return}s.ph=hashPin(fd.pin,s.id)}
+    if(!c.sups.some(x=>x.admin)&&!S.owner){toast("يجب أن يبقى مسؤول واحد على الأقل");return}
+    if(await saveCfg(c)){closeSheet();if(S.sup&&S.sup.id===s.id)S.sup=s;toast("حُفظ المشرف")}return}
+  if(k==="sch"){const mno=fd.old||normMno(fd.mno);if(mno.length<3){toast("الرقم الوزاري غير صحيح");return}const o=Object.assign(clone(S.schools[mno]||{mno,createdAt:today()}),{name:fd.name.trim(),principal:fd.principal.trim(),stage:fd.stage,sup:fd.sup});const r=await write("schools/"+mno,o);if(r===true){closeSheet();render()}else toast(r==="ro"?"صلاحيتك للعرض فقط":"تعذّر الحفظ");return}
+  if(k==="target"){const t=parseFloat(A2E(fd.t));if(!isFinite(t)||t<=0){toast("المستهدف رقم أكبر من صفر");return}const c=clone(S.cfg);c.extra=(c.extra||[]).concat([{id:"x"+Date.now().toString(36),d:fd.d,name:fd.name.trim(),t,unit:(fd.unit||"%").trim()||"%",tool:fd.tool||""}]);if(await saveCfg(c)){closeSheet();toast("أُضيف المستهدف")}return}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#scrim").classList.contains("open"))closeSheet()});
+$("#scrim")&&$("#scrim").addEventListener("click",e=>{if(e.target.id==="scrim")closeSheet()});
+["dragover","drop"].forEach(t=>document.addEventListener(t,e=>{const d=e.target.closest&&e.target.closest(".drop");if(!d)return;e.preventDefault();if(t==="drop"&&e.dataTransfer.files[0]&&!d.disabled){upCtx=S.route==="sup"?{sup:true,mno:($("#upSel")||{}).value||""}:{};handleFile(e.dataTransfer.files[0])}}));
+window.addEventListener("hashchange",()=>{route();S.result=null;render();window.scrollTo({top:0})});
+boot();
+
+</script>
+</body>
+</html>
